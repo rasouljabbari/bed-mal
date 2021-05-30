@@ -1,0 +1,83 @@
+@import "src/assets/style/variables";
+
+.dv-form-width {
+  width: 424px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+
+  h3 {
+    font-size: 24px;
+  }
+
+  .dv-input {
+    border: 1px solid #C3BCBC;
+    border-radius: 30px;
+    box-shadow: $dv-box-shadow;
+    width: 100%;
+    padding: 0.7rem 1rem;
+
+    &::placeholder {
+      color: $light-gray-text;
+    }
+  }
+
+  .dv-forget-password {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #757575;
+    font-size: 18px;
+    line-height: 24px;
+    box-shadow: none !important;
+  }
+  .dv-login-btn{
+    width: 100%;
+    border-radius: 30px;
+    border: none;
+    color: #fff;
+    background-color: $main-blue;
+    padding: 0.7rem 1rem;
+    font-size: 20px;
+    line-height: 24px;
+    box-shadow: $dv-box-shadow;
+   transition: all 0.3s linear;
+    &:hover{
+      background-color: $main-blue-hover;
+    }
+  }
+  .dv-form-p{
+    color: #757575;
+    font-size: 1rem;
+    line-height: 21px;
+  }
+}
+.dv-check-circle-icon{
+  font-size: 5rem;
+}
+.dv-h5{
+  padding: 0 6rem;
+}
+.dv-back-btn{
+  background-color: transparent !important;
+  width: 100% !important;
+  border: none;
+  color: #757575;
+  padding: 0.7rem 1rem !important;
+  font-size: 20px;
+  box-shadow: none !important;
+  line-height: 24px;
+  transition: all 0.3s linear;
+  &:hover{
+    color: $main-hover-link;
+  }
+}
+
+@media (max-width: 768px) {
+  .dv-form-width{
+    width: 100%;
+  }
+  .dv-h5{
+    padding: 0 3rem;
+  }
+}

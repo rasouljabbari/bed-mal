@@ -1,0 +1,35 @@
+$main-dark-menu :#646464;
+$main-light-red: #E03174;
+$main-light-red-hover: #c12562;
+$main-hover-link: #66B556;
+$main-green: #08D18C;
+$main-background-gray: #CCCCCC;
+$light-gray-text: #969292;
+$main-blue: #3D80F2;
+$main-blue-hover: #2c61c8;
+$bg-customer-vendor: #C3BFBF;
+$main-white-hover: #e2e1e1;
+$main-yellow: #F2AD13;
+$bg-right-sidebar: #5A5A5A;
+$bg-right-sidebar-items: #413F3F;
+$dv-gray-ea: #EAEAEA;
+$dv-box-shadow: rgba(0,0,0,0.16) 0 3px 6px;
+
+@font-face {
+  font-family: FuturaPT-Bold;
+  src: url(../font/FuturaPT-Bold.ttf) format("ttf");
+  src: url(../font/FuturaPT-Bold.eot) format("eot");
+  src: url(../font/FuturaPT-Bold.woff) format("woff");
+}
+@font-face {
+  font-family: FuturaPT-Medium;
+  src: url(../font/FuturaPT-Medium.ttf) format("ttf");
+  src: url(../font/FuturaPT-Medium.eot) format("eot");
+  src: url(../font/FuturaPT-Medium.woff) format("woff");
+}
+@font-face {
+  font-family: FuturaPT-Book;
+  src: url(../font/FuturaPT-Book.ttf) format("ttf");
+  src: url(../font/FuturaPT-Book.eot) format("eot");
+  src: url(../font/FuturaPT-Book.woff) format("woff");
+}

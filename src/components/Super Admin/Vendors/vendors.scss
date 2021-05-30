@@ -1,0 +1,564 @@
+@import "src/assets/style/variables";
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+/* Track */
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #969292;
+  border-radius: 10px;
+}
+
+/* Handle */
+body::-webkit-scrollbar-thumb {
+  background: #969292;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+body::-webkit-scrollbar-thumb:hover {
+  background: #707070;
+}
+.dv-vendor {
+  .dv-vendors-right-admin {
+    background-color: $bg-right-sidebar;
+    width: 290px;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+    padding-bottom: 3rem;
+
+    .dv-vendor-search-label {
+      padding: 0.4rem 0.8rem;
+
+      .dv-search-icon {
+        box-shadow: none !important;
+        position: absolute;
+        top: 0.7rem;
+        left: 1.5rem;
+        font-size: 2rem !important;
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      .dv-vendor-list-items {
+        width: 100%;
+        background-color: $bg-right-sidebar-items;
+        color: #C3BFBF;
+        font-size: 18px;
+        margin-bottom: 0.5rem;
+        padding: 1rem 1rem 0.5rem 3rem;
+        cursor: pointer;
+        transition: all 0.3s linear;
+
+        &:hover, &.active {
+          background-color: #FAFAFA;
+
+          .dv-vendor-list-title {
+            color: #000;
+          }
+
+          .dv-vendor-list-title-2 {
+            color: $bg-customer-vendor;
+          }
+        }
+      }
+    }
+  }
+
+  .dv-vendors-right-admin-2 {
+    width: 190px;
+
+    .dv-vendor-list-items {
+      padding: 1rem !important;
+    }
+  }
+
+  .dv-vendor-right-content {
+    margin-left: 291px;
+    padding: 1rem 1.5rem;
+    width: 100%;
+
+    .dv-bg-light-vendors {
+      background-color: #FAFAFA;
+      border-radius: 5px;
+      padding: 1rem 1rem 0 1rem;
+      box-shadow: $dv-box-shadow;
+      color: #707070;
+
+      h6 {
+        font-size: 18px;
+        line-height: 24px;
+      }
+
+      .dv-vendor-edit-btn {
+        background-color: $dv-gray-ea;
+        color: $main-blue;
+        padding: 0.1rem 2rem;
+
+        &:hover {
+          background-color: $main-blue-hover;
+          color: #fff;
+        }
+      }
+
+      .dv-light-gray-text {
+        color: #969292;
+        font-size: 18px;
+        line-height: 35px;
+      }
+
+      .dv-vendor-price {
+        color: $bg-customer-vendor;
+        background-color: #FAFAFA;
+        border-radius: 5px;
+        padding: 0 0.5rem;
+        box-shadow: $dv-box-shadow;
+      }
+
+      .dv-blue-badge {
+        background-color: #fff;
+        border-radius: 25px;
+        box-shadow: $dv-box-shadow;
+        border: 1px solid $main-blue;
+        color: $main-blue;
+        font-size: 14px;
+        line-height: 19px;
+        padding: 0.2rem 0.7rem;
+      }
+
+      .dv-swiper-parent-bg {
+        background-color: $dv-gray-ea;
+        border-radius: 10px;
+        box-shadow: $dv-box-shadow;
+
+        .dv-borrow-partner-img {
+          width: 54px;
+          height: 70px;
+        }
+
+        .css-jfsaru-Switch, .css-153wf2s-Switch {
+          box-shadow: 0 3px 6px rgb(0 0 0 / 30%);
+          width: 50px;
+          height: 20px;
+          left: -1rem !important;
+        }
+
+        .css-1v96km2-Switch {
+          right: -6px;
+          left: 13px;
+          height: 16px;
+        }
+
+        .css-19a995p-Switch {
+          right: 17px;
+          left: -10px;
+          height: 16px;
+        }
+      }
+
+      &.dv-note-height {
+        min-height: 360px;
+        height: auto;
+
+        h5 {
+          color: $main-yellow;
+        }
+      }
+    }
+
+    .dv-bg-light-vendor-override {
+      background-color: $dv-gray-ea;
+      border-radius: 5px;
+      padding: 1rem 1rem 0 1rem;
+      box-shadow: $dv-box-shadow;
+
+      .dv-vendor-override-h6 {
+        color: $main-light-red;
+        font-size: 18px;
+        line-height: 24px;
+      }
+
+      .dv-vendor-override-circle {
+        width: 25px;
+        height: 25px;
+        border: 1px solid $main-green;
+        background-color: $main-green;
+        border-radius: 50%;
+        box-shadow: $dv-box-shadow;
+      }
+
+      .dv-in-active-override-circle {
+        width: 25px;
+        height: 25px;
+        border: 1px solid $main-light-red;
+        background-color: $main-light-red;
+        border-radius: 50%;
+        box-shadow: $dv-box-shadow;
+      }
+
+      .dv-vendor-override-active {
+        color: $light-gray-text;
+        font-size: 18px;
+        line-height: 24px;
+      }
+
+      .dv-bg-edit-vendor-override {
+        background-color: $bg-customer-vendor;
+        padding: 0.3rem 2rem;
+        color: #FAFAFA;
+        font-size: 18px;
+        line-height: 24px;
+        border-radius: 25px;
+        box-shadow: $dv-box-shadow;
+
+        &:hover {
+          text-decoration: none;
+          background-color: #a2a1a1;
+        }
+      }
+
+      .dv-bg-suspend-vendor-override {
+        background-color: $main-light-red;
+        padding: 0.3rem 2rem;
+        color: #FAFAFA;
+        font-size: 18px;
+        line-height: 24px;
+
+        &:hover {
+          background-color: $main-light-red-hover;
+        }
+      }
+
+      .dv-bg-approve-vendor-override {
+        background-color: $main-green;
+
+        &:hover {
+          background-color: $main-hover-link;
+        }
+      }
+    }
+  }
+
+  .dv-vendor-right-content-2 {
+    margin-left: 190px;
+  }
+
+  .dv-suspended {
+    background-color: $main-light-red;
+  }
+
+  .dv-pending-approval {
+    background-color: $main-yellow;
+  }
+}
+
+.dv-plan-modal {
+  .modal-content {
+    background-color: #FAFAFA !important;
+
+    .dv-btn-plan-save {
+      background-color: $main-blue;
+      color: $dv-gray-ea;
+      padding: 0.1rem 2rem;
+
+      &:hover {
+        background-color: $main-blue-hover;
+        color: #fff;
+      }
+    }
+
+    .dv-btn-plan-close {
+      background-color: transparent;
+      color: $main-blue;
+      padding: 0.1rem 2rem;
+      box-shadow: none !important;
+
+      &:hover {
+        background-color: $main-blue-hover;
+        color: #fff;
+      }
+    }
+
+    .dv-vendor-price-input {
+      width: 60px;
+      height: 26px;
+      box-shadow: $dv-box-shadow;
+      border: none;
+      border-radius: 5px;
+      text-align: center;
+      color: $main-blue;
+    }
+  }
+
+}
+
+.dv-span-gray {
+  color: #C3BFBF;
+  font-size: 18px;
+  line-height: 35px;
+}
+
+.dv-store-name {
+  color: $light-gray-text;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.dv-store-input {
+  border: 1px solid #C3BFBF;
+  background-color: #fff;
+  border-radius: 5px;
+  color: $main-blue;
+  padding: 0.3rem;
+}
+
+.dv-opening-hours-input {
+  border: 1px solid #C3BFBF;
+  background-color: #fff;
+  border-radius: 5px;
+  width: 78px;
+  height: 28px;
+  color: $main-blue;
+  padding: 0.3rem;
+}
+
+.preview_container {
+  position: unset !important;
+  left: 0% !important;
+  transform: translateX(0%) !important;
+  -o-transform: translateX(0%) !important;
+  -ms-transform: translateX(0%) !important;
+  -webkit-transform: translateX(0%) !important;
+  -moz-transform: translateX(0%) !important;
+}
+
+.outside_container.active .modal_container {
+  width: 300px !important;
+}
+
+.react_times_button {
+  margin: 0 0.5rem !important;
+  border-radius: 10px !important;
+  padding: 0 0.5rem !important;
+  border: 1px solid #C3BFBF !important;
+  box-shadow: $dv-box-shadow !important;
+}
+
+.dv-gray-h {
+  color: $light-gray-text;
+}
+
+.dv-upload-file-label {
+  border: 1px dashed $main-blue;
+  border-radius: 10px;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 200px;
+  position: relative;
+
+  .dc-upload-file {
+    visibility: hidden;
+  }
+
+  .la-plus {
+    font-size: 5rem;
+    color: $main-blue;
+    position: absolute;
+  }
+}
+
+.dv-img-store-parent {
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+
+  }
+
+  .dv-store-icons {
+    color: #fafafa;
+    cursor: pointer;
+
+    &.la-times-circle {
+      font-size: 3rem;
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+
+      &:hover {
+        color: $main-blue;
+      }
+    }
+
+    &.la-arrow-up {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      position: absolute;
+      bottom: 0.5rem;
+      right: 42%;
+      transform: translateX(50%);
+      width: 35px;
+      height: 35px;
+      background-color: #fafafa;
+      color: #000;
+      border-radius: 50%;
+
+      &:hover {
+        color: #fff;
+        background-color: $main-blue;
+      }
+    }
+
+    &.la-arrow-down {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      position: absolute;
+      bottom: 0.5rem;
+      left: 42%;
+      transform: translateX(-50%);
+      width: 35px;
+      height: 35px;
+      background-color: #fafafa;
+      color: #000;
+      border-radius: 50%;
+
+      &:hover {
+        color: #fff;
+        background-color: $main-blue;
+      }
+    }
+  }
+}
+
+.dv-label-checkbox{
+  border: 1px solid #707070;
+  padding: 0.3rem 2rem;
+  border-radius: 25px;
+  box-shadow: $dv-box-shadow;
+  position: relative;
+  cursor: pointer;
+    span{
+      font-size: 20px;
+      line-height: 24px;
+      color: #707070;
+      //position: absolute;
+    }
+  input{
+    visibility: hidden;
+  }
+}
+.dv-label-checkbox-checked{
+  border: 1px solid $main-blue;
+  padding: 0.3rem 2rem;
+  border-radius: 25px;
+  box-shadow: $dv-box-shadow;
+  position: relative;
+  cursor: pointer;
+  span{
+    font-size: 20px;
+    line-height: 24px;
+    color: $main-blue;
+  //position: absolute;
+  }
+  input{
+    visibility: hidden;
+  }
+}
+.map-container {
+  height: 400px;
+}
+.sidebar {
+  background-color: rgba(35, 55, 75, 0.9);
+  color: #ffffff;
+  padding: 6px 12px;
+  font-family: monospace;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 12px;
+  border-radius: 4px;
+}
+.mapboxgl-marker-anchor-center{
+  transform: translate(0 , 0);
+  top: 0;
+  left: 0;
+  position: absolute;
+  pointer-events: auto;
+}
+@media (max-width: 1360px) {
+  .dv-store-icons {
+
+    &.la-arrow-up {
+      right: 37% !important;
+      transform: translateX(50%) !important;
+    }
+
+    &.la-arrow-down {
+      bottom: 0.5rem;
+      left: 37% !important;
+    }
+  }
+}
+@media (max-width: 992px) {
+  .dv-store-icons {
+
+    &.la-arrow-up {
+      right: 40% !important;
+      transform: translateX(50%) !important;
+    }
+
+    &.la-arrow-down {
+      bottom: 0.5rem;
+      left: 40% !important;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .dv-vendors-right-admin {
+    width: 100% !important;
+    position: unset !important;
+    padding-bottom: 0 !important;
+  }
+
+  .dv-vendor-right-content {
+    margin-left: 0 !important;
+  }
+  .dv-store-icons {
+    &.la-arrow-up {
+      right: 42% !important;
+    }
+
+    &.la-arrow-down {
+      left: 42% !important;
+
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .dv-store-icons {
+    &.la-arrow-up {
+      right: 33% !important;
+    }
+
+    &.la-arrow-down {
+      left: 33% !important;
+
+    }
+  }
+}

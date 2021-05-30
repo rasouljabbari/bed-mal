@@ -1,0 +1,30 @@
+@import "src/assets/style/variables";
+
+.dv-navbar-borrowing{
+  background: #5A5A5A;
+  position: fixed !important;
+  height: 100%;
+  align-items: flex-start !important;
+  width: 220px;
+  padding:2rem 0 0 0 !important;
+  a{
+    background-color: #413F3F;
+    width: 100%;
+    font-size: 20px;
+    line-height: 27px;
+    margin: 0.4rem 0;
+    color: #C3BFBF;
+    padding: 1rem;
+    text-decoration: none;
+    transition: all 0.3s linear;
+    &:hover{
+      background-color:$dv-gray-ea ;
+      color: #413F3F;
+      text-decoration: none;
+    }
+    &.active{
+      background-color: $dv-gray-ea;
+      color: #413F3F;
+    }
+  }
+}

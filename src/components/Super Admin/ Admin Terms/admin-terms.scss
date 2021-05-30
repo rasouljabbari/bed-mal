@@ -1,0 +1,101 @@
+@import 'src/assets/style/variables';
+
+.dv-left-sidebar-terms{
+  background-color: #5A5A5A;
+  width: 360px;
+  position: fixed !important;
+  height: 100%;
+  align-items: start !important;
+  justify-content: start !important;
+  .dv-btn-terms-parent-sidebar{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    .dv-btn-term-new-doc{
+      background-color: $dv-gray-ea;
+      color: $main-blue;
+      padding: 0.5rem 4rem;
+      margin-top: 0.2rem;
+      &:hover{
+        background-color: $bg-customer-vendor;
+      }
+    }
+  }
+  .dv-navbar-terms{
+    background: #5A5A5A;
+    width: 100%;
+    padding: 0;
+    .dv-list-items{
+      background-color: #413F3F;
+      width: 100%;
+      font-size: 20px;
+      line-height: 27px;
+      margin: 0.4rem 0;
+      color: #C3BFBF;
+      padding: 1rem;
+      text-decoration: none;
+      transition: all 0.3s linear;
+      &:hover{
+        background-color:$dv-gray-ea ;
+        color: #413F3F;
+        text-decoration: none;
+      }
+      &.active{
+        background-color: $dv-gray-ea;
+        color: #413F3F;
+      }
+      .dv-terms-sidebar-icon{
+        background-color: #FAFAFA;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        border: 1px solid #FAFAFA;
+        box-shadow: $dv-box-shadow;
+        color: #000;
+        font-size: 1.6rem;
+      }
+    }
+  }
+}
+.dv-right-content-terms{
+  margin-left: 360px;
+  width: 100%;
+  .dv-terms-edit-btn{
+    background-color: $dv-gray-ea;
+    color: $main-blue;
+    padding: 0.3rem 3rem;
+    &:hover{
+      background-color: $main-blue;
+      color: #fff;
+    }
+  }
+  .dv-terms-content{
+    background-color: #fff;
+    border-radius: 10px;
+
+    p{
+      font-size: 20px;
+      line-height: 24px;
+      color: #413F3F;
+      margin-bottom: 0;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .dv-left-sidebar-terms {
+    width: 100%;
+    position: unset !important;
+  }
+  .dv-right-content-terms{
+    margin-left: 0;
+    width: 100%;
+  }
+  .navbar{
+    padding: 0 !important;
+  }
+}

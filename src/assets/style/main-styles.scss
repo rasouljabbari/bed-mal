@@ -1,0 +1,40 @@
+@import "variables";
+
+body{
+  margin: 0;
+  padding: 0;
+  font-family: "FuturaPT-Medium", "Futura PT" !important;
+}
+body{
+  background-color: $main-background-gray !important;
+  overflow-x: hidden;
+}
+input:focus , textarea:focus , button:focus{
+  outline: none !important;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+button{
+  border-radius: 25px !important;
+  box-shadow: $dv-box-shadow !important;
+  border: none !important;
+  font-size: 20px !important;
+  line-height: 27px !important;
+  transition: all 0.3s linear !important;
+}
+.navbar-toggler{
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+.navbar-dark .navbar-toggler-icon {
+  background-image: url('../../assets/image/berger-menu.png') !important;
+}
