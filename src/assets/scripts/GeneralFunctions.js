@@ -3,6 +3,7 @@ import {toast} from "react-toastify";
 import axios from "axios"
 import Swal from "sweetalert2";
 import {timer} from "redux-logger/src/helpers";
+import {MAIN_URL} from "./GeneralVariables";
 // const BrowserHistory = require('react-router/lib/BrowserHistory').default;
 // import { BrowserHistory } from "react-router";
 
@@ -77,8 +78,6 @@ export const getData = async (base_url, url, type, dataParams = {}, isToken = fa
                     allowOutsideClick: false,
                 })
             }else if (e.response || (e.response?.data.message || e.response?.data.messages || e.response?.data.errors)) {
-
-                console.log(e.response.data.errors)
 
                 if (e.response.status === 403) {
                     e.response.data.errors?.map((row)=>{

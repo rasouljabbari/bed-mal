@@ -86,6 +86,59 @@
     }
   }
 }
+.dv-pen-btn-edit{
+  color: $main-blue;
+  font-size: 2rem;
+}
+.dv-add-title-terms{
+  border-bottom: 1px solid #212121;
+  cursor: pointer;
+}
+.dv-terms-submit-btn {
+  background-color: $main-blue;
+  box-shadow: $dv-box-shadow;
+  color: $dv-gray-ea;
+  padding: 0.3rem 2.5rem;
+  border-radius: 25px;
+  border: none;
+  font-size: 1rem;
+  transition: all 0.3s linear;
+
+  &:hover {
+    background-color: $main-blue-hover;
+  }
+}
+
+.dv-terms-cancel {
+  background-color: transparent !important;
+  color: $main-blue;
+  padding: 0.3rem 2.5rem;
+  border-radius: 25px;
+  border: none;
+  font-size: 1rem;
+  transition: all 0.3s linear;
+
+  &:hover {
+    background-color: $main-blue-hover !important;
+    color: $dv-gray-ea;
+  }
+}
+.dv-input{
+  border-radius: 5px;
+  border: 1px solid #a5a5a5;
+  padding: 0.5rem;
+  &:focus{
+    border-color: $main-blue;
+  }
+}
+.swal2-styled.swal2-confirm{
+  border-radius: 10px !important;
+  padding: 0.5rem 2.5rem !important;
+  background-color: $main-blue;
+  &:hover{
+    background-color: $main-blue-hover
+  }
+}
 @media (max-width: 768px) {
   .dv-left-sidebar-terms {
     width: 100%;

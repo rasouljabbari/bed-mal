@@ -16,45 +16,42 @@ import {Modal} from "react-bootstrap";
 
 mapboxgl.accessToken = 'pk.eyJ1IjoicmpkZXZlbG9wZXIiLCJhIjoiY2twNmtyejhiMHJoaTJ3cXRpd2dsZXJyNSJ9.-vVOy-9UQcN0Dh61WwA-QQ';
 
-class Vendors extends Component {
+class AddVendor extends Component {
     constructor(props) {
         super(props);
         this.state = {
             map_coordinates: '', store_address: '', store_phone: '', store_email: '', store_name: '',
             monday_to: '', monday_from: '', postal_code: '',
-            selectedCheckboxes: [], selectedId: '', lng: '', department_items: [],
-            lat: '',
+            selectedCheckboxes: [], selectedId: '', lng: -2.3899, department_items: [],
+            lat: 53.0544,
             zoom: 5, new_uploaded_img: '', new_uploaded_img_arr: [], sure_remove: false,
-            monday: [], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: [], sunday: [], vendor_items: ''
+            monday: [], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: [], sunday: []
         }
         this.mapContainer = React.createRef();
     }
 
     async componentDidMount() {
         setTitle('Store')
-
         const {lng, lat, zoom} = this.state;
+        const map = new mapboxgl.Map({
+            container: this.mapContainer.current,
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [lng, lat],
+            zoom: zoom
+        });
 
-        let term_id = this.props.match.params.term_id;
-        let vendorItem = await getData(MAIN_URL, `admin/vendors/info/${term_id}`, 'get', {}, true, true);
-        if (vendorItem?.status === 200) {
-            this.setState({
-                vendor_items: vendorItem?.vendor, new_uploaded_img_arr: vendorItem?.vendor.image_gallery,
-                selectedCheckboxes: vendorItem?.vendor.departments,
-                store_name: vendorItem?.vendor.name, store_address: vendorItem?.vendor.address,
-                store_phone: vendorItem?.vendor.phone, store_email: vendorItem?.vendor.email,
-                postal_code: vendorItem?.vendor.postal_code,
-                monday: vendorItem?.vendor.opening_hours.mon,
-                tuesday: vendorItem?.vendor.opening_hours.tue,
-                wednesday: vendorItem?.vendor.opening_hours.wed,
-                thursday: vendorItem?.vendor.opening_hours.thu,
-                friday: vendorItem?.vendor.opening_hours.fri,
-                saturday: vendorItem?.vendor.opening_hours.sat,
-                sunday: vendorItem?.vendor.opening_hours.sun,
-                lng: vendorItem?.vendor.longitude,
-                lat: vendorItem?.vendor.latitude
-            })
-        }
+        let marker = new mapboxgl.Marker({
+            draggable: true
+        })
+            .setLngLat([lng, lat])
+            .addTo(map);
+
+
+        marker.on('dragend', () => {
+            let lngLat = marker.getLngLat();
+            this.setState({lng: lngLat.lng, lat: lngLat.lat})
+        });
+
 
         let departmentItems = await getData(MAIN_URL, `admin/departments`, 'get', {}, true, true);
         // console.log(items)
@@ -62,36 +59,8 @@ class Vendors extends Component {
             this.setState({department_items: departmentItems.items})
         }
 
-        const map = new mapboxgl.Map({
-            container: this.mapContainer.current,
-            style: 'mapbox://styles/mapbox/streets-v11',
-            center: [vendorItem?.vendor.longitude, vendorItem?.vendor.latitude],
-            zoom: zoom
-        });
 
-        // map.on('move', () => {
-        //     this.setState({
-        //         lng: map.getCenter().lng.toFixed(4),
-        //         lat: map.getCenter().lat.toFixed(4),
-        //         zoom: map.getZoom().toFixed(2)
-        //     },()=>{
-        //         console.log(this.state.lng,this.state.lat)
-        //     });
-        // });
-
-        let marker = new mapboxgl.Marker({
-            draggable: true
-        })
-            .setLngLat([map.getCenter().lng.toFixed(4), map.getCenter().lat.toFixed(4)])
-            .addTo(map);
-
-
-        marker.on('dragend', () => {
-            let lngLat = marker.getLngLat();
-            console.log('Longitude: ' + lngLat.lng + ' Latitude: ' + lngLat.lat, marker.getLngLat())
-            this.setState({lng: lngLat.lng, lat: lngLat.lat})
-        });
-
+        // Set options
     };
 
     // Inputs
@@ -192,8 +161,6 @@ class Vendors extends Component {
         // Find index
         const findIdx = selectedCheckboxes.indexOf(id);
 
-        // Index > -1 means that the item exists and that the checkbox is checked
-        // and in that case we want to remove it from the array and uncheck it
         if (findIdx > -1) {
             selectedCheckboxes.splice(findIdx, 1);
         } else {
@@ -221,7 +188,7 @@ class Vendors extends Component {
 
                 if (width > MAX_WIDTH) {
 
-                    let MAX_HEIGHT = (height * MAX_WIDTH) / width
+                   let MAX_HEIGHT = (height * MAX_WIDTH)/width
 
                     width = MAX_WIDTH;
                     height = MAX_HEIGHT;
@@ -278,17 +245,18 @@ class Vendors extends Component {
             };
             loader(true)
             axios.post(`${MAIN_URL}admin/vendors/upload-image`, fd, {headers}).then(response => {
-                if (response.status === 200) {
+                if(response.status === 200){
                     loader()
-                    let arr = this.state.new_uploaded_img_arr;
+                    let arr= this.state.new_uploaded_img_arr;
                     arr.push(response.data.url)
                     this.setState({
-                        new_uploaded_img_arr: arr
+                        new_uploaded_img_arr:arr
                     })
                 }
             }).catch(error => {
                 console.log(error)
             })
+
 
 
         }
@@ -341,39 +309,24 @@ class Vendors extends Component {
 
     handleForm = async (e) => {
         e.preventDefault()
-        let vendor_id = this.props.match.params.term_id;
         const {
-            store_address,
-            store_phone,
-            store_email,
-            store_name,
+            store_address, store_phone, store_email, store_name,
             postal_code,
-            selectedCheckboxes,
-            lng,
-            lat,
-            monday,
-            tuesday,
-            wednesday,
-            thursday,
-            friday,
-            saturday,
-            sunday,
-            new_uploaded_img_arr,
-        } = this.state;
-
+            selectedCheckboxes, lng,
+            lat, monday, tuesday, wednesday, thursday, friday, saturday, sunday, new_uploaded_img_arr
+        } = this.state
         let opening_hours = {
-            mon: monday,
-            tue: tuesday,
-            wed: wednesday,
-            thu: thursday,
-            fri: friday,
-            sat: saturday,
-            sun: sunday
+            "mon": monday,
+            "tue": tuesday,
+            "wed": wednesday,
+            "thu": thursday,
+            "fri": friday,
+            "sat": saturday,
+            "sun": sunday
         }
 
-        console.log(lat, lng)
 
-        let vendorItem = await getData(MAIN_URL, `admin/vendors/edit/${vendor_id}`, 'post', {
+        let vendorItem = await getData(MAIN_URL, `admin/vendors/create`, 'post', {
             address: store_address,
             postal_code: postal_code,
             name: store_name,
@@ -388,7 +341,7 @@ class Vendors extends Component {
         }, true, true);
         if (vendorItem?.status === 200) {
             console.log(vendorItem)
-            // this.props.history.push('/admin/vendors')
+            this.props.history.push('/admin/vendors')
         }
     }
 
@@ -610,8 +563,7 @@ class Vendors extends Component {
                                         new_uploaded_img_arr?.map((item, i) => (
                                             <div className="col-6 mb-3">
                                                 <div className="dv-img-store-parent">
-                                                    <img className='img-fluid' src={`${MAIN_URL_IMAGE}${item}`} key={i}
-                                                         alt="Bed mal"/>
+                                                    <img className='img-fluid' src={`${MAIN_URL_IMAGE}${item}`} key={i} alt="Bed mal"/>
                                                     <i className="las la-times-circle dv-store-icons"
                                                        onClick={() => this.removeHandler(item)}/>
                                                     <i className="las la-arrow-up dv-store-icons"
@@ -675,4 +627,4 @@ class Vendors extends Component {
     }
 }
 
-export default Vendors;
+export default AddVendor;

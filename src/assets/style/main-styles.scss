@@ -9,8 +9,14 @@ body{
   background-color: $main-background-gray !important;
   overflow-x: hidden;
 }
+a:hover{
+  text-decoration: none;
+}
 input:focus , textarea:focus , button:focus{
   outline: none !important;
+}
+input[type='password']{
+  letter-spacing: 0 !important;
 }
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -30,6 +36,11 @@ button{
   font-size: 20px !important;
   line-height: 27px !important;
   transition: all 0.3s linear !important;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+  margin-bottom: .5rem !important;
+  font-weight: 100 !important;
+  line-height: 1.2 !important;
 }
 .navbar-toggler{
   box-shadow: none !important;

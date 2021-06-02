@@ -1,0 +1,88 @@
+@import "src/assets/style/variables";
+
+.dv-add-btn{
+  background-color: $main-blue;
+  color: #fff;
+  padding: 0.25rem 3rem;
+  &:hover{
+    background-color: $main-blue-hover;
+    color: #fff;
+  }
+}
+.dv-logins-title{
+  color: $light-gray-text;
+  font-size: 18px;
+  line-height: 24px;
+}
+.dv-logins-item-title{
+  color: #000000;
+  font-size: 18px;
+  line-height: 24px;
+}
+.dv-pen-icon{
+  color: $main-blue;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.dv-minus-icon{
+  color: $main-light-red;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.dv-border-radius{
+  border-radius: 10px;
+}
+.dv-box-shadow{
+  box-shadow: $dv-box-shadow;
+}
+.dv-pr-custom{
+  padding-right: 6rem !important;
+}
+.dv-eye{
+  position: absolute;
+  right: 0.3rem;
+  font-size: 1.6rem;
+  top: 0.5rem;
+}
+.dv-btn-remove-modal{
+  background-color: transparent !important;
+  box-shadow: none !important;
+  color: $main-light-red;
+  font-size: 20px;
+  line-height: 27px;
+  padding: 0.3rem 1.8rem;
+  &:hover{
+    background-color:  $main-light-red !important;
+    color: #fff;
+    box-shadow: $dv-box-shadow !important;
+  }
+}
+.dv-btn-cancel-modal{
+  background-color: transparent !important;
+  box-shadow: none !important;
+  color: $main-blue;
+  font-size: 20px;
+  line-height: 27px;
+  padding: 0.3rem 1.8rem;
+  &:hover{
+    background-color: $main-blue-hover !important;
+    color: #fff;
+    box-shadow: $dv-box-shadow !important;
+  }
+}
+.dv-btn-save-modal{
+  background-color: $main-blue;
+  box-shadow: none;
+  color: #fff;
+  font-size: 20px;
+  line-height: 27px;
+  padding: 0.3rem 1.8rem;
+  &:hover{
+    background-color: $main-blue-hover;
+  }
+}
+@media (max-width: 768px) {
+  .dv-pr-custom{
+    padding-right: 15px !important;
+  }
+}

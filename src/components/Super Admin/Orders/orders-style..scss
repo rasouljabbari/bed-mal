@@ -156,6 +156,7 @@
   transition: all 0.3s linear;
   &:hover{
     background-color: $main-white-hover;
+    text-decoration: none;
   }
 }
 .dv-search-input::placeholder {

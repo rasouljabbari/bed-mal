@@ -35,6 +35,8 @@ class Login extends Component {
             localStorage.setItem('type' , loginItem.type)
             if(loginItem.type === 'super_admin'){
                 this.props.history.push('/admin/orders')
+            }else if(loginItem.type === 'vendor_admin'){
+                this.props.history.push('/vendor/store')
             }
         }
     }
