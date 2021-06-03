@@ -32,8 +32,32 @@ import BorrowProducts from "./components/Vendor/Store/BorrowProducts";
 import Fulfilment from "./components/Vendor/Store/Fulfilment";
 import Collections from "./components/Vendor/Store/Collections";
 import Permissions from "./components/Vendor/Store/Permissions";
+import {getData} from "./assets/scripts/GeneralFunctions";
+import {MAIN_URL} from "./assets/scripts/GeneralVariables";
+import Dashboard from "./components/Vendor/Dashboard/Dashboard";
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            permissions: []
+        }
+    }
+
+    async componentDidMount() {
+        if (localStorage.getItem('Token')) {
+            let storeDetails = await getData(MAIN_URL, `vendor/dashboard`, 'get', {}, true, true);
+            if (storeDetails?.status === 200) {
+                let key_arr = [];
+                storeDetails.permissions?.map((item) => {
+                    key_arr.push(item.key)
+                })
+                this.setState({permissions: key_arr})
+            }
+        }
+
+    }
+
     render() {
         return (
             <>
@@ -74,13 +98,33 @@ class App extends Component {
                                         </Switch> :
                                         <Switch>
                                             {/****************** Vendor *************************/}
-                                            <Route exact path="/vendor/messages" component={Messages}/>
+                                            <Route exact path="/" component={Dashboard}/>
+                                            <Route exact path="/vendor/dashboard" component={Dashboard}/>
+                                            <Route exact path="/login"
+                                                   render={() => <Redirect to="/vendor/dashboard"/>}/>
+                                            {/*{*/}
+                                            {/*    this.state.permissions?.map((itm)=>(*/}
+                                            {/*        itm === 'store-details' ?*/}
+                                            {/*        <>*/}
                                             <Route exact path="/vendor/store/details" component={Store}/>
+                                            {/*</>*/}
+                                            {/*: itm === 'collection' ?*/}
+                                            {/*    <>*/}
                                             <Route exact path="/vendor/store/collections" component={Collections}/>
-                                            <Route exact path="/vendor/store/fulfilment" component={Fulfilment}/>
-                                            <Route exact path="/vendor/store/borrow-products" component={BorrowProducts}/>
-                                            <Route exact path="/vendor/store/products" component={Products}/>
+                                            {/*   </>*/}
+                                            {/*: itm === 'logins' ?*/}
+                                            {/*       <>*/}
                                             <Route exact path="/vendor/store/permissions" component={Permissions}/>
+                                            {/*            </> : ''*/}
+                                            {/*))*/}
+                                            {/*}*/}
+
+                                            <Route exact path="/vendor/messages" component={Messages}/>
+                                            <Route exact path="/vendor/store/fulfilment" component={Fulfilment}/>
+                                            <Route exact path="/vendor/store/borrow-products"
+                                                   component={BorrowProducts}/>
+                                            <Route exact path="/vendor/store/products" component={Products}/>
+
                                             {/****************** Not found *************************/}
                                             <Route exact path="*" component={NotFound}/>
                                         </Switch>
@@ -90,8 +134,8 @@ class App extends Component {
                             </div>
                         </> :
                         <Switch>
-                            <Route exact path="/login" component={Login}/>
                             <Route path="/" component={Login}/>
+                            <Route exact path="/login" component={Login}/>
                             <Route exact path="/forget-password" component={ForgetPassword}/>
                             <Route exact path="/verify-code" component={VerifyCode}/>
                             <Route exact path="/set-new-password" component={NewPassword}/>

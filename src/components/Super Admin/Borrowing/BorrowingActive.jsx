@@ -4,6 +4,7 @@ import LeftSideBarBorrowing from "./LeftSideBarBorrowing/LeftSideBarBorrowing";
 import {Link} from "react-router-dom";
 import {setTitle} from "../../../assets/scripts/GeneralFunctions";
 import Glass from '../../../assets/image/complete.png'
+import placeHolder_img from "../../../assets/image/bedmal-place-holder.jpg";
 
 class BorrowingActive extends Component {
     constructor(props) {
@@ -76,7 +77,12 @@ class BorrowingActive extends Component {
                                             <td><Link to={`/admin/borrow-receipts/1`} className='dv-borrowing-span'>O210501SSTC1</Link></td>
                                             <td className='pt-2'>
                                                 <div className="dv-img-table-active-parent">
-                                                    <img src={Glass} className='img-fluid' alt="bed mal"/>
+                                                    <img
+                                                        onError={(e) => {
+                                                            e.target.onerror = null;
+                                                            e.target.src = `${placeHolder_img}`
+                                                        }}
+                                                        src={Glass} className='img-fluid' alt="bed mal"/>
                                                 </div>
                                             </td>
                                             <td>
@@ -99,7 +105,12 @@ class BorrowingActive extends Component {
                                             <td><Link to={`/admin/borrow-receipts/1`} className='dv-borrowing-span'>O210501SSTC1</Link></td>
                                             <td className='pt-2'>
                                                 <div className="dv-img-table-active-parent">
-                                                    <img src={Glass} className='img-fluid' alt="bed mal"/>
+                                                    <img
+                                                        onError={(e) => {
+                                                            e.target.onerror = null;
+                                                            e.target.src = `${placeHolder_img}`
+                                                        }}
+                                                        src={Glass} className='img-fluid' alt="bed mal"/>
                                                 </div>
                                             </td>
                                             <td>
@@ -122,7 +133,12 @@ class BorrowingActive extends Component {
                                             <td><Link to={`/admin/borrow-receipts/1`} className='dv-borrowing-span'>O210501SSTC1</Link></td>
                                             <td className='pt-2'>
                                                 <div className="dv-img-table-active-parent">
-                                                    <img src={Glass} className='img-fluid' alt="bed mal"/>
+                                                    <img
+                                                         onError={(e) => {
+                                                             e.target.onerror = null;
+                                                             e.target.src = `${placeHolder_img}`
+                                                         }}
+                                                        src={Glass} className='img-fluid' alt="bed mal"/>
                                                 </div>
                                             </td>
                                             <td>
@@ -145,7 +161,12 @@ class BorrowingActive extends Component {
                                             <td><Link to={`/admin/borrow-receipts/1`} className='dv-borrowing-span'>O210501SSTC1</Link></td>
                                             <td className='pt-2'>
                                                 <div className="dv-img-table-active-parent">
-                                                    <img src={Glass} className='img-fluid' alt="bed mal"/>
+                                                    <img
+                                                         onError={(e) => {
+                                                             e.target.onerror = null;
+                                                             e.target.src = `${placeHolder_img}`
+                                                         }}
+                                                        src={Glass} className='img-fluid' alt="bed mal"/>
                                                 </div>
                                             </td>
                                             <td>
@@ -168,7 +189,12 @@ class BorrowingActive extends Component {
                                             <td><Link to={`/admin/borrow-receipts/1`} className='dv-borrowing-span'>O210501SSTC1</Link></td>
                                             <td className='pt-2'>
                                                 <div className="dv-img-table-active-parent">
-                                                    <img src={Glass} className='img-fluid' alt="bed mal"/>
+                                                    <img
+                                                         onError={(e) => {
+                                                             e.target.onerror = null;
+                                                             e.target.src = `${placeHolder_img}`
+                                                         }}
+                                                        src={Glass} className='img-fluid' alt="bed mal"/>
                                                 </div>
                                             </td>
                                             <td>
@@ -191,7 +217,12 @@ class BorrowingActive extends Component {
                                             <td><Link to={`/admin/borrow-receipts/1`} className='dv-borrowing-span'>O210501SSTC1</Link></td>
                                             <td className='pt-2'>
                                                 <div className="dv-img-table-active-parent">
-                                                    <img src={Glass} className='img-fluid' alt="bed mal"/>
+                                                    <img
+                                                         onError={(e) => {
+                                                             e.target.onerror = null;
+                                                             e.target.src = `${placeHolder_img}`
+                                                         }}
+                                                        src={Glass} className='img-fluid' alt="bed mal"/>
                                                 </div>
                                             </td>
                                             <td>
@@ -214,7 +245,12 @@ class BorrowingActive extends Component {
                                             <td><Link to={`/admin/borrow-receipts/1`} className='dv-borrowing-span'>O210501SSTC1</Link></td>
                                             <td className='pt-2'>
                                                 <div className="dv-img-table-active-parent">
-                                                    <img src={Glass} className='img-fluid' alt="bed mal"/>
+                                                    <img
+                                                         onError={(e) => {
+                                                             e.target.onerror = null;
+                                                             e.target.src = `${placeHolder_img}`
+                                                         }}
+                                                        src={Glass} className='img-fluid' alt="bed mal"/>
                                                 </div>
                                             </td>
                                             <td>
@@ -237,7 +273,12 @@ class BorrowingActive extends Component {
                                             <td><Link to={`/admin/borrow-receipts/1`} className='dv-borrowing-span'>O210501SSTC1</Link></td>
                                             <td className='pt-2'>
                                                 <div className="dv-img-table-active-parent">
-                                                    <img src={Glass} className='img-fluid' alt="bed mal"/>
+                                                    <img
+                                                         onError={(e) => {
+                                                             e.target.onerror = null;
+                                                             e.target.src = `${placeHolder_img}`
+                                                         }}
+                                                        src={Glass} className='img-fluid' alt="bed mal"/>
                                                 </div>
                                             </td>
                                             <td>
@@ -260,7 +301,12 @@ class BorrowingActive extends Component {
                                             <td><Link to={`/admin/borrow-receipts/1`} className='dv-borrowing-span'>O210501SSTC1</Link></td>
                                             <td className='pt-2'>
                                                 <div className="dv-img-table-active-parent">
-                                                    <img src={Glass} className='img-fluid' alt="bed mal"/>
+                                                    <img
+                                                         onError={(e) => {
+                                                             e.target.onerror = null;
+                                                             e.target.src = `${placeHolder_img}`
+                                                         }}
+                                                        src={Glass} className='img-fluid' alt="bed mal"/>
                                                 </div>
                                             </td>
                                             <td>
@@ -283,7 +329,12 @@ class BorrowingActive extends Component {
                                             <td><Link to={`/admin/borrow-receipts/1`} className='dv-borrowing-span'>O210501SSTC1</Link></td>
                                             <td className='pt-2'>
                                                 <div className="dv-img-table-active-parent">
-                                                    <img src={Glass} className='img-fluid' alt="bed mal"/>
+                                                    <img
+                                                         onError={(e) => {
+                                                             e.target.onerror = null;
+                                                             e.target.src = `${placeHolder_img}`
+                                                         }}
+                                                        src={Glass} className='img-fluid' alt="bed mal"/>
                                                 </div>
                                             </td>
                                             <td>
@@ -306,7 +357,12 @@ class BorrowingActive extends Component {
                                             <td><Link to={`/admin/borrow-receipts/1`} className='dv-borrowing-span'>O210501SSTC1</Link></td>
                                             <td className='pt-2'>
                                                 <div className="dv-img-table-active-parent">
-                                                    <img src={Glass} className='img-fluid' alt="bed mal"/>
+                                                    <img
+                                                         onError={(e) => {
+                                                             e.target.onerror = null;
+                                                             e.target.src = `${placeHolder_img}`
+                                                         }}
+                                                        src={Glass} className='img-fluid' alt="bed mal"/>
                                                 </div>
                                             </td>
                                             <td>
@@ -329,7 +385,12 @@ class BorrowingActive extends Component {
                                             <td><Link to={`/admin/borrow-receipts/1`} className='dv-borrowing-span'>O210501SSTC1</Link></td>
                                             <td className='pt-2'>
                                                 <div className="dv-img-table-active-parent">
-                                                    <img src={Glass} className='img-fluid' alt="bed mal"/>
+                                                    <img
+                                                         onError={(e) => {
+                                                             e.target.onerror = null;
+                                                             e.target.src = `${placeHolder_img}`
+                                                         }}
+                                                        src={Glass} className='img-fluid' alt="bed mal"/>
                                                 </div>
                                             </td>
                                             <td>

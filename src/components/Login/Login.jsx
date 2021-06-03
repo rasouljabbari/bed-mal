@@ -10,8 +10,11 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
+            is_confirm_show: false,
+            isShow : false
         }
     }
+
 
     inputHandler = (e) => {
         this.setState({
@@ -35,15 +38,25 @@ class Login extends Component {
             localStorage.setItem('type' , loginItem.type)
             if(loginItem.type === 'super_admin'){
                 this.props.history.push('/admin/orders')
-            }else if(loginItem.type === 'vendor_admin'){
-                this.props.history.push('/vendor/store')
+            }else{
+                this.props.history.push('/vendor/dashboard')
             }
         }
+    }
+    handleShow = () => {
+        this.setState({
+            isShow: !this.state.isShow
+        })
+    }
+    handleConfirmShow = () => {
+        this.setState({
+            is_confirm_show: !this.state.is_confirm_show
+        })
     }
 
     render() {
         return (
-            <div className='d-flex align-items-center justify-content-center flex-column my-5 mx-3'>
+            <div className='h-100 d-flex align-items-center justify-content-center flex-column mx-3'>
                 <div className="dv-logo-login mb-5">
                     <img src={Logo} className='img-fluid' alt="bed mal"/>
                 </div>
@@ -54,10 +67,18 @@ class Login extends Component {
                             <input type="text" id='dv-email' onChange={this.inputHandler} value={this.state.email}
                                    className='dv-input' placeholder='Email or Username' name='email' required={true}/>
                         </label>
-                        <label htmlFor="dv-password" className='w-100 mb-4'>
-                            <input type="password" id='dv-password' onChange={this.inputHandler}
-                                   value={this.state.password} className='dv-input' placeholder='Password'
-                                   name='password' required={true}/>
+                        {/*<label htmlFor="dv-password" className='w-100 mb-4'>*/}
+                        {/*    <input  type={this.state.isShow ? 'text' : "password"} id='dv-password' onChange={this.inputHandler}*/}
+                        {/*           value={this.state.password} className='dv-input' placeholder='Password'*/}
+                        {/*           name='password' required={true}/>*/}
+                        {/*</label>*/}
+                        <label className='position-relative w-100 mb-4'>
+                            {/*<i className='la la-eye dv-eye'/>*/}
+                            <i className={this.state.isShow ? 'la la-eye dv-eye-login' : "las la-eye-slash dv-eye-login"}
+                               onClick={this.handleShow}/>
+                            <input type={this.state.isShow ? 'text' : "password"} placeholder='Password'
+                                   value={this.state.password} onChange={this.inputHandler}
+                                   name='password' className='dv-input mb-3 w-100 pr-5'/>
                         </label>
                         <label htmlFor="dv-forget-password" className='mb-5'>
                             <button id='dv-forget-password' className='dv-forget-password' type='button'

@@ -24,17 +24,29 @@ class Permissions extends Component {
             vendor_id: '-1',
             logins: [],
             permissions: [],
-            selectedCheckboxes: []
+            selectedCheckboxes: [],
+            permissions_item: []
         }
     }
 
     async componentDidMount() {
         setTitle('Store');
+        if(localStorage.getItem('Token')){
+            let storeDetails = await getData(MAIN_URL, `vendor/dashboard`, 'get', {}, true, true);
+            if (storeDetails?.status === 200) {
+                let key_arr = [];
+                storeDetails.permissions?.map((item)=>{
+                    key_arr.push(item.key)
+                })
+                this.setState({permissions_item : key_arr})
+            }
+        }
         let loginsItems = await getData(MAIN_URL, `vendor/logins?limit=100&offset=0`, 'get', {}, true, true);
         if (loginsItems?.status === 200) {
             let vendorsItems = await getData(MAIN_URL, `vendor/permissions`, 'get', {}, true, true);
             this.setState({logins: loginsItems?.logins, permissions: vendorsItems.permissions})
         }
+
     }
 
     handleShow = () => {
@@ -80,22 +92,18 @@ class Permissions extends Component {
             vendor_email,
             vendor_password,
             vendor_username,
-            vendor_type,
-            vendor_id,
             vendor_confirm_password,
             selectedCheckboxes
 
         } = this.state
 
-        let loginsItem = await getData(MAIN_URL, `admin/logins/create`, 'post', {
+        let loginsItem = await getData(MAIN_URL, `vendor/logins/create`, 'post', {
             username: vendor_username,
             name: vendor_name,
             email: vendor_email,
             password: vendor_password,
             password_confirmation: vendor_confirm_password,
-            type: vendor_type,
-            vendor_id: vendor_id,
-            departments: JSON.stringify(selectedCheckboxes),
+            permissions: JSON.stringify(selectedCheckboxes),
         }, true, true);
         if (loginsItem?.status === 200) {
             let logins_arr = this.state.logins;
@@ -109,12 +117,16 @@ class Permissions extends Component {
     editLogins = (id) => {
         this.setState({selected_login: id, edit_login: true})
         let selected_item_for_edit = this.state.logins?.find((elem => elem.id === id));
+        let permissions = selected_item_for_edit?.vendor_user_permissions;
+        let permissions_ids = [];
+        permissions?.map((item)=>{
+            permissions_ids.push(item.id)
+        })
         this.setState({
             vendor_name: selected_item_for_edit.name,
             vendor_username: selected_item_for_edit.username,
             vendor_email: selected_item_for_edit.email,
-            vendor_type: selected_item_for_edit.type,
-            vendor_id: selected_item_for_edit.vendor_info_id,
+            selectedCheckboxes: permissions_ids
         })
     }
     editSubmitForm = async (e) => {
@@ -124,26 +136,25 @@ class Permissions extends Component {
             vendor_email,
             vendor_password,
             vendor_username,
-            vendor_type,
-            vendor_id,
-            vendor_confirm_password
+            selectedCheckboxes,
+            vendor_confirm_password,
+            selected_login
         } = this.state
-
-        let loginsItem = await getData(MAIN_URL, `admin/logins/edit/${this.state.selected_login}`, 'post', {
+        this.setState({edit_login: false})
+        let loginsItem = await getData(MAIN_URL, `vendor/logins/edit/${selected_login}`, 'post', {
             username: vendor_username,
             name: vendor_name,
             email: vendor_email,
             password: vendor_password,
             password_confirmation: vendor_confirm_password,
-            type: vendor_type,
-            vendor_id: vendor_id
+            permissions: JSON.stringify(selectedCheckboxes),
         }, true, true);
         if (loginsItem?.status === 200) {
             const updatedHeaders = this.state.logins.map((obj) => {
                 return obj.id === loginsItem.item.id ? loginsItem.item : obj;
             });
             this.setState({
-                logins: updatedHeaders, edit_login: false
+                logins: updatedHeaders
             })
         }
     }
@@ -213,18 +224,33 @@ class Permissions extends Component {
 
     render() {
         const {selectedCheckboxes} = this.state
-        console.log(selectedCheckboxes)
         return (
             <div className='d-flex flex-column flex-md-row dv-vendor overflow-hidden'>
                 <div className="dv-vendors-right-admin dv-vendors-right-admin-2">
 
                     <Nav>
-                        <NavLink activeClassName="active"
-                                 className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
-                                 to={'/vendor/store/details'}>Store details</NavLink>
-                        <NavLink activeClassName="active"
-                                 className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
-                                 to={'/vendor/store/collections'}>Collections</NavLink>
+                        {
+                            this.state.permissions_item?.map((item)=>(
+                                item === 'store-details' ?
+                                    <NavLink activeClassName="active"
+                                             className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
+                                             to={'/vendor/store/details'}>Store details</NavLink>
+                                    : ''
+                            ))
+                        }
+                        {
+                            this.state.permissions_item?.map((item)=>(
+                                item === 'collection' && item !== 'store-details' ?
+                                    <NavLink activeClassName="active"
+                                             className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5 mb-3'
+                                             to={'/vendor/store/collections'}>Collections</NavLink>
+                                    : item === 'collection' ?
+                                    <NavLink activeClassName="active"
+                                             className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
+                                             to={'/vendor/store/collections'}>Collections</NavLink>
+                                    : ''
+                            ))
+                        }
                         <NavLink activeClassName="active"
                                  className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
                                  to={'/vendor/store/fulfilment'}>Fulfilment</NavLink>
@@ -234,9 +260,16 @@ class Permissions extends Component {
                         <NavLink activeClassName="active"
                                  className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-0'
                                  to={'/vendor/store/products'}>Products</NavLink>
-                        <NavLink activeClassName="active"
-                                 className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
-                                 to={'/vendor/store/permissions'}>Permissions</NavLink>
+                        {
+                            this.state.permissions_item?.map((item)=>(
+                                item === 'logins' ?
+                                    <NavLink activeClassName="active"
+                                             className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
+                                             to={'/vendor/store/permissions'}>Permissions</NavLink>
+                                    : ''
+                            ))
+                        }
+
                     </Nav>
 
                 </div>
@@ -289,7 +322,7 @@ class Permissions extends Component {
                     </div>
                 </div>
 
-                <Modal style={{textAlign: 'center'}} centered={true} show={this.state.new_login}
+                <Modal style={{textAlign: 'center'}} className='dv-modal' centered={true} show={this.state.new_login}
                        onHide={this.closeModal}>
                     <Modal.Body className='pt-md-5 px-md-5'>
                         <form className="row" onSubmit={this.addSubmitForm}>
@@ -348,7 +381,7 @@ class Permissions extends Component {
                     </Modal.Body>
                 </Modal>
 
-                <Modal style={{textAlign: 'center'}} centered={true} show={this.state.edit_login}
+                <Modal style={{textAlign: 'center'}} className='dv-modal' centered={true} show={this.state.edit_login}
                        onHide={this.closeModal}>
                     <Modal.Body className='pt-md-5 px-md-5'>
                         <form className="row justify-content-center" onSubmit={this.editSubmitForm}>
@@ -380,25 +413,20 @@ class Permissions extends Component {
                                            name='vendor_confirm_password' className='dv-input mb-3 w-100 pr-5'
                                            required={true}/>
                                 </div>
-                                <select required={true} name="vendor_type" defaultValue={this.state.vendor_type}
-                                        className='dv-input mb-3' onChange={this.inputHandler}>
-                                    {/*<option value='-1' disabled={true} selected={true}>choose type</option>*/}
-                                    <option value='super_admin'>super admin</option>
-                                    <option value='vendor_admin'>vendor admin</option>
-                                    <option value='vendor_user'>vendor user</option>
-                                </select>
-                                {
-                                    this.state.vendor_type === 'vendor_admin' || this.state.vendor_type === 'vendor_user' ?
-                                        <select required={true} name="vendor_id" defaultValue={this.state.vendor_id}
-                                                className='dv-input mb-3' onChange={this.inputHandler}>
-                                            <option value='-1' disabled={true} selected={true}>choose vendor</option>
-                                            {
-                                                this.state.vendors?.map((item, i) => (
-                                                    <option value={item.id} key={i}>{item.id}</option>
-                                                ))
-                                            }
-                                        </select> : ''
-                                }
+                                <div className={'dv-text-modal text-left pt-4 pb-2'}>Permissions</div>
+                                {this.state.permissions?.map(checkbox => (
+                                    <label
+                                        className={'dv-checkbox-logins d-flex justify-content-between align-items-center'}
+                                        key={checkbox.id}>
+                                        <span>{checkbox.name}</span>
+                                        <input
+                                            type="checkbox"
+                                            checked={selectedCheckboxes.find(element => element === checkbox.id) ? true : false}
+                                            onChange={() => this.onChange(checkbox.id)}
+                                            selected={selectedCheckboxes.includes(checkbox.id)}
+                                        />
+                                    </label>
+                                ))}
                             </div>
                             <div
                                 className='col-12 d-flex justify-content-between flex-column flex-md-row align-items-center'>

@@ -9,6 +9,7 @@ import LeftSideBarBorrowing from "./LeftSideBarBorrowing/LeftSideBarBorrowing";
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/swiper.scss';
+import placeHolder_img from "../../../assets/image/bedmal-place-holder.jpg";
 
 class BorrowReceiptsSelected extends Component {
     constructor(props) {
@@ -158,25 +159,45 @@ class BorrowReceiptsSelected extends Component {
                                     >
                                         <SwiperSlide className="dv-swiper-bg-slide d-flex flex-column align-items-center justify-content-center">
                                             <div className='dv-bg-slide-parent'>
-                                                <img src={Glass} className='img-fluid' alt="bed mal"/>
+                                                <img
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = `${placeHolder_img}`
+                                                    }}
+                                                    src={Glass} className='img-fluid' alt="bed mal"/>
                                             </div>
                                             <h2>1</h2>
                                         </SwiperSlide>
                                         <SwiperSlide className="dv-swiper-bg-slide d-flex flex-column align-items-center justify-content-center">
                                             <div className='dv-bg-slide-parent'>
-                                                <img src={Glass} className='img-fluid' alt="bed mal"/>
+                                                <img
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = `${placeHolder_img}`
+                                                    }}
+                                                    src={Glass} className='img-fluid' alt="bed mal"/>
                                             </div>
                                             <h2>2</h2>
                                         </SwiperSlide>
                                         <SwiperSlide className="dv-swiper-bg-slide d-flex flex-column align-items-center justify-content-center">
                                             <div className='dv-bg-slide-parent'>
-                                                <img src={Glass} className='img-fluid' alt="bed mal"/>
+                                                <img
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = `${placeHolder_img}`
+                                                    }}
+                                                    src={Glass} className='img-fluid' alt="bed mal"/>
                                             </div>
                                             <h2>3</h2>
                                         </SwiperSlide>
                                         <SwiperSlide className="dv-swiper-bg-slide d-flex flex-column align-items-center justify-content-center">
                                             <div className='dv-bg-slide-parent'>
-                                                <img src={Glass} className='img-fluid' alt="bed mal"/>
+                                                <img
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = `${placeHolder_img}`
+                                                    }}
+                                                    src={Glass} className='img-fluid' alt="bed mal"/>
                                             </div>
                                             <h2>4</h2>
                                         </SwiperSlide>

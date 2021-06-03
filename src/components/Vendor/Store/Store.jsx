@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './store.scss';
 import {getData, loader, setTitle} from "../../../assets/scripts/GeneralFunctions";
-import {Nav} from "react-bootstrap";
+import {Modal, Nav} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
 import TimePicker from 'react-times';
 // use material theme
@@ -12,6 +12,8 @@ import 'react-times/css/classic/default.css';
 import axios from "axios";
 import mapboxgl from 'mapbox-gl';
 import {MAIN_URL, MAIN_URL_IMAGE} from "../../../assets/scripts/GeneralVariables";
+import Swal from "sweetalert2";
+import placeHolder_img from '../../../assets/image/bedmal-place-holder.jpg'
 
 mapboxgl.accessToken = 'pk.eyJ1IjoicmpkZXZlbG9wZXIiLCJhIjoiY2twNmtyejhiMHJoaTJ3cXRpd2dsZXJyNSJ9.-vVOy-9UQcN0Dh61WwA-QQ';
 
@@ -25,14 +27,54 @@ class Store extends Component {
             lat: 53.0544,
             zoom: 5, new_uploaded_img: '', new_uploaded_img_arr: [], sure_remove: false,
             monday: [], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: [], sunday: [],
-            selected_name: ''
+            selected_name: '', store_item: '',store_plan_terms:'',permissions_item:[]
         }
         this.mapContainer = React.createRef();
     }
 
     async componentDidMount() {
         setTitle('Store')
+
         const {lng, lat, zoom} = this.state;
+        if(localStorage.getItem('Token')){
+            let storeDetails = await getData(MAIN_URL, `vendor/dashboard`, 'get', {}, true, true);
+            if (storeDetails?.status === 200) {
+                let key_arr = [];
+                storeDetails.permissions?.map((item)=>{
+                    key_arr.push(item.key)
+                })
+                this.setState({permissions_item : key_arr})
+            }
+        }
+        let storeDetails = await getData(MAIN_URL, `vendor/store-details`, 'get', {}, true, true);
+        if (storeDetails?.status === 200) {
+            this.setState({
+                store_item: storeDetails?.item,
+                store_name: storeDetails?.item.name,
+                store_address: storeDetails?.item.address,
+                lat: storeDetails?.item.latitude,
+                lng: storeDetails?.item.longitude,
+                store_email: storeDetails?.item.email,
+                store_phone: storeDetails?.item.phone,
+                new_uploaded_img_arr: storeDetails?.item.image_gallery,
+                monday: storeDetails?.item.opening_hours.mon,
+                tuesday: storeDetails?.item.opening_hours.tue,
+                wednesday: storeDetails?.item.opening_hours.wed,
+                thursday: storeDetails?.item.opening_hours.thu,
+                friday: storeDetails?.item.opening_hours.fri,
+                saturday: storeDetails?.item.opening_hours.sat,
+                sunday: storeDetails?.item.opening_hours.sun,
+                store_status: storeDetails?.item.status,
+                store_plan_terms: storeDetails?.item.plan_terms,
+                postal_code: storeDetails?.item.postal_code,
+                selectedCheckboxes: storeDetails?.item.departments,
+            })
+        }
+        let departmentItems = await getData(MAIN_URL, `vendor/departments`, 'get', {}, true, true);
+        if (departmentItems?.status === 200) {
+            this.setState({department_items: departmentItems.items})
+        }
+
         const map = new mapboxgl.Map({
             container: this.mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v11',
@@ -52,14 +94,6 @@ class Store extends Component {
             this.setState({lng: lngLat.lng, lat: lngLat.lat})
         });
 
-
-        // let departmentItems = await getData(MAIN_URL, `admin/departments`, 'get', {}, true, true);
-        // if (departmentItems?.status === 200) {
-        //     this.setState({department_items: departmentItems.items})
-        // }
-
-
-        // Set options
     };
 
     // Inputs
@@ -172,7 +206,7 @@ class Store extends Component {
         });
     };
 
-    // Image Uploading
+    // Image Uploading and Remove
     thisUploadImage = async (e) => {
         let file = e.target.files[0];
         let reader = new FileReader();
@@ -243,7 +277,7 @@ class Store extends Component {
                 'Authorization': `Bearer ${localStorage.getItem("Token")}`,
             };
             loader(true)
-            axios.post(`${MAIN_URL}admin/vendors/upload-image`, fd, {headers}).then(response => {
+            axios.post(`${MAIN_URL}vendor/store-details/upload-image`, fd, {headers}).then(response => {
                 if (response.status === 200) {
                     loader()
                     let arr = this.state.new_uploaded_img_arr;
@@ -265,11 +299,9 @@ class Store extends Component {
 
 
     }
-
     removeHandler = (item) => {
         this.setState({sure_remove: true, remove_selected_item: item})
     }
-
     sureRemove = () => {
         let arr = this.state.new_uploaded_img_arr;
 
@@ -280,7 +312,7 @@ class Store extends Component {
             this.setState({new_uploaded_img_arr: arr, sure_remove: false})
         }
     }
-
+    // Image Uploading and Remove
     arrowUpHandler = (index) => {
         let list = this.state.new_uploaded_img_arr;
         if (index === 0) {
@@ -323,8 +355,7 @@ class Store extends Component {
             "sun": sunday
         }
 
-
-        let vendorItem = await getData(MAIN_URL, `admin/vendors/create`, 'post', {
+        let storeItem = await getData(MAIN_URL, `vendor/store-details/edit`, 'post', {
             address: store_address,
             postal_code: postal_code,
             name: store_name,
@@ -337,16 +368,19 @@ class Store extends Component {
             departments: JSON.stringify(selectedCheckboxes),
 
         }, true, true);
-        if (vendorItem?.status === 200) {
-            console.log(vendorItem)
-            this.props.history.push('/admin/vendors')
+        if (storeItem?.status === 200) {
+            console.log(storeItem)
+            Swal.fire({
+                icon: 'success',
+                title: 'updated successful',
+                allowOutsideClick: false,
+            })
         }
     }
 
     closeModal = () => {
         this.setState({sure_remove: false})
     }
-
 
 
     render() {
@@ -359,16 +393,51 @@ class Store extends Component {
         let saturday = this.state.saturday
         let sunday = this.state.sunday
         return (
-            <div className='d-flex flex-column flex-md-row dv-vendor overflow-hidden'>
+            <div className='d-flex flex-column flex-md-row dv-vendor'>
                 <div className="dv-vendors-right-admin dv-vendors-right-admin-2">
 
                     <Nav>
-                        <NavLink activeClassName="active" className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5' to={'/vendor/store/details'}>Store details</NavLink>
-                        <NavLink activeClassName="active" className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3' to={'/vendor/store/collections'}>Collections</NavLink>
-                        <NavLink activeClassName="active" className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3' to={'/vendor/store/fulfilment'}>Fulfilment</NavLink>
-                        <NavLink activeClassName="active" className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3' to={'/vendor/store/borrow-products'}>Borrow products</NavLink>
-                        <NavLink activeClassName="active" className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-0' to={'/vendor/store/products'}>Products</NavLink>
-                        <NavLink activeClassName="active" className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5' to={'/vendor/store/permissions'}>Permissions</NavLink>
+                        {
+                            this.state.permissions_item?.map((item)=>(
+                                item === 'store-details' ?
+                                    <NavLink activeClassName="active"
+                                             className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
+                                             to={'/vendor/store/details'}>Store details</NavLink>
+                                    : ''
+                            ))
+                        }
+                        {
+                            this.state.permissions_item?.map((item)=>(
+                                item === 'collection' && item !== 'store-details' ?
+                                    <NavLink activeClassName="active"
+                                             className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5 mb-3'
+                                             to={'/vendor/store/collections'}>Collections</NavLink>
+                                    : item === 'collection' ?
+                                    <NavLink activeClassName="active"
+                                             className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
+                                             to={'/vendor/store/collections'}>Collections</NavLink>
+                                    : ''
+                            ))
+                        }
+                        <NavLink activeClassName="active"
+                                 className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
+                                 to={'/vendor/store/fulfilment'}>Fulfilment</NavLink>
+                        <NavLink activeClassName="active"
+                                 className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
+                                 to={'/vendor/store/borrow-products'}>Borrow products</NavLink>
+                        <NavLink activeClassName="active"
+                                 className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-0'
+                                 to={'/vendor/store/products'}>Products</NavLink>
+                        {
+                            this.state.permissions_item?.map((item)=>(
+                                item === 'logins' ?
+                                    <NavLink activeClassName="active"
+                                             className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
+                                             to={'/vendor/store/permissions'}>Permissions</NavLink>
+                                    : ''
+                            ))
+                        }
+
                     </Nav>
 
                 </div>
@@ -540,7 +609,12 @@ class Store extends Component {
                                         new_uploaded_img_arr?.map((item, i) => (
                                             <div className="col-6 mb-3">
                                                 <div className="dv-img-store-parent">
-                                                    <img className='img-fluid' src={`${MAIN_URL_IMAGE}${item}`} key={i}
+                                                    <img className='img-fluid'
+                                                         onError={(e) => {
+                                                             e.target.onerror = null;
+                                                             e.target.src = `${placeHolder_img}`
+                                                         }}
+                                                         src={`${MAIN_URL_IMAGE}${item}`} key={i}
                                                          alt="Bed mal"/>
                                                     <i className="las la-times-circle dv-store-icons"
                                                        onClick={() => this.removeHandler(item)}/>
@@ -581,7 +655,25 @@ class Store extends Component {
                         </div>
                     </form>
                 </div>
+                <Modal style={{textAlign: 'center'}} centered={true} show={this.state.sure_remove}
+                       onHide={this.closeModal}>
+                    <Modal.Body className='p-5'>
+                        <div className="row justify-content-center">
+                            <div className="col-12 mb-4">
+                                <h5 className='dv-h5'>Are you sure ?</h5>
+                            </div>
+                            <div className="col-12 mt-3 d-flex justify-content-center align-items-center">
+                                <button className='dv-cancel-btn d-flex justify-content-center' type='button'
+                                        onClick={this.closeModal}>No
+                                </button>
+                                <button className='dv-access-btn d-flex justify-content-center' type='button'
+                                        onClick={this.sureRemove}>Yes
+                                </button>
+                            </div>
+                        </div>
 
+                    </Modal.Body>
+                </Modal>
             </div>
         );
     }

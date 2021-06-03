@@ -1,10 +1,15 @@
 import React from "react";
 import "./Loader.styles.scss"
-
+import Logo from '../../assets/image/Bedmal logo text.png';
 const Loader = (props) => (
-    <div id="loader" className={"hidden"} >
-        <div className="loadingio-spinner-rolling-139afo0nnb9">
-            <div className="ldio-82eqz94ni7n">
+    <div id="loader" className={"loader hidden"} >
+        <div className="loadingio-spinner-ellipsis-vbzr0p1jua">
+            <img src={Logo} alt="BedMall"/>
+            <div className="ldio-76msoii4h9c">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
                 <div></div>
             </div>
         </div>

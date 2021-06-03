@@ -43,7 +43,7 @@ class Departments extends Component {
         // console.log(items)
         if (new_item?.status == 200) {
             let items = this.state.items;
-            let newStatuses = [new_item?.item].concat(items);
+            let newStatuses = items.concat(new_item?.item);
             this.setState({items: newStatuses});
         }
     }
@@ -53,7 +53,7 @@ class Departments extends Component {
     removeItemFromList = async () => {
         let arr = [];
         this.setState({show: false})
-        let removeItem = await getData(MAIN_URL, `admin/departments/remove/${this.state.removeSelectedId}`, 'get', {}, true, true);
+        let removeItem = await getData(MAIN_URL, `admin/departments/remove/${this.state.removeSelectedId}`, 'post', {}, true, true);
         // console.log(items)
         if (removeItem?.status === 200) {
             this.state.items.map((item) => {
@@ -81,7 +81,6 @@ class Departments extends Component {
             let selectItem2 = this.state.items.find((item, inx) => {
                 if (inx === index + 1) return item
             })
-            console.log(selectItem1, selectItem2)
 
             let departmentItem = await getData(MAIN_URL, `admin/departments/reorder`, 'post', {
                 'department_id1': selectItem1.id,
@@ -89,13 +88,9 @@ class Departments extends Component {
                 'department_id2': selectItem2.id,
                 'row_index2': selectItem1.row_index,
             }, true, true);
-            // console.log(items)
             if (departmentItem?.status === 200) {
-                console.log(departmentItem)
-                let departmentItems = await getData(MAIN_URL, `admin/departments`, 'get', {}, true, false);
-                // console.log(items)
+                let departmentItems = await getData(MAIN_URL, `admin/departments`, 'get', {}, true, true);
                 if (departmentItems?.status === 200) {
-                    console.log(departmentItems)
                     this.setState({items: departmentItems.items})
                 }
             }
@@ -121,11 +116,8 @@ class Departments extends Component {
             }, true, true);
 
             if (departmentItem?.status === 200) {
-                console.log(departmentItem)
-                let departmentItems = await getData(MAIN_URL, `admin/departments`, 'get', {}, true, false);
-                // console.log(items)
+                let departmentItems = await getData(MAIN_URL, `admin/departments`, 'get', {}, true, true);
                 if (departmentItems?.status === 200) {
-                    console.log(departmentItems)
                     this.setState({items: departmentItems.items})
                 }
             }
@@ -217,8 +209,7 @@ class Departments extends Component {
                                     <button className='dv-cancel-btn d-flex justify-content-center' type='button'
                                             onClick={this.closeModal}>No
                                     </button>
-                                    <button className='dv-access-btn d-flex justify-content-center' type='submit'
-                                            onClick={this.removeItemFromList}>Yes
+                                    <button className='dv-access-btn d-flex justify-content-center' type='submit'>Yes
                                     </button>
                                 </div>
                             </form>

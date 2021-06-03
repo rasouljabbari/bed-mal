@@ -8,6 +8,7 @@ import Switch from 'react-input-switch';
 import Swal from "sweetalert2";
 import {Modal} from "react-bootstrap";
 import {MAIN_URL} from "../../../assets/scripts/GeneralVariables";
+import placeHolder_img from "../../../assets/image/bedmal-place-holder.jpg";
 
 class Vendors extends Component {
     constructor(props) {
@@ -436,7 +437,12 @@ class Vendors extends Component {
                                         <div
                                             className="d-flex justify-content-around dv-light-gray-text align-items-center">
                                             <div className="dv-borrow-partner-img">
-                                                <img src={Glass} className='img-fluid' alt="Bed mal"/>
+                                                <img
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = `${placeHolder_img}`
+                                                    }}
+                                                    src={Glass} className='img-fluid' alt="Bed mal"/>
                                             </div>
                                             <h5>BorrowCup</h5>
                                             <Switch
@@ -454,7 +460,12 @@ class Vendors extends Component {
                                         <div
                                             className="d-flex justify-content-around dv-light-gray-text align-items-center">
                                             <div className="dv-borrow-partner-img">
-                                                <img src={Bag} className='img-fluid' alt="Bed mal"/>
+                                                <img
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = `${placeHolder_img}`
+                                                    }}
+                                                    src={Bag} className='img-fluid' alt="Bed mal"/>
                                             </div>
                                             <h5>BorrowBag</h5>
                                             <Switch

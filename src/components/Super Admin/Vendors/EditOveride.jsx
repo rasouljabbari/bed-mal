@@ -13,6 +13,7 @@ import axios from "axios";
 import mapboxgl from 'mapbox-gl';
 import {MAIN_URL, MAIN_URL_IMAGE} from "../../../assets/scripts/GeneralVariables";
 import {Modal} from "react-bootstrap";
+import placeHolder_img from "../../../assets/image/bedmal-place-holder.jpg";
 
 mapboxgl.accessToken = 'pk.eyJ1IjoicmpkZXZlbG9wZXIiLCJhIjoiY2twNmtyejhiMHJoaTJ3cXRpd2dsZXJyNSJ9.-vVOy-9UQcN0Dh61WwA-QQ';
 
@@ -610,7 +611,12 @@ class Vendors extends Component {
                                         new_uploaded_img_arr?.map((item, i) => (
                                             <div className="col-6 mb-3">
                                                 <div className="dv-img-store-parent">
-                                                    <img className='img-fluid' src={`${MAIN_URL_IMAGE}${item}`} key={i}
+                                                    <img className='img-fluid'
+                                                         onError={(e) => {
+                                                             e.target.onerror = null;
+                                                             e.target.src = `${placeHolder_img}`
+                                                         }}
+                                                         src={`${MAIN_URL_IMAGE}${item}`} key={i}
                                                          alt="Bed mal"/>
                                                     <i className="las la-times-circle dv-store-icons"
                                                        onClick={() => this.removeHandler(item)}/>

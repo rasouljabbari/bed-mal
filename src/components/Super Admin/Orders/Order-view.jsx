@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {setTitle} from "../../../assets/scripts/GeneralFunctions";
 import Glass from '../../../assets/image/complete.png'
 import OrderNoteImage from '../../../assets/image/Use borrow bags.png'
+import placeHolder_img from "../../../assets/image/bedmal-place-holder.jpg";
 
 class OrderView extends Component {
     constructor(props) {
@@ -139,7 +140,12 @@ class OrderView extends Component {
                                         </td>
                                         <td>
                                             <div className="dv-img-glass-parent">
-                                                <img src={Glass} alt="bed mal" className='img-fluid'/>
+                                                <img
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = `${placeHolder_img}`
+                                                    }}
+                                                    src={Glass} alt="bed mal" className='img-fluid'/>
                                             </div>
                                         </td>
                                         <td>
@@ -160,7 +166,12 @@ class OrderView extends Component {
                                         </td>
                                         <td>
                                             <div className="dv-img-glass-parent">
-                                                <img src={Glass} alt="bed mal" className='img-fluid'/>
+                                                <img
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = `${placeHolder_img}`
+                                                    }}
+                                                    src={Glass} alt="bed mal" className='img-fluid'/>
                                             </div>
                                         </td>
                                         <td>
@@ -199,7 +210,12 @@ class OrderView extends Component {
                                         </td>
                                         <td>
                                             <div className="dv-img-glass-parent">
-                                                <img src={Glass} alt="bed mal" className='img-fluid'/>
+                                                <img
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = `${placeHolder_img}`
+                                                    }}
+                                                    src={Glass} alt="bed mal" className='img-fluid'/>
                                             </div>
                                         </td>
                                         <td>
@@ -220,7 +236,12 @@ class OrderView extends Component {
                                         </td>
                                         <td>
                                             <div className="dv-img-glass-parent">
-                                                <img src={Glass} alt="bed mal" className='img-fluid'/>
+                                                <img
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = `${placeHolder_img}`
+                                                    }}
+                                                    src={Glass} alt="bed mal" className='img-fluid'/>
                                             </div>
                                         </td>
                                         <td>
@@ -241,7 +262,12 @@ class OrderView extends Component {
                                         </td>
                                         <td>
                                             <div className="dv-img-glass-parent">
-                                                <img src={Glass} alt="bed mal" className='img-fluid'/>
+                                                <img
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = `${placeHolder_img}`
+                                                    }}
+                                                    src={Glass} alt="bed mal" className='img-fluid'/>
                                             </div>
                                         </td>
                                         <td>
@@ -262,7 +288,12 @@ class OrderView extends Component {
                                         </td>
                                         <td>
                                             <div className="dv-img-glass-parent">
-                                                <img src={Glass} alt="bed mal" className='img-fluid'/>
+                                                <img
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = `${placeHolder_img}`
+                                                    }}
+                                                    src={Glass} alt="bed mal" className='img-fluid'/>
                                             </div>
                                         </td>
                                         <td>
@@ -283,7 +314,12 @@ class OrderView extends Component {
                                         </td>
                                         <td>
                                             <div className="dv-img-glass-parent">
-                                                <img src={Glass} alt="bed mal" className='img-fluid'/>
+                                                <img
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = `${placeHolder_img}`
+                                                    }}
+                                                    src={Glass} alt="bed mal" className='img-fluid'/>
                                             </div>
                                         </td>
                                         <td>
@@ -304,7 +340,12 @@ class OrderView extends Component {
                                         </td>
                                         <td>
                                             <div className="dv-img-glass-parent">
-                                                <img src={Glass} alt="bed mal" className='img-fluid'/>
+                                                <img
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = `${placeHolder_img}`
+                                                    }}
+                                                    src={Glass} alt="bed mal" className='img-fluid'/>
                                             </div>
                                         </td>
                                         <td>
@@ -325,7 +366,12 @@ class OrderView extends Component {
                                         </td>
                                         <td>
                                             <div className="dv-img-glass-parent">
-                                                <img src={Glass} alt="bed mal" className='img-fluid'/>
+                                                <img
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = `${placeHolder_img}`
+                                                    }}
+                                                    src={Glass} alt="bed mal" className='img-fluid'/>
                                             </div>
                                         </td>
                                         <td>
@@ -346,7 +392,12 @@ class OrderView extends Component {
                                         </td>
                                         <td>
                                             <div className="dv-img-glass-parent">
-                                                <img src={Glass} alt="bed mal" className='img-fluid'/>
+                                                <img
+                                                    onError={(e) => {
+                                                        e.target.onerror = null;
+                                                        e.target.src = `${placeHolder_img}`
+                                                    }}
+                                                    src={Glass} alt="bed mal" className='img-fluid'/>
                                             </div>
                                         </td>
                                         <td>
@@ -362,7 +413,12 @@ class OrderView extends Component {
                                 <div className="dv-order-note">
                                     <div className="d-flex">
                                         <div className="dv-img-order-note-parent">
-                                            <img src={OrderNoteImage} alt="bed mal" className='img-fluid'/>
+                                            <img
+                                                onError={(e) => {
+                                                    e.target.onerror = null;
+                                                    e.target.src = `${placeHolder_img}`
+                                                }}
+                                                src={OrderNoteImage} alt="bed mal" className='img-fluid'/>
                                         </div>
                                         <div className="d-flex flex-column align-items-start">
                                             <h3 className='dv-order-note-title'>ORDER NOTE</h3>

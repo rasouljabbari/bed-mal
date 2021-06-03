@@ -11,14 +11,7 @@ class NotFound extends Component {
                     <div className='notfound-404'>
                         <h1>404</h1>
                     </div>
-                        <h2 className='mb-3'>PAGE NOT FOUND</h2>
-                    <Link to={'/admin-orders'}
-                          className='btn-dashboard' style={{
-                          'position' : 'relative',
-                        'top' : '20px',
-                        'fontSize': '17px',
-                        'padding': '15px 30px'
-                    }}>Back to orders</Link>
+                    <h2 className='mb-3'>PAGE NOT FOUND</h2>
                 </div>
 
             </div>
