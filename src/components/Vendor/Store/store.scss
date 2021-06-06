@@ -1,27 +1,32 @@
 @import "src/assets/style/variables";
-.dv-vendor-store-list-items{
+
+.dv-vendor-store-list-items {
   width: 100%;
   background-color: #413F3F;
   color: #C3BFBF;
   font-size: 20px;
   line-height: 27px;
   padding: 1rem 0 1rem 2rem;
-  &.active , &:hover{
+
+  &.active, &:hover {
     background-color: #EAEAEA;
     color: #413F3F;
     text-decoration: none;
   }
 }
-.dv-text-modal{
+
+.dv-text-modal {
   color: #969292;
   font-size: 18px;
   line-height: 24px;
   font-weight: 100;
   font-family: FuturaPT-Medium !important;
 }
-.dv-checkbox-logins{
+
+.dv-checkbox-logins {
   margin-bottom: 0.5rem;
-  span{
+
+  span {
     background-color: #fff;
     border: 1px solid #C3BFBF;
     border-radius: 5px;
@@ -33,24 +38,171 @@
     font-weight: 100;
     width: 80%;
   }
-  input{
+
+  input {
     width: 35px;
     height: 35px;
-    &:checked{
+
+    &:checked {
       background-color: #fff !important;
       border: 1px solid $main-blue !important;
     }
 
   }
 }
-.dv-modal .modal-content{
-    background-color: $dv-gray-ea !important;
-    border-radius: 20px !important;
-    box-shadow: $dv-box-shadow !important;
+
+.dv-modal .modal-content {
+  background-color: $dv-gray-ea !important;
+  border-radius: 20px !important;
+  box-shadow: $dv-box-shadow !important;
+}
+
+
+.dv-excel-parent {
+  border-radius: 50%;
+  box-shadow: $dv-box-shadow;
+  padding: 0.7rem;
+  cursor: pointer;
+  transition: all 0.3s linear;
+
+  &:hover {
+    background-color: #bcbcbc;
+  }
+}
+
+.dv-btn-new-product {
+  background-color: $main-blue;
+  color: #fff;
+  padding: 0.4rem 2.5rem;
+  font-size: 20px;
+  line-height: 27px;
+  font-weight: normal;
+  border-radius: 25px;
+  box-shadow: $dv-box-shadow;
+
+  &:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: $main-blue-hover;
+  }
+}
+
+.dv-product-table {
+  border-collapse: separate;
+  border-spacing: 0;
+
+  thead{
+    th {
+      border: none !important;
+      background-color: #fff;
+      color: $light-gray-text;
+      padding: 1.6rem 2rem 1rem 2rem;
+      font-size: 18px;
+      font-weight: normal;
+
+      &:first-child {
+        border-radius: 10px 0 0 0 !important;
+      }
+
+      &:last-child {
+        border-radius: 0 10px 0 0 !important;
+      }
+    }
   }
 
+  tbody{
+    tr {
+      &:nth-child(odd) {
+        background-color: #FAFAFA;
+      }
+
+      &:nth-child(even) {
+        background-color: #FFF;
+      }
+
+      td {
+        padding: 0.2rem 2rem;
+        font-size: 18px;
+        border: none !important;
+        color: #212121;
+        .dv-table-img{
+          width: 104px;
+          height: 72px;
+        }
+        .dv-table-eye{
+          font-size: 2rem;
+        }
+        &.dv-product-name{
+          min-width: 330px;
+          vertical-align: top;
+        }
+      }
+
+      &:last-child{
+        td:first-child{
+          border-radius: 0 0 0 10px;
+        }
+        td:last-child{
+          border-radius: 0 0 10px 0;
+        }
+      }
+    }
+  }
+}
+.dv-product-name-label{
+  font-size: 18px;
+  line-height: 24px;
+  color: $bg-customer-vendor;
+}
+//.dv-input::placeholder {
+//  color: $bg-customer-vendor !important;
+//}
+::-webkit-input-placeholder { /* Edge */
+  color:  $bg-customer-vendor;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color:  $bg-customer-vendor;
+}
+
+::placeholder {
+  color:  $bg-customer-vendor;
+}
+.dv-img-product-title{
+  color:  $light-gray-text;
+  font-size: 18px;
+  line-height: 24px;
+}
+.dv-price-icon{
+  position: absolute;
+  left: 1rem;
+  top: 2.3rem;
+  font-size: 20px;
+  line-height: 24px;
+}
+.dv-add-plus-icon{
+  background-color: $main-blue;
+  width: 30px;
+  height: 30px;
+  font-size: 24px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.dv-product-sections-item{
+  list-style: none;
+  font-size: 18px;
+  line-height: 27px;
+  color: $main-blue;
+}
 @media (max-width: 768px) {
   .dv-vendor .dv-vendor-right-content {
     padding: 1rem 1rem !important;
+  }
+  .dv-product-table tbody tr td.dv-product-name {
+    min-width: 140px;
   }
 }

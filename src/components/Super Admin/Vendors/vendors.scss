@@ -270,7 +270,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .dv-plan-modal {
   .modal-content {
-    background-color: #FAFAFA !important;
+    background-color: $dv-gray-ea!important;
 
     .dv-btn-plan-save {
       background-color: $main-blue;
@@ -395,8 +395,10 @@ body::-webkit-scrollbar-thumb:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
   img {
     border-radius: 10px;
+    object-fit: cover;
   }
 
   .dv-store-icons {
@@ -414,7 +416,7 @@ body::-webkit-scrollbar-thumb:hover {
       }
     }
 
-    &.la-arrow-up {
+    &.la-arrow-up,&.la-arrow-right {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -435,7 +437,7 @@ body::-webkit-scrollbar-thumb:hover {
       }
     }
 
-    &.la-arrow-down {
+    &.la-arrow-down,&.la-arrow-left {
       display: flex;
       align-items: center;
       justify-content: center;

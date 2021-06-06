@@ -35,6 +35,8 @@ import Permissions from "./components/Vendor/Store/Permissions";
 import {getData} from "./assets/scripts/GeneralFunctions";
 import {MAIN_URL} from "./assets/scripts/GeneralVariables";
 import Dashboard from "./components/Vendor/Dashboard/Dashboard";
+import VOrders from "./components/Vendor/Orders/VOrders";
+import AddProduct from "./components/Vendor/Store/AddProduct";
 
 class App extends Component {
     constructor(props) {
@@ -124,6 +126,8 @@ class App extends Component {
                                             <Route exact path="/vendor/store/borrow-products"
                                                    component={BorrowProducts}/>
                                             <Route exact path="/vendor/store/products" component={Products}/>
+                                            <Route exact path="/vendor/store/products/create" component={AddProduct}/>
+                                            <Route exact path="/vendor/orders" component={VOrders}/>
 
                                             {/****************** Not found *************************/}
                                             <Route exact path="*" component={NotFound}/>
