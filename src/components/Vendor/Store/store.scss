@@ -42,6 +42,7 @@
   input {
     width: 35px;
     height: 35px;
+    border: 2px solid #C3BFBF !important;
 
     &:checked {
       background-color: #fff !important;
@@ -51,6 +52,26 @@
   }
 }
 
+.dv-checkbox-add-odd {
+  background-color: #FAFAFA;
+  margin-bottom: 0 !important;
+  padding: 0.85rem 7rem 0.85rem 5rem;
+  span {
+    background-color: transparent;
+    border: 0;
+    width: auto !important;
+  }
+}
+.dv-checkbox-add-even {
+  background-color: #fff;
+  margin-bottom: 0 !important;
+  padding: 0.85rem 7rem 0.85rem 5rem;
+  span {
+    background-color: transparent;
+    border: 0;
+    width: auto !important;
+  }
+}
 .dv-modal .modal-content {
   background-color: $dv-gray-ea !important;
   border-radius: 20px !important;
@@ -91,7 +112,7 @@
   border-collapse: separate;
   border-spacing: 0;
 
-  thead{
+  thead {
     th {
       border: none !important;
       background-color: #fff;
@@ -110,7 +131,7 @@
     }
   }
 
-  tbody{
+  tbody {
     tr {
       &:nth-child(odd) {
         background-color: #FAFAFA;
@@ -125,62 +146,71 @@
         font-size: 18px;
         border: none !important;
         color: #212121;
-        .dv-table-img{
+
+        .dv-table-img {
           width: 104px;
           height: 72px;
         }
-        .dv-table-eye{
+
+        .dv-table-eye {
           font-size: 2rem;
         }
-        &.dv-product-name{
+
+        &.dv-product-name {
           min-width: 330px;
           vertical-align: top;
         }
       }
 
-      &:last-child{
-        td:first-child{
+      &:last-child {
+        td:first-child {
           border-radius: 0 0 0 10px;
         }
-        td:last-child{
+
+        td:last-child {
           border-radius: 0 0 10px 0;
         }
       }
     }
   }
 }
-.dv-product-name-label{
+
+.dv-product-name-label {
   font-size: 18px;
   line-height: 24px;
   color: $bg-customer-vendor;
 }
+
 //.dv-input::placeholder {
 //  color: $bg-customer-vendor !important;
 //}
 ::-webkit-input-placeholder { /* Edge */
-  color:  $bg-customer-vendor;
+  color: $bg-customer-vendor;
 }
 
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color:  $bg-customer-vendor;
+  color: $bg-customer-vendor;
 }
 
 ::placeholder {
-  color:  $bg-customer-vendor;
+  color: $bg-customer-vendor;
 }
-.dv-img-product-title{
-  color:  $light-gray-text;
+
+.dv-img-product-title {
+  color: $light-gray-text;
   font-size: 18px;
   line-height: 24px;
 }
-.dv-price-icon{
+
+.dv-price-icon {
   position: absolute;
   left: 1rem;
   top: 2.3rem;
   font-size: 20px;
   line-height: 24px;
 }
-.dv-add-plus-icon{
+
+.dv-add-plus-icon {
   background-color: $main-blue;
   width: 30px;
   height: 30px;
@@ -192,11 +222,124 @@
   border-radius: 50%;
   cursor: pointer;
 }
-.dv-product-sections-item{
+
+.dv-product-sections-item {
   list-style: none;
   font-size: 18px;
   line-height: 27px;
   color: $main-blue;
+}
+
+.w-40 {
+  width: 40%;
+}
+
+.w-10 {
+  width: 10%;
+}
+
+.dv-remove-option {
+  padding: 0.15rem;
+  border: none;
+  box-shadow: none !important;
+  color: #fff;
+  background-color: $main-light-red;
+}
+
+.dv-add-option {
+  padding: 0.15rem;
+  border: none;
+  box-shadow: none !important;
+  color: #fff;
+  background-color: $main-blue;
+}
+
+$color-1: #2ecc71;
+$color-2: #3498db;
+$color-3: #f1c40f;
+$color-4: #e74c3c;
+
+.custom-radios {
+  div {
+    display: inline-block;
+  }
+
+  input[type="radio"] {
+    display: none;
+
+    + label {
+      color: #333;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+
+      span {
+        width: 40px;
+        height: 40px;
+        margin: -1px 4px 0 0;
+        vertical-align: middle;
+        cursor: pointer;
+        border-radius: 50%;
+        border: 2px solid #C3BFBF;
+        background-repeat: no-repeat;
+        background-position: center;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 44px;
+        font-size: 16px;
+        color: $light-gray-text;
+      }
+    }
+
+    &#color-1 + label span {
+      background-color: #fff;
+      border: 1px solid #eaeaea;
+    }
+
+    &#color-2 + label span {
+      background-color: #fff;
+      border: 1px solid #eaeaea;
+    }
+
+    &#color-3 + label span {
+      background-color: #fff;
+      border: 1px solid #eaeaea;
+    }
+
+    &:checked + label span {
+      color: $main-blue;
+      border: 2px solid $main-blue !important;
+    }
+  }
+
+  .dv-number-input {
+    width: 44px;
+    height: 40px;
+    border: 1px solid #EAEAEA;
+    border-radius: 5px;
+    text-align: center;
+  }
+}
+.dv-borrow-switch {
+  .css-xjimrv-Switch {
+    padding: 13px 30px;
+
+  }
+  .css-153wf2s-Switch , .css-jfsaru-Switch {
+    border-radius: 25px;
+    box-shadow: $dv-box-shadow;
+  }
+  .css-19a995p-Switch {
+    left: 3px;
+    border-radius: 25px;
+    width: 23px;
+  }
+  .css-1v96km2-Switch {
+    border-radius: 25px;
+    right: 2px;
+    left: 35px;
+  }
 }
 @media (max-width: 768px) {
   .dv-vendor .dv-vendor-right-content {

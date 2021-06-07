@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import './store.scss';
 import {getData, setTitle} from "../../../assets/scripts/GeneralFunctions";
-import {NavLink} from "react-router-dom";
-import {Modal, Nav} from "react-bootstrap";
+import {Modal} from "react-bootstrap";
 import {MAIN_URL} from "../../../assets/scripts/GeneralVariables";
+import Menu from "./Menu";
 
 class Collections extends Component {
     constructor(props) {
@@ -16,16 +16,6 @@ class Collections extends Component {
 
     async componentDidMount() {
         setTitle('Store')
-        if(localStorage.getItem('Token')){
-            let storeDetails = await getData(MAIN_URL, `vendor/dashboard`, 'get', {}, true, true);
-            if (storeDetails?.status === 200) {
-                let key_arr = [];
-                storeDetails.permissions?.map((item)=>{
-                    key_arr.push(item.key)
-                })
-                this.setState({permissions_item : key_arr})
-            }
-        }
         let collectionsItems = await getData(MAIN_URL, `vendor/collections`, 'get', {}, true, true);
         if (collectionsItems?.status === 200) {
             this.setState({items: collectionsItems?.collections})
@@ -141,49 +131,7 @@ class Collections extends Component {
         return (
             <div className='d-flex flex-column flex-md-row dv-vendor'>
                 <div className="dv-vendors-right-admin dv-vendors-right-admin-2">
-                    <Nav>
-                        {
-                            this.state.permissions_item?.map((item)=>(
-                                item === 'store-details' ?
-                                    <NavLink activeClassName="active"
-                                             className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
-                                             to={'/vendor/store/details'}>Store details</NavLink>
-                                    : ''
-                            ))
-                        }
-                        {
-                            this.state.permissions_item?.map((item)=>(
-                                item === 'collection' && item !== 'store-details' ?
-                                    <NavLink activeClassName="active"
-                                             className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5 mb-3'
-                                             to={'/vendor/store/collections'}>Collections</NavLink>
-                                    : item === 'collection' ?
-                                    <NavLink activeClassName="active"
-                                             className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
-                                             to={'/vendor/store/collections'}>Collections</NavLink>
-                                    : ''
-                            ))
-                        }
-                        <NavLink activeClassName="active"
-                                 className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
-                                 to={'/vendor/store/fulfilment'}>Fulfilment</NavLink>
-                        <NavLink activeClassName="active"
-                                 className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
-                                 to={'/vendor/store/borrow-products'}>Borrow products</NavLink>
-                        <NavLink activeClassName="active"
-                                 className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-0'
-                                 to={'/vendor/store/products'}>Products</NavLink>
-                        {
-                            this.state.permissions_item?.map((item)=>(
-                                item === 'logins' ?
-                                    <NavLink activeClassName="active"
-                                             className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
-                                             to={'/vendor/store/permissions'}>Permissions</NavLink>
-                                    : ''
-                            ))
-                        }
-
-                    </Nav>
+                    <Menu/>
                 </div>
                 <div className='dv-vendor-right-content dv-vendor-right-content-2 position-relative mb-5'>
                     <>

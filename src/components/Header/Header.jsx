@@ -120,21 +120,37 @@ class Header extends Component {
                                          to={'/vendor/orders'}>Orders</NavLink>
                                 <NavDropdown title="Store" className='py-3' id="basic-nav-dropdown">
                                     {
-                                        this.state.permissions?.map((itm) => (
-                                            itm === 'store-details' ? <NavDropdown.Item>
+                                        permissions.length !== 0 ?
+                                        permissions?.map((itm) => (
+                                            localStorage.getItem('type') === 'vendor_admin' || itm === 'store-details' ? <NavDropdown.Item>
                                                     <NavLink onClick={this.handleCloseMenu} activeClassName="active"
                                                              to={{
                                                                  pathname: "/vendor/store/details"
                                                              }}>Store details</NavLink>
                                                 </NavDropdown.Item>
-                                                : itm === 'collection' ? <NavDropdown.Item>
+                                                : localStorage.getItem('type') === 'vendor_admin' || itm === 'collection' ? <NavDropdown.Item>
                                                     <NavLink onClick={this.handleCloseMenu} activeClassName="active"
                                                              to={{
                                                                  pathname: "/vendor/store/collections"
                                                              }}>Collections</NavLink>
                                                 </NavDropdown.Item>
                                                 : ''
-                                        ))
+                                        )) :
+                                            <>
+                                                <NavDropdown.Item>
+                                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                                             to={{
+                                                                 pathname: "/vendor/store/details"
+                                                             }}>Store details</NavLink>
+                                                </NavDropdown.Item>
+                                                <NavDropdown.Item>
+                                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                                             to={{
+                                                                 pathname: "/vendor/store/collections"
+                                                             }}>Collections</NavLink>
+                                                </NavDropdown.Item>
+                                            </>
+
                                     }
                                     <NavDropdown.Item>
                                         <NavLink onClick={this.handleCloseMenu} activeClassName="active" to={{
@@ -150,12 +166,16 @@ class Header extends Component {
                                 <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='py-3'
                                          to={'/vendor/transaction'}>Transactions</NavLink>
                                 {
-                                    this.state.permissions?.map((itm) => (
-                                        itm === 'logins' ?
+                                    permissions.length !== 0 ?
+                                    permissions?.map((itm) => (
+                                        localStorage.getItem('type') === 'vendor_admin' || itm === 'logins' ?
                                             <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='py-3'
                                                      to={{pathname: "/vendor/store/permissions"}}>Logins & Permissions</NavLink>
                                             : ''
-                                    ))
+                                    )) :
+                                        <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='py-3'
+                                                 to={{pathname: "/vendor/store/permissions"}}>Logins & Permissions</NavLink>
+
                                 }
 
                                 <button onClick={this.handleLogout} className='dv-logout py-3'>Logout</button>

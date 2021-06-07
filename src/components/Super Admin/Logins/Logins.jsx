@@ -40,7 +40,10 @@ class Logins extends Component {
     }
     /********************** ADD ***********/
     addLogin = () => {
-        this.setState({new_login: true})
+        this.setState({new_login: true,
+            vendor_name: '',vendor_email: '',vendor_password: '',vendor_confirm_password:'',vendor_username:'',
+            vendor_type:'-1',vendor_id:'-1',
+        })
     }
     addSubmitForm = async (e) => {
         e.preventDefault()
@@ -295,7 +298,7 @@ class Logins extends Component {
                                             <option value='-1' disabled={true} selected={true}>choose vendor</option>
                                             {
                                                 this.state.vendors?.map((item , i)=>(
-                                                    <option value={item.id} key={i}>{item.id}</option>
+                                                    <option value={item.id} key={i}>{item.name}</option>
                                                 ))
                                             }
                                         </select> : ''

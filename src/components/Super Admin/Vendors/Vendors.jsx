@@ -31,6 +31,7 @@ class Vendors extends Component {
     async componentDidMount() {
         setTitle('Vendors')
         let vendorItems = await getData(MAIN_URL, `admin/vendors`, 'get', {}, true, true);
+        console.log(vendorItems.items)
         if (vendorItems?.status === 200) {
 
             let default_item = vendorItems.items[0]
@@ -40,7 +41,7 @@ class Vendors extends Component {
                 this.setState({department_list: departmentList.items})
             }
 
-            let vendorItem = await getData(MAIN_URL, `admin/vendors/info/${default_item.id}`, 'get', {}, true, true);
+            let vendorItem = await getData(MAIN_URL, `admin/vendors/info/${default_item?.id}`, 'get', {}, true, true);
             if (vendorItem?.status === 200) {
                 this.setState({
                     items: vendorItems.items,
