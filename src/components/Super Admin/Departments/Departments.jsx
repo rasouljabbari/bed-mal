@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import {getData} from "../../../assets/scripts/GeneralFunctions";
 import {MAIN_URL} from "../../../assets/scripts/GeneralVariables";
 import {Modal} from "react-bootstrap";
+import Swal from "sweetalert2";
 
 class Departments extends Component {
     constructor(props) {
@@ -25,7 +26,7 @@ class Departments extends Component {
     }
 
     newDepartment = () => {
-        this.setState({add_department: true})
+        this.setState({add_department: true , department_name:''})
     }
     inputHandler = (e) => {
         this.setState({
@@ -46,6 +47,10 @@ class Departments extends Component {
             let newStatuses = items.concat(new_item?.item);
             this.setState({items: newStatuses});
         }
+        Swal.fire({
+            icon: 'success',
+            title: 'created successful',
+        })
     }
     removeDepartment = async (id) => {
         this.setState({show: true, removeSelectedId: id})
@@ -53,13 +58,17 @@ class Departments extends Component {
     removeItemFromList = async () => {
         let arr = [];
         this.setState({show: false})
-        let removeItem = await getData(MAIN_URL, `admin/departments/remove/${this.state.removeSelectedId}`, 'post', {}, true, true);
-        // console.log(items)
+
+        let removeItem = await getData(MAIN_URL, `admin/departments/remove/${this.state.removeSelectedId}`, 'get', {}, true, true);
         if (removeItem?.status === 200) {
             this.state.items.map((item) => {
                 if (this.state.removeSelectedId !== item.id) {
                     arr.push(item)
                 }
+            })
+            Swal.fire({
+                icon: 'success',
+                title: 'removed successful',
             })
             this.setState({items: arr})
         }
@@ -138,37 +147,41 @@ class Departments extends Component {
                             </div>
                             <div className="col-12">
                                 <div className='dv-bg-light overflow-auto p-md-4'>
-                                    <table className="table dv-department-table text-center">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">Department name</th>
-                                            <th scope="col" className='text-right'>Reorder</th>
-                                            <th scope="col" className='text-left'>Delete</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {
-                                            items?.map((row, i) => (
-                                                <tr key={i}>
-                                                    <td>{row.name}</td>
-                                                    <td className='text-right'>
-                                                        <div className="d-flex align-items-center justify-content-end">
-                                                            <i className="las la-arrow-down dv-department-icon mr-1"
-                                                               onClick={() => this.downDepartment(row.row_index, row.id, i)}/>
-                                                            <i className="las la-arrow-up dv-department-icon ml-1"
-                                                               onClick={() => this.upDepartment(row.row_index, row.id, i)}/>
-                                                        </div>
-                                                    </td>
-                                                    <td className='text-left'><i
-                                                        className="las la-trash dv-department-icon"
-                                                        onClick={() => this.removeDepartment(row.id)}/></td>
+                                    {
+                                        items?.length !== 0 ?
+                                            <table className="table dv-department-table text-center">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Department name</th>
+                                                    <th scope="col" className='text-right dv-reorder'>Reorder</th>
+                                                    <th scope="col" className='text-left'>Delete</th>
                                                 </tr>
-                                            ))
-                                        }
+                                                </thead>
+                                                <tbody>
+                                                {
+                                                    items?.map((row, i) => (
+                                                        <tr key={i}>
+                                                            <td>{row.name}</td>
+                                                            <td className='text-right'>
+                                                                <div className="d-flex align-items-center justify-content-end">
+                                                                    <i className="las la-arrow-down dv-department-icon mr-1"
+                                                                       onClick={() => this.downDepartment(row.row_index, row.id, i)}/>
+                                                                    <i className="las la-arrow-up dv-department-icon ml-1"
+                                                                       onClick={() => this.upDepartment(row.row_index, row.id, i)}/>
+                                                                </div>
+                                                            </td>
+                                                            <td className='text-left'><i
+                                                                className="las la-trash dv-department-icon"
+                                                                onClick={() => this.removeDepartment(row.id)}/></td>
+                                                        </tr>
+                                                    ))
+                                                }
 
 
-                                        </tbody>
-                                    </table>
+                                                </tbody>
+                                            </table> : <h2 className='text-center'>There is no item</h2>
+                                    }
+
                                 </div>
                             </div>
                         </div>

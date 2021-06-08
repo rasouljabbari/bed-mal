@@ -81,8 +81,14 @@
     background-color: $main-blue-hover;
   }
 }
+.dv-custom-pl{
+  padding-left: 6.5rem;
+}
 @media (max-width: 768px) {
   .dv-pr-custom{
     padding-right: 15px !important;
+  }
+  .dv-custom-pl{
+    padding-left: 0;
   }
 }

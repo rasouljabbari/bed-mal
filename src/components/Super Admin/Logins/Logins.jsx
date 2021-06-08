@@ -3,6 +3,8 @@ import './logins.scss'
 import {getData, setTitle} from "../../../assets/scripts/GeneralFunctions";
 import {Modal} from "react-bootstrap";
 import {MAIN_URL} from "../../../assets/scripts/GeneralVariables";
+import Swal from "sweetalert2";
+import Pen from '../../../assets/image/Icon material-mode-edit.svg'
 
 class Logins extends Component {
     constructor(props) {
@@ -62,6 +64,10 @@ class Logins extends Component {
             let logins_arr = this.state.logins;
             let newStatuses = [loginsItem.item].concat(logins_arr);
             this.setState({logins: newStatuses,new_login:false });
+            Swal.fire({
+                icon: 'success',
+                title: 'created successful',
+            })
         }
     }
     /********************** ADD ***********/
@@ -98,6 +104,10 @@ class Logins extends Component {
             this.setState({
                 logins: updatedHeaders,edit_login:false
             })
+            Swal.fire({
+                icon: 'success',
+                title: 'edited successful',
+            })
         }
     }
     /********************** EDIT ***********/
@@ -120,6 +130,10 @@ class Logins extends Component {
                 }
             })
             this.setState({logins: arr , remove_show: false , edit_login: false})
+            Swal.fire({
+                icon: 'success',
+                title: 'removed successful',
+            })
         }
     }
     closeModalDelete = () => {
@@ -171,7 +185,7 @@ class Logins extends Component {
                     <div className="row">
                         <div
                             className="col-12 my-2 d-flex flex-column flex-md-row justify-content-between align-items-center">
-                            <h2 className='pl-md-5'>Super Admin</h2>
+                            <h2 className='dv-custom-pl'>Super Admin</h2>
                             <button className='dv-add-btn' onClick={this.addLogin}>Create login</button>
                         </div>
                         <div className="col-12">
@@ -186,8 +200,7 @@ class Logins extends Component {
                                                 <div key={i} className="col-12 mb-5 d-flex align-items-center justify-content-between">
                                                     <h3 className='dv-logins-item-title'>{item.name}</h3>
                                                     <div className="d-flex align-items-center justify-content-around">
-                                                        <i className='la la-pen dv-pen-icon pr-3'
-                                                           onClick={() => this.editLogins(item.id)}/>
+                                                        <img src={Pen} className='img-fluid dv-pen-icon pr-3' onClick={() => this.editLogins(item.id)} alt=""/>
                                                         <i className='las la-minus-circle dv-minus-icon pl-3'
                                                            onClick={() => this.removeLogins(item.id)}/>
                                                     </div>
@@ -250,7 +263,7 @@ class Logins extends Component {
                             </div>
                             <div
                                 className='col-12 d-flex justify-content-end align-items-center'>
-                                <button type='button' onClick={this.closeModal} className='dv-btn-cancel-modal px-5'>Cancel
+                                <button type='button' onClick={this.closeModal} className='dv-btn-cancel-modal px-5 mr-2'>Cancel
                                 </button>
                                 <button type='submit' className='dv-btn-save-modal px-5'>Save</button>
                             </div>
@@ -313,7 +326,7 @@ class Logins extends Component {
                                 </div>
                                 <div className="d-flex">
                                     <button type='button' onClick={this.closeModal}
-                                            className='dv-btn-cancel-modal'>Cancel
+                                            className='dv-btn-cancel-modal mr-2'>Cancel
                                     </button>
                                     <button type='submit' className='dv-btn-save-modal'>Save</button>
                                 </div>

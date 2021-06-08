@@ -15,14 +15,14 @@ class Header extends Component {
     }
 
     async componentDidMount() {
-        if(localStorage.getItem('Token')){
+        if (localStorage.getItem('Token')) {
             let storeDetails = await getData(MAIN_URL, `vendor/dashboard`, 'get', {}, true, true);
             if (storeDetails?.status === 200) {
                 let key_arr = [];
-                storeDetails.permissions?.map((item)=>{
+                storeDetails.permissions?.map((item) => {
                     key_arr.push(item.key)
                 })
-                this.setState({permissions : key_arr})
+                this.setState({permissions: key_arr})
             }
         }
     }
@@ -47,7 +47,7 @@ class Header extends Component {
     }
     allowLogout = () => {
 
-        this.setState({sureLogout: false , isOpen: false})
+        this.setState({sureLogout: false, isOpen: false})
         localStorage.removeItem('Token')
         localStorage.removeItem('type')
         window.location.replace('/login')
@@ -58,16 +58,14 @@ class Header extends Component {
     }
 
 
-
     render() {
-        const {isOpen , permissions} = this.state;
-
-        console.log(permissions)
+        const {isOpen, permissions} = this.state;
         return (
             <div className='dv-main-top-menu d-flex justify-content-between align-items-center'>
                 {/*<div className='dv-main-top-menu dv-top-menu-red'>*/}
                 <h4 className='mb-0' id='dv_header_title'></h4>
-                <Link onClick={this.handleCloseMenu} to={'/admin/messages'} className=' ml-lg-auto dv-navbar-logo d-flex align-items-center'>
+                <Link onClick={this.handleCloseMenu} to={'/admin/messages'}
+                      className=' ml-lg-auto dv-navbar-logo d-flex align-items-center'>
                     <div className='position-relative'>
                         <img src={LogoIcon} className='img-fluid dv-header-icon' alt="bed mal"/>
                         <div className='dv-circle-red'></div>
@@ -82,75 +80,106 @@ class Header extends Component {
                     <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
                     {
                         localStorage.getItem('type') === 'super_admin' ?
-                            <Nav className="mr-auto d-flex flex-column">
-                                <NavLink onClick={this.handleCloseMenu} activeClassName="active" to={'/admin/orders'}>Orders</NavLink>
-                                <NavLink onClick={this.handleCloseMenu} activeClassName="active" to={'/admin/vendors'}>Vendors</NavLink>
-                                <NavLink onClick={this.handleCloseMenu} activeClassName="active" to={'/admin/users'}>Users</NavLink>
-                                <NavLink onClick={this.handleCloseMenu} activeClassName="active" to={'/admin/departments'}>Departments</NavLink>
-                                <NavDropdown title="Borrowing" id="basic-nav-dropdown">
+                                <Nav className="mr-auto d-flex flex-column">
+                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                             to={'/admin/orders'}>Orders</NavLink>
+                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                             to={'/admin/vendors'}>Vendors</NavLink>
+                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                             to={'/admin/users'}>Users</NavLink>
+                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                             to={'/admin/departments'}>Departments</NavLink>
+                                    <NavDropdown title="Borrowing" id="basic-nav-dropdown">
+                                        <NavDropdown.Item>
+                                            <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                                     to={'/admin/borrow-receipts'}>BorrowReceipt</NavLink>
+                                        </NavDropdown.Item>
 
-                                    <NavDropdown.Item>
-                                        <NavLink onClick={this.handleCloseMenu} activeClassName="active"
-                                                 to={'/admin/borrow-receipts'}>BorrowReceipt</NavLink>
-                                    </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                                     to={'/admin/borrowing'}>Non-return
+                                                fee</NavLink>
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                                     to={'/admin/borrowing-inventory'}>Inventory</NavLink>
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                                     to={'/admin/borrowing-active'}>Active</NavLink>
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                                     to={'/admin/borrowing-loan-report'}>Loan
+                                                report</NavLink>
+                                        </NavDropdown.Item>
+                                    </NavDropdown>
+                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                             to={'/admin/transaction'}>Transactions</NavLink>
+                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                             to={'/admin/logins'}>Logins</NavLink>
+                                    <button onClick={this.handleLogout} className='dv-logout'>Logout</button>
+                                </Nav>
+                            : localStorage.getItem('type') === 'vendor_admin' ?
+                                <Nav className="mr-auto d-flex flex-column">
+                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='py-3'
+                                             to={'/vendor/orders'}>Orders</NavLink>
+                                    <NavDropdown title="Store" className='py-3' id="basic-nav-dropdown">
+                                        <NavDropdown.Item>
+                                            <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                                     to={{
+                                                         pathname: "/vendor/store/details"
+                                                     }}>Store details</NavLink>
+                                        </NavDropdown.Item>
 
-                                    <NavDropdown.Item>
-                                        <NavLink onClick={this.handleCloseMenu} activeClassName="active" to={'/admin/borrowing'}>Non-return
-                                            fee</NavLink>
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item>
-                                        <NavLink onClick={this.handleCloseMenu} activeClassName="active"
-                                                 to={'/admin/borrowing-inventory'}>Inventory</NavLink>
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item>
-                                        <NavLink onClick={this.handleCloseMenu} activeClassName="active"
-                                                 to={'/admin/borrowing-active'}>Active</NavLink>
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item>
-                                        <NavLink onClick={this.handleCloseMenu} activeClassName="active" to={'/admin/borrowing-loan-report'}>Loan
-                                            report</NavLink>
-                                    </NavDropdown.Item>
-                                </NavDropdown>
-                                <NavLink onClick={this.handleCloseMenu} activeClassName="active" to={'/admin/transaction'}>Transactions</NavLink>
-                                <NavLink onClick={this.handleCloseMenu} activeClassName="active" to={'/admin/logins'}>Logins</NavLink>
-                                <button onClick={this.handleLogout} className='dv-logout'>Logout</button>
-                            </Nav> :
+                                        <NavDropdown.Item>
+                                            <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                                     to={{
+                                                         pathname: "/vendor/store/collections"
+                                                     }}>Collections</NavLink>
+                                        </NavDropdown.Item>
+
+                                        <NavDropdown.Item>
+                                            <NavLink onClick={this.handleCloseMenu} activeClassName="active" to={{
+                                                pathname: "/vendor/store/fulfilment"
+                                            }}>Fulfilment</NavLink>
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Item>
+                                            <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                                     to={{pathname: "/vendor/store/borrow-products"}}>BorrowProducts</NavLink>
+                                        </NavDropdown.Item>
+
+                                    </NavDropdown>
+                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='py-3'
+                                             to={'/vendor/transaction'}>Transactions</NavLink>
+                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='py-3'
+                                             to={{pathname: "/vendor/store/permissions"}}>Logins & Permissions</NavLink>
+                                    <button onClick={this.handleLogout} className='dv-logout py-3'>Logout</button>
+                                </Nav>
+                            :
                             <Nav className="mr-auto d-flex flex-column">
                                 <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='py-3'
                                          to={'/vendor/orders'}>Orders</NavLink>
                                 <NavDropdown title="Store" className='py-3' id="basic-nav-dropdown">
                                     {
                                         permissions.length !== 0 ?
-                                        permissions?.map((itm) => (
-                                            localStorage.getItem('type') === 'vendor_admin' || itm === 'store-details' ? <NavDropdown.Item>
-                                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
-                                                             to={{
-                                                                 pathname: "/vendor/store/details"
-                                                             }}>Store details</NavLink>
-                                                </NavDropdown.Item>
-                                                : localStorage.getItem('type') === 'vendor_admin' || itm === 'collection' ? <NavDropdown.Item>
-                                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
-                                                             to={{
-                                                                 pathname: "/vendor/store/collections"
-                                                             }}>Collections</NavLink>
-                                                </NavDropdown.Item>
-                                                : ''
-                                        )) :
-                                            <>
-                                                <NavDropdown.Item>
-                                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
-                                                             to={{
-                                                                 pathname: "/vendor/store/details"
-                                                             }}>Store details</NavLink>
-                                                </NavDropdown.Item>
-                                                <NavDropdown.Item>
-                                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
-                                                             to={{
-                                                                 pathname: "/vendor/store/collections"
-                                                             }}>Collections</NavLink>
-                                                </NavDropdown.Item>
-                                            </>
-
+                                            permissions?.map((itm) => (
+                                                itm === 'store-details' ?
+                                                    <NavDropdown.Item>
+                                                        <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                                                 to={{
+                                                                     pathname: "/vendor/store/details"
+                                                                 }}>Store details</NavLink>
+                                                    </NavDropdown.Item>
+                                                    :  itm === 'collection' ?
+                                                    <NavDropdown.Item>
+                                                        <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                                                 to={{
+                                                                     pathname: "/vendor/store/collections"
+                                                                 }}>Collections</NavLink>
+                                                    </NavDropdown.Item>
+                                                    : ''
+                                            )) : ''
                                     }
                                     <NavDropdown.Item>
                                         <NavLink onClick={this.handleCloseMenu} activeClassName="active" to={{
@@ -167,14 +196,14 @@ class Header extends Component {
                                          to={'/vendor/transaction'}>Transactions</NavLink>
                                 {
                                     permissions.length !== 0 ?
-                                    permissions?.map((itm) => (
-                                        localStorage.getItem('type') === 'vendor_admin' || itm === 'logins' ?
-                                            <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='py-3'
-                                                     to={{pathname: "/vendor/store/permissions"}}>Logins & Permissions</NavLink>
-                                            : ''
-                                    )) :
-                                        <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='py-3'
-                                                 to={{pathname: "/vendor/store/permissions"}}>Logins & Permissions</NavLink>
+                                        permissions?.map((itm) => (
+                                            itm === 'logins' ?
+                                                <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                                         className='py-3'
+                                                         to={{pathname: "/vendor/store/permissions"}}>Logins &
+                                                    Permissions</NavLink>
+                                                : ''
+                                        )) : ''
 
                                 }
 

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './vendors.scss'
-import {getData, loader, setTitle} from "../../../assets/scripts/GeneralFunctions";
+import {emailRegex, getData, loader, setTitle} from "../../../assets/scripts/GeneralFunctions";
 import StoreImg from '../../../assets/image/4.0 Elite DeckTwist.png'
 
 import TimePicker from 'react-times';
@@ -14,7 +14,8 @@ import mapboxgl from 'mapbox-gl';
 import {MAIN_URL, MAIN_URL_IMAGE} from "../../../assets/scripts/GeneralVariables";
 import {Modal} from "react-bootstrap";
 import placeHolder_img from "../../../assets/image/bedmal-place-holder.jpg";
-
+import Swal from "sweetalert2";
+import {toast} from "react-toastify";
 mapboxgl.accessToken = 'pk.eyJ1IjoicmpkZXZlbG9wZXIiLCJhIjoiY2twNmtyejhiMHJoaTJ3cXRpd2dsZXJyNSJ9.-vVOy-9UQcN0Dh61WwA-QQ';
 
 class Vendors extends Component {
@@ -34,7 +35,7 @@ class Vendors extends Component {
     async componentDidMount() {
         setTitle('Store')
 
-        const {lng, lat, zoom} = this.state;
+        const {zoom} = this.state;
 
         let term_id = this.props.match.params.term_id;
         let vendorItem = await getData(MAIN_URL, `admin/vendors/info/${term_id}`, 'get', {}, true, true);
@@ -70,16 +71,6 @@ class Vendors extends Component {
             zoom: zoom
         });
 
-        // map.on('move', () => {
-        //     this.setState({
-        //         lng: map.getCenter().lng.toFixed(4),
-        //         lat: map.getCenter().lat.toFixed(4),
-        //         zoom: map.getZoom().toFixed(2)
-        //     },()=>{
-        //         console.log(this.state.lng,this.state.lat)
-        //     });
-        // });
-
         let marker = new mapboxgl.Marker({
             draggable: true
         })
@@ -89,7 +80,7 @@ class Vendors extends Component {
 
         marker.on('dragend', () => {
             let lngLat = marker.getLngLat();
-            console.log('Longitude: ' + lngLat.lng + ' Latitude: ' + lngLat.lat, marker.getLngLat())
+            // console.log('Longitude: ' + lngLat.lng + ' Latitude: ' + lngLat.lat, marker.getLngLat())
             this.setState({lng: lngLat.lng, lat: lngLat.lat})
         });
 
@@ -190,21 +181,23 @@ class Vendors extends Component {
     onChange = id => {
         const selectedCheckboxes = this.state.selectedCheckboxes;
 
-        // Find index
-        const findIdx = selectedCheckboxes.indexOf(id);
+            // Find index
+            const findIdx = selectedCheckboxes.indexOf(id);
 
-        // Index > -1 means that the item exists and that the checkbox is checked
-        // and in that case we want to remove it from the array and uncheck it
-        if (findIdx > -1) {
-            selectedCheckboxes.splice(findIdx, 1);
-        } else {
-            selectedCheckboxes.push(id);
+            // Index > -1 means that the item exists and that the checkbox is checked
+            // and in that case we want to remove it from the array and uncheck it
+            if (findIdx > -1) {
+                selectedCheckboxes.splice(findIdx, 1);
+            } else {
+                selectedCheckboxes.push(id);
+            }
+        if(selectedCheckboxes?.length <= 3 ){
+            this.setState({
+                selectedCheckboxes: selectedCheckboxes,
+                selectedId: id
+            });
         }
 
-        this.setState({
-            selectedCheckboxes: selectedCheckboxes,
-            selectedId: id
-        });
     };
 
     // Image Uploading
@@ -269,11 +262,12 @@ class Vendors extends Component {
 
             let blob = b64toBlob(realData, contentType);
 
+            let file_name = new File([blob], file.name, {lastModified: file.lastModified, type: file.type});
 
             let fd = new FormData();
 
             // Check file selected or not
-            fd.append('image', blob);
+            fd.append('image', file_name);
             const headers = {
                 'Authorization': `Bearer ${localStorage.getItem("Token")}`,
             };
@@ -288,7 +282,10 @@ class Vendors extends Component {
                     })
                 }
             }).catch(error => {
-                console.log(error)
+                loader()
+                error.response.data.errors?.map((item)=>{
+                    toast.error(item.message)
+                })
             })
 
 
@@ -372,25 +369,30 @@ class Vendors extends Component {
             sun: sunday
         }
 
-        console.log(lat, lng)
+        if(!emailRegex(store_email)){
+            let vendorItem = await getData(MAIN_URL, `admin/vendors/edit/${vendor_id}`, 'post', {
+                address: store_address,
+                postal_code: postal_code,
+                name: store_name,
+                email: store_email,
+                phone: store_phone,
+                latitude: lat,
+                longitude: lng,
+                image_gallery: JSON.stringify(new_uploaded_img_arr),
+                opening_hours: JSON.stringify(opening_hours),
+                departments: JSON.stringify(selectedCheckboxes),
 
-        let vendorItem = await getData(MAIN_URL, `admin/vendors/edit/${vendor_id}`, 'post', {
-            address: store_address,
-            postal_code: postal_code,
-            name: store_name,
-            email: store_email,
-            phone: store_phone,
-            latitude: lat,
-            longitude: lng,
-            image_gallery: JSON.stringify(new_uploaded_img_arr),
-            opening_hours: JSON.stringify(opening_hours),
-            departments: JSON.stringify(selectedCheckboxes),
-
-        }, true, true);
-        if (vendorItem?.status === 200) {
-            console.log(vendorItem)
-            // this.props.history.push('/admin/vendors')
+            }, true, true);
+            if (vendorItem?.status === 200) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'edited successful',
+                })
+                // this.props.history.push('/admin/vendors')
+            }
         }
+
+
     }
 
     vendorListItemHandler = (id) => {
@@ -420,10 +422,6 @@ class Vendors extends Component {
                         <li className="dv-vendor-list-items d-flex flex-column align-items-start"
                             onClick={() => this.vendorListItemHandler(2)}>
                             <h5 className='dv-vendor-list-title mb-0'>Collections</h5>
-                        </li>
-                        <li className="dv-vendor-list-items d-flex flex-column align-items-start"
-                            onClick={() => this.vendorListItemHandler(2)}>
-                            <h5 className='dv-vendor-list-title mb-0'>Store details</h5>
                         </li>
                         <li className="dv-vendor-list-items d-flex flex-column align-items-start"
                             onClick={() => this.vendorListItemHandler(3)}>
@@ -456,14 +454,14 @@ class Vendors extends Component {
                                     <input type="text" name='store_name' value={this.state.store_name}
                                            onChange={this.inputHandler} id='dv-store-name' className='dv-store-input'/>
                                 </label>
-                                <label htmlFor="dv-store-email" className='d-flex mb-4'>
-                                    <span className='dv-store-name pr-2'>Email</span>
+                                <label htmlFor="dv-store-email" className='d-flex align-items-center mb-4'>
+                                    <span className='dv-store-name dv-custom-width-label'>Email</span>
                                     <input type="email" name='store_email' value={this.state.store_email}
                                            onChange={this.inputHandler} id='dv-store-email'
-                                           className='dv-store-input w-75'/>
+                                           className='dv-store-input w-75' required={true}/>
                                 </label>
-                                <label htmlFor="dv-store-phone" className='d-flex mb-4'>
-                                    <span className='dv-store-name pr-2'>Phone</span>
+                                <label htmlFor="dv-store-phone" className='d-flex align-items-center mb-4'>
+                                    <span className='dv-store-name dv-custom-width-label'>Phone</span>
                                     <input type="tel" name='store_phone' value={this.state.store_phone}
                                            onChange={this.inputHandler} id='dv-store-phone'
                                            className='dv-store-input w-75'/>
@@ -637,8 +635,8 @@ class Vendors extends Component {
                                         <label
                                             className={
                                                 selectedCheckboxes.find(element => element === checkbox.id) ?
-                                                    'dv-label-checkbox-checked' :
-                                                    'dv-label-checkbox'
+                                                    'dv-label-checkbox-checked mr-3' :
+                                                    'dv-label-checkbox mr-3'
                                             }
                                             key={checkbox.id}>
                                             <span>{checkbox.name}</span>

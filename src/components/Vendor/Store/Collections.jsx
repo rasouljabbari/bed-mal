@@ -4,6 +4,7 @@ import {getData, setTitle} from "../../../assets/scripts/GeneralFunctions";
 import {Modal} from "react-bootstrap";
 import {MAIN_URL} from "../../../assets/scripts/GeneralVariables";
 import Menu from "./Menu";
+import Swal from "sweetalert2";
 
 class Collections extends Component {
     constructor(props) {
@@ -41,6 +42,10 @@ class Collections extends Component {
         if (new_item?.status == 200) {
             let items = this.state.items;
             let newStatuses = items.concat(new_item?.item);
+            Swal.fire({
+                icon: 'success',
+                title: 'created successful',
+            })
             this.setState({items: newStatuses});
         }
     }
@@ -58,6 +63,10 @@ class Collections extends Component {
                 if (this.state.removeSelectedId !== item.id) {
                     arr.push(item)
                 }
+            })
+            Swal.fire({
+                icon: 'success',
+                title: 'removed successful',
             })
             this.setState({items: arr})
         }
@@ -144,36 +153,40 @@ class Collections extends Component {
                                 </div>
                                 <div className="col-12">
                                     <div className='dv-bg-light dv-box-shadow overflow-auto p-md-4'>
-                                        <table className="table dv-department-table text-center">
-                                            <thead>
-                                            <tr>
-                                                <th className='pl-md-5 text-left' scope="col">Category name </th>
-                                                <th scope="col" className='text-right pr-4'>Reorder</th>
-                                                <th scope="col" className='text-center'>Delete</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {
-                                                items?.map((row, i) => (
-                                                    <tr key={i}>
-                                                        <td className='pl-md-5 mb-0 text-left'>{row.name}</td>
-                                                        <td className='text-right'>
-                                                            <div
-                                                                className="d-flex align-items-center justify-content-end">
-                                                                <i className="las la-arrow-down dv-department-icon mr-1"
-                                                                   onClick={() => this.downCollections(row.row_index, row.id, i)}/>
-                                                                <i className="las la-arrow-up dv-department-icon ml-1"
-                                                                   onClick={() => this.upCollections(row.row_index, row.id, i)}/>
-                                                            </div>
-                                                        </td>
-                                                        <td className='d-flex justify-content-center'><i
-                                                            className="las la-trash dv-department-icon"
-                                                            onClick={() => this.removeCollections(row.id)}/></td>
+                                        {
+                                            items?.length !== 0 ?
+                                                <table className="table dv-department-table text-center">
+                                                    <thead>
+                                                    <tr>
+                                                        <th className='pl-md-5 text-left' scope="col">Category name </th>
+                                                        <th scope="col" className='text-right pr-4'>Reorder</th>
+                                                        <th scope="col" className='text-center'>Delete</th>
                                                     </tr>
-                                                ))
-                                            }
-                                            </tbody>
-                                        </table>
+                                                    </thead>
+                                                    <tbody>
+                                                    {
+                                                        items?.map((row, i) => (
+                                                            <tr key={i}>
+                                                                <td className='pl-md-5 mb-0 text-left'>{row.name}</td>
+                                                                <td className='text-right'>
+                                                                    <div
+                                                                        className="d-flex align-items-center justify-content-end">
+                                                                        <i className="las la-arrow-down dv-department-icon mr-1"
+                                                                           onClick={() => this.downCollections(row.row_index, row.id, i)}/>
+                                                                        <i className="las la-arrow-up dv-department-icon ml-1"
+                                                                           onClick={() => this.upCollections(row.row_index, row.id, i)}/>
+                                                                    </div>
+                                                                </td>
+                                                                <td className='d-flex justify-content-center'><i
+                                                                    className="las la-trash dv-department-icon"
+                                                                    onClick={() => this.removeCollections(row.id)}/></td>
+                                                            </tr>
+                                                        ))
+                                                    }
+                                                    </tbody>
+                                                </table> : <h1 className='text-center'>There is no item</h1>
+                                        }
+
                                     </div>
                                 </div>
                             </div>

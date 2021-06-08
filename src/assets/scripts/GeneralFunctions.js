@@ -85,6 +85,7 @@ export const getData = async (base_url, url, type, dataParams = {}, isToken = fa
                     })
                 }
                 else if (e.response.status === 400) {
+                    console.log('dsvdsvd')
                     e.response.data.errors?.map((row)=>{
                         toast.error(row.message)
                     })
@@ -390,3 +391,11 @@ export const getNumberFormat = (current_number, dec = 2) => {
         return 0
     }
 };
+// Email Address regex
+export const emailRegex = (email) => {
+    let numRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    if (email === "" || !numRegex.test(email)) {
+        toast.error("Invalid email address");
+        return false;
+    }
+}

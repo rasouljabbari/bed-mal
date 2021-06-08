@@ -39,7 +39,7 @@
 .dv-department-table {
   border-collapse: separate;
   border-spacing: 0;
-  box-shadow: $dv-box-shadow;
+  //box-shadow: $dv-box-shadow;
 
   thead th {
     border: none !important;
@@ -66,15 +66,12 @@
     &:nth-child(even) {
       background-color: #FFF;
 
-      td{
-        color: #000000 !important;
-      }
     }
     td {
       padding: 1.3rem 0.8rem;
       font-size: 18px;
       border: none !important;
-      color: $light-gray-text;
+      color: #000000 !important;
       .dv-department-icon{
         width: 47px;
         height: 47px;
@@ -86,6 +83,10 @@
         border-radius: 50%;
         color: #3b3a3a;
         cursor: pointer;
+        transition: all 0.2s linear;
+        &:hover{
+          background-color: #d6d5d5;
+        }
       }
     }
     .dv-arrow-right {
@@ -118,4 +119,7 @@
   border: 1px solid #757575;
   padding: 0.4rem 1rem;
   width: 100%;
+}
+.dv-reorder{
+  padding-right: 2.5rem !important;
 }

@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import './vendors.scss'
-import {getData, loader, setTitle} from "../../../assets/scripts/GeneralFunctions";
-import StoreImg from '../../../assets/image/4.0 Elite DeckTwist.png'
-
+import {emailRegex, getData, loader, setTitle} from "../../../assets/scripts/GeneralFunctions";
 import TimePicker from 'react-times';
 // use material theme
 import 'react-times/css/material/default.css';
@@ -14,8 +12,10 @@ import mapboxgl from 'mapbox-gl';
 import {MAIN_URL, MAIN_URL_IMAGE} from "../../../assets/scripts/GeneralVariables";
 import {Modal} from "react-bootstrap";
 import placeHolder_img from "../../../assets/image/bedmal-place-holder.jpg";
-
+import Swal from "sweetalert2";
+import {toast} from "react-toastify";
 mapboxgl.accessToken = 'pk.eyJ1IjoicmpkZXZlbG9wZXIiLCJhIjoiY2twNmtyejhiMHJoaTJ3cXRpd2dsZXJyNSJ9.-vVOy-9UQcN0Dh61WwA-QQ';
+const Compress = require('compress.js')
 
 class AddVendor extends Component {
     constructor(props) {
@@ -42,11 +42,10 @@ class AddVendor extends Component {
         });
 
         let marker = new mapboxgl.Marker({
-            draggable: true
+            draggable: true,
         })
             .setLngLat([lng, lat])
             .addTo(map);
-
 
         marker.on('dragend', () => {
             let lngLat = marker.getLngLat();
@@ -167,107 +166,55 @@ class AddVendor extends Component {
         } else {
             selectedCheckboxes.push(id);
         }
-
-        this.setState({
-            selectedCheckboxes: selectedCheckboxes,
-            selectedId: id
-        });
+        if(selectedCheckboxes?.length <= 3 ) {
+            this.setState({
+                selectedCheckboxes: selectedCheckboxes,
+                selectedId: id
+            });
+        }
     };
 
     // Image Uploading
     thisUploadImage = async (e) => {
         let file = e.target.files[0];
-        let reader = new FileReader();
-        reader.onload = (e) => {
-            let img = document.createElement("img");
-            img.onload = () => {
+        const compress = new Compress();
+        const resizedImage = await compress.compress([file], {
+            size: 2, // the max size in MB, defaults to 2MB
+            quality: 1, // the quality of the image, max is 1,
+            maxWidth: 300, // the max width of the output image, defaults to 1920px
+            maxHeight: 300, // the max height of the output image, defaults to 1920px
+            resize: true // defaults to true, set false if you do not want to resize the image width and height
+        })
+        const img = resizedImage[0];
+        const base64str = img.data
+        const imgExt = img.ext
+        const resizedFiile = Compress.convertBase64ToFile(base64str, imgExt)
 
-                let MAX_WIDTH = 300;
+        let file_name = new File([resizedFiile], file.name, {lastModified: file.lastModified, type: file.type});
 
-                let width = img.width;
-                let height = img.height;
-
-                if (width > MAX_WIDTH) {
-
-                   let MAX_HEIGHT = (height * MAX_WIDTH)/width
-
-                    width = MAX_WIDTH;
-                    height = MAX_HEIGHT;
-
-                }
-                return img
+        let fd = new FormData();
+        fd.append('image', file_name);
+        const headers = {
+            'Authorization': `Bearer ${localStorage.getItem("Token")}`,
+        };
+        loader(true)
+        axios.post(`${MAIN_URL}admin/vendors/upload-image`, fd, {headers}).then(response => {
+            if (response.status === 200) {
+                loader()
+                let arr = this.state.new_uploaded_img_arr;
+                arr.push(response.data.url)
+                this.setState({
+                    new_uploaded_img_arr: arr
+                })
             }
-
-            img.src = e.target.result;
-
-
-            let ImageURL = img.src;
-// Split the base64 string in data and contentType
-            let block = ImageURL.split(";");
-// Get the content type of the image
-            let contentType = block[0].split(":")[1];// In this case "image/gif"
-// get the real base64 content of the file
-            let realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
-
-
-            function b64toBlob(b64Data, contentType, sliceSize) {
-                contentType = contentType || '';
-                sliceSize = sliceSize || 512;
-
-                let byteCharacters = atob(b64Data);
-                let byteArrays = [];
-
-                for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-                    let slice = byteCharacters.slice(offset, offset + sliceSize);
-
-                    let byteNumbers = new Array(slice.length);
-                    for (let i = 0; i < slice.length; i++) {
-                        byteNumbers[i] = slice.charCodeAt(i);
-                    }
-
-                    let byteArray = new Uint8Array(byteNumbers);
-
-                    byteArrays.push(byteArray);
-                }
-
-                let blob = new Blob(byteArrays, {type: contentType});
-                return blob;
-            }
-
-            let blob = b64toBlob(realData, contentType);
-
-
-            let fd = new FormData();
-
-            // Check file selected or not
-            fd.append('image', blob);
-            const headers = {
-                'Authorization': `Bearer ${localStorage.getItem("Token")}`,
-            };
-            loader(true)
-            axios.post(`${MAIN_URL}admin/vendors/upload-image`, fd, {headers}).then(response => {
-                if(response.status === 200){
-                    loader()
-                    let arr= this.state.new_uploaded_img_arr;
-                    arr.push(response.data.url)
-                    this.setState({
-                        new_uploaded_img_arr:arr
-                    })
-                }
-            }).catch(error => {
-                console.log(error)
+        }).catch(error => {
+            loader()
+            error.response.data.errors?.map((item) => {
+                toast.error(item.message)
             })
-
-
-
-        }
-        reader.readAsDataURL(file);
-
-
-        /***********************************************************************/
-
-
+        })
     }
+
 
     removeHandler = (item) => {
         this.setState({sure_remove: true, remove_selected_item: item})
@@ -325,24 +272,27 @@ class AddVendor extends Component {
             "sat": saturday,
             "sun": sunday
         }
+        if (!emailRegex(store_email)) {
+            let vendorItem = await getData(MAIN_URL, `admin/vendors/create`, 'post', {
+                address: store_address,
+                postal_code: postal_code,
+                name: store_name,
+                email: store_email,
+                phone: store_phone,
+                latitude: lat,
+                longitude: lng,
+                image_gallery: JSON.stringify(new_uploaded_img_arr),
+                opening_hours: JSON.stringify(opening_hours),
+                departments: JSON.stringify(selectedCheckboxes),
 
-
-        let vendorItem = await getData(MAIN_URL, `admin/vendors/create`, 'post', {
-            address: store_address,
-            postal_code: postal_code,
-            name: store_name,
-            email: store_email,
-            phone: store_phone,
-            latitude: lat,
-            longitude: lng,
-            image_gallery: JSON.stringify(new_uploaded_img_arr),
-            opening_hours: JSON.stringify(opening_hours),
-            departments: JSON.stringify(selectedCheckboxes),
-
-        }, true, true);
-        if (vendorItem?.status === 200) {
-            console.log(vendorItem)
-            this.props.history.push('/admin/vendors')
+            }, true, true);
+            if (vendorItem?.status === 200) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'created successful',
+                })
+                this.props.history.push('/admin/vendors')
+            }
         }
     }
 
@@ -409,14 +359,14 @@ class AddVendor extends Component {
                                     <input type="text" name='store_name' value={this.state.store_name}
                                            onChange={this.inputHandler} id='dv-store-name' className='dv-store-input'/>
                                 </label>
-                                <label htmlFor="dv-store-email" className='d-flex mb-4'>
-                                    <span className='dv-store-name pr-2'>Email</span>
+                                <label htmlFor="dv-store-email" className='d-flex align-items-center mb-4'>
+                                    <span className='dv-store-name dv-custom-width-label'>Email</span>
                                     <input type="email" name='store_email' value={this.state.store_email}
                                            onChange={this.inputHandler} id='dv-store-email'
-                                           className='dv-store-input w-75'/>
+                                           className='dv-store-input w-75' required={true}/>
                                 </label>
-                                <label htmlFor="dv-store-phone" className='d-flex mb-4'>
-                                    <span className='dv-store-name pr-2'>Phone</span>
+                                <label htmlFor="dv-store-phone" className='d-flex align-items-center mb-4'>
+                                    <span className='dv-store-name dv-custom-width-label'>Phone</span>
                                     <input type="tel" name='store_phone' value={this.state.store_phone}
                                            onChange={this.inputHandler} id='dv-store-phone'
                                            className='dv-store-input w-75'/>
@@ -589,8 +539,8 @@ class AddVendor extends Component {
                                         <label
                                             className={
                                                 selectedCheckboxes.find(element => element === checkbox.id) ?
-                                                    'dv-label-checkbox-checked' :
-                                                    'dv-label-checkbox'
+                                                    'dv-label-checkbox-checked mr-3' :
+                                                    'dv-label-checkbox mr-3'
                                             }
                                             key={checkbox.id}>
                                             <span>{checkbox.name}</span>

@@ -49,7 +49,7 @@ body::-webkit-scrollbar-thumb:hover {
         background-color: $bg-right-sidebar-items;
         color: #C3BFBF;
         font-size: 18px;
-        margin-bottom: 0.5rem;
+        margin-bottom: 1rem;
         padding: 1rem 1rem 0.5rem 3rem;
         cursor: pointer;
         transition: all 0.3s linear;
@@ -87,6 +87,7 @@ body::-webkit-scrollbar-thumb:hover {
       border-radius: 5px;
       padding: 1rem 1rem 0 1rem;
       box-shadow: $dv-box-shadow;
+      border: 1px solid #969292;
       color: #707070;
 
       h6 {
@@ -176,6 +177,7 @@ body::-webkit-scrollbar-thumb:hover {
     .dv-bg-light-vendor-override {
       background-color: $dv-gray-ea;
       border-radius: 5px;
+      border: 1px solid #969292;
       padding: 1rem 1rem 0 1rem;
       box-shadow: $dv-box-shadow;
 
@@ -271,7 +273,12 @@ body::-webkit-scrollbar-thumb:hover {
 .dv-plan-modal {
   .modal-content {
     background-color: $dv-gray-ea!important;
-
+    h5{
+      color: #707070;
+    }
+    p{
+      color: #969292;
+    }
     .dv-btn-plan-save {
       background-color: $main-blue;
       color: $dv-gray-ea;
@@ -615,7 +622,9 @@ body::-webkit-scrollbar-thumb:hover {
     }
   }
 }
-
+.dv-custom-width-label{
+  width: 50px;
+}
 @media (max-width: 576px) {
   .dv-store-icons {
     &.la-arrow-up {

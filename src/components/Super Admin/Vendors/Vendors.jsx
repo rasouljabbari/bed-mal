@@ -16,7 +16,7 @@ class Vendors extends Component {
         this.state = {
             search_value: '',
             showPlan: false, items: [], vendor_info: '', default_active: '', department_list: [], suspend_show: false,
-            suspend_id: '',show_edit_note:false,notes:'',
+            suspend_id: '', show_edit_note: false, notes: '',
             plan_terms: {
                 marketplace_per_transaction: props.marketplace_per_transaction,
                 marketplace_fee: props.marketplace_fee,
@@ -31,7 +31,6 @@ class Vendors extends Component {
     async componentDidMount() {
         setTitle('Vendors')
         let vendorItems = await getData(MAIN_URL, `admin/vendors`, 'get', {}, true, true);
-        console.log(vendorItems.items)
         if (vendorItems?.status === 200) {
 
             let default_item = vendorItems.items[0]
@@ -88,9 +87,11 @@ class Vendors extends Component {
 
     handleMessage = (id) => {
         const location = {
-            pathname:'/admin/messages',
-            state: {  id: id,
-                type:'vendor' }
+            pathname: '/admin/messages',
+            state: {
+                id: id,
+                type: 'vendor'
+            }
         }
         this.props.history.push(location)
     }
@@ -194,7 +195,6 @@ class Vendors extends Component {
 
     savePlanModal = async (e) => {
         e.preventDefault()
-        console.log(this.state.plan_terms)
         this.setState({showPlan: false})
         let vendorItem = await getData(MAIN_URL, `admin/vendors/edit-details/${this.state.term_id}`, 'post', {
             plan_terms: JSON.stringify(this.state.plan_terms),
@@ -217,17 +217,17 @@ class Vendors extends Component {
             }
         }
     }
-    editNote = (id) =>{
-        this.setState({show_edit_note:true,term_id: id})
+    editNote = (id) => {
+        this.setState({show_edit_note: true, term_id: id})
     }
     notesInputHandler = (e) => {
         let notes = e.target.value;
         this.setState({notes: notes})
     }
-    saveNoteModal = async (e) =>{
+    saveNoteModal = async (e) => {
         e.preventDefault();
 
-        this.setState({show_edit_note:false})
+        this.setState({show_edit_note: false})
 
         let vendorItem = await getData(MAIN_URL, `admin/vendors/edit-details/${this.state.term_id}`, 'post', {
             notes: this.state.notes,
@@ -253,7 +253,7 @@ class Vendors extends Component {
 
 
     closeModal = () => {
-        this.setState({showPlan: false, suspend_show: false,show_edit_note:false})
+        this.setState({showPlan: false, suspend_show: false, show_edit_note: false})
     }
 
 
@@ -261,11 +261,12 @@ class Vendors extends Component {
         const departments = this.state.vendor_info.departments;
 
         return (
-            this.state.department_list?.length !== 0 && this.state.vendor_info.departments?.length !== 0 ?
+            this.state.department_list?.length !== 0 ?
                 <div className='d-flex flex-column flex-md-row dv-vendor'>
                     <div className="dv-vendors-right-admin">
                         <div className="dv-btn-add-vendor d-flex justify-content-center my-2">
-                            <Link to={`/admin/add-vendor`} className="dv-bg-new-vendor-override d-flex align-items-center justify-content-center">
+                            <Link to={`/admin/add-vendor`}
+                                  className="dv-bg-new-vendor-override d-flex align-items-center justify-content-center">
                                 <span>New vendor</span>
                                 <i className='las la-plus dv-plus-icon pl-3'/>
                             </Link>
@@ -293,9 +294,9 @@ class Vendors extends Component {
                         </ul>
                     </div>
                     <div className={this.state.vendor_info.status === 'approved' ? 'dv-vendor-right-content ' :
-                            this.state.vendor_info.status === 'inactive' ? 'dv-vendor-right-content dv-suspended' :
-                                'dv-vendor-right-content dv-pending-approval'
-                        }>
+                        this.state.vendor_info.status === 'inactive' ? 'dv-vendor-right-content dv-suspended' :
+                            'dv-vendor-right-content dv-pending-approval'
+                    }>
                         <div className="row" key={this.state.vendor_info.id}>
                             <div className="col-12 mb-3">
                                 <div className="dv-bg-light-vendors">
@@ -320,7 +321,8 @@ class Vendors extends Component {
                                                 <button className='dv-blue-btn mr-1'
                                                         onClick={() => this.handleMessage(this.state.vendor_info.id)}>Message
                                                 </button>
-                                                <a href={`tel:${this.state.vendor_info.phone}`} className='dv-white-btn ml-1 d-flex align-items-center justify-content-center'>Call</a>
+                                                <a href={`tel:${this.state.vendor_info.phone}`}
+                                                   className='dv-white-btn ml-1 d-flex align-items-center justify-content-center'>Call</a>
                                             </div>
                                         </div>
                                     </div>
@@ -337,41 +339,41 @@ class Vendors extends Component {
                                     <div className="d-flex flex-column ">
                                         <div
                                             className="d-flex justify-content-between dv-light-gray-text align-items-center mb-3">
-                                            <p className='mb-0'>Marketplace per transaction</p>
+                                            <p className='mb-0 pl-2'>Marketplace per transaction</p>
                                             <div
                                                 className="dv-vendor-price">£ {this.state.vendor_info.plan_terms?.marketplace_per_transaction}</div>
                                         </div>
                                         <div
                                             className="d-flex justify-content-between dv-light-gray-text align-items-center mb-3">
-                                            <p className='mb-0'>Marketplace fee</p>
+                                            <p className='mb-0 pl-2'>Marketplace fee</p>
                                             <div
                                                 className="dv-vendor-price">{this.state.vendor_info.plan_terms?.marketplace_fee} %
                                             </div>
                                         </div>
                                         <div
                                             className="d-flex justify-content-between dv-light-gray-text align-items-center mb-3">
-                                            <p className='mb-0'>MP - BorrowCup per unit</p>
+                                            <p className='mb-0 pl-2'>MP - BorrowCup per unit</p>
                                             <div
                                                 className="dv-vendor-price">£ {this.state.vendor_info.plan_terms?.marketplace_borrow_cup_per_unit}</div>
                                         </div>
                                         <div
                                             className="d-flex justify-content-between dv-light-gray-text align-items-start mb-3">
                                             <div className='d-flex flex-column'>
-                                                <p className='mb-0'>MP - BorrowBag per unit</p>
-                                                <div className='dv-span-gray'>On-demand charges</div>
+                                                <p className='mb-0 pl-2'>MP - BorrowBag per unit</p>
+                                                <div className='dv-span-gray pl-2'>On-demand charges</div>
                                             </div>
                                             <div
                                                 className="dv-vendor-price">£ {this.state.vendor_info.plan_terms?.marketplace_Borrow_bag_per_unit}</div>
                                         </div>
                                         <div
                                             className="d-flex justify-content-between dv-light-gray-text align-items-center mb-3">
-                                            <p className='mb-0'>OD - BorrowCup per unit</p>
+                                            <p className='mb-0 pl-2'>OD - BorrowCup per unit</p>
                                             <div
                                                 className="dv-vendor-price">£ {this.state.vendor_info.plan_terms?.on_demand_borrow_cup_per_unit}</div>
                                         </div>
                                         <div
                                             className="d-flex justify-content-between dv-light-gray-text align-items-center mb-3">
-                                            <p className='mb-0'>OD - BorrowCup per unit</p>
+                                            <p className='mb-0 pl-2'>OD - BorrowCup per unit</p>
                                             <div
                                                 className="dv-vendor-price">£ {this.state.vendor_info.plan_terms?.on_demand_borrow_bag_per_unit}</div>
                                         </div>
@@ -384,28 +386,28 @@ class Vendors extends Component {
                                     <div
                                         className="d-flex justify-content-start flex-wrap dv-light-gray-text align-items-center">
                                         {
-                                            this.state.vendor_info.departments !== undefined ?
-                                                this.state.department_list?.map((row, index) => {
-                                                    if (departments.indexOf(row.id) !== -1) {
-                                                        return (
-                                                            <div key={index} className="dv-blue-badge mb-2 mr-2"
-                                                                 id={row.id}>{row.name}</div>
-                                                        )
-                                                    }
-                                                }) : ''
+                                            this.state.department_list?.map((row, index) => {
+                                                if (departments?.indexOf(row.id) !== -1) {
+                                                    return (
+                                                        <div key={index} className="dv-blue-badge mb-2 mr-2"
+                                                             id={row.id}>{row.name}</div>
+                                                    )
+                                                }
+                                            })
                                         }
                                     </div>
                                 </div>
                                 <div className="dv-bg-light-vendor-override pb-3 mb-3">
                                     <h5 className='dv-vendor-override-h6'>Vendor Override</h5>
-                                    <div className="d-flex justify-content-between flex-wrap dv-light-gray-text align-items-center">
+                                    <div
+                                        className="d-flex justify-content-between flex-wrap dv-light-gray-text align-items-center">
                                         <div className="d-flex">
                                             {
                                                 this.state.vendor_info.status === 'approved' ?
-                                                    <div className="dv-vendor-override-circle mr-2"></div> :
+                                                    <div className="dv-vendor-override-circle mr-2 ml-2"></div> :
                                                     this.state.vendor_info.status === 'inactive' ?
-                                                    <div className="dv-in-active-override-circle mr-2"></div>:
-                                                    <div className="dv-pending-override-circle mr-2"></div>
+                                                        <div className="dv-in-active-override-circle mr-2 ml-2"></div> :
+                                                        <div className="dv-pending-override-circle mr-2 ml-2"></div>
                                             }
 
                                             <h6 className='dv-vendor-override-active mb-0'>{this.state.vendor_info.status}</h6>
@@ -432,7 +434,7 @@ class Vendors extends Component {
                             <div className="col-12 col-lg-6 pl-lg-2 mb-3">
                                 <div className="dv-bg-light-vendors pb-2 mb-3">
                                     <div className="d-flex justify-content-between align-items-center mb-3">
-                                        <h5 className='mb-0'>Borrow Partner</h5>
+                                        <h5 className='mb-0 pl-3'>Borrow Partner</h5>
                                     </div>
                                     <div className="dv-swiper-parent-bg mb-3">
                                         <div
@@ -482,8 +484,11 @@ class Vendors extends Component {
                                     </div>
                                 </div>
                                 <div className="dv-bg-light-vendors dv-note-height pb-2 mb-3">
-                                    <div className="mb-3" style={{cursor:'pointer'}} onClick={()=>this.editNote(this.state.vendor_info.id)}>
-                                        <h5 className='mb-4'>Notes <i className='la la-pen pl-3' style={{fontSize:'1.5rem'}}/></h5>
+                                    <div className="mb-3" style={{cursor: 'pointer'}}
+                                         onClick={() => this.editNote(this.state.vendor_info.id)}>
+                                        <h5 className='mb-4 pl-3'>Notes
+                                            <i className='la la-pen pl-3'
+                                                                      style={{fontSize: '1.5rem'}}/></h5>
                                         <p className='text-left f-18'>{this.state.vendor_info?.notes}</p>
                                     </div>
                                 </div>
@@ -510,7 +515,8 @@ class Vendors extends Component {
                                     <div className='position-relative'>
                                         <div className="dv-custom-unit">£</div>
                                         <input type='number' className="dv-vendor-price-input"
-                                               name='marketplace_per_transaction' onChange={this.marketplacePerTransaction}
+                                               name='marketplace_per_transaction'
+                                               onChange={this.marketplacePerTransaction}
                                                value={this.state.marketplace_per_transaction}/>
                                     </div>
                                 </div>
@@ -519,8 +525,8 @@ class Vendors extends Component {
                                     <p className='mb-0'>Marketplace fee</p>
                                     <div className='position-relative'>
 
-                                    <input type='number' className="dv-vendor-price-input" name='marketplace_fee'
-                                           onChange={this.marketplaceFee} value={this.state.marketplace_fee}/>
+                                        <input type='number' className="dv-vendor-price-input" name='marketplace_fee'
+                                               onChange={this.marketplaceFee} value={this.state.marketplace_fee}/>
                                         <div className="dv-custom-unit-percent">%</div>
                                     </div>
                                 </div>
@@ -529,10 +535,10 @@ class Vendors extends Component {
                                     <p className='mb-0'>MP - BorrowCup per unit</p>
                                     <div className='position-relative'>
                                         <div className="dv-custom-unit">£</div>
-                                    <input type='number' className="dv-vendor-price-input"
-                                           name='marketplace_borrow_cup_per_unit'
-                                           onChange={this.marketplaceBorrowCupPerUnit}
-                                           value={this.state.marketplace_borrow_cup_per_unit}/>
+                                        <input type='number' className="dv-vendor-price-input"
+                                               name='marketplace_borrow_cup_per_unit'
+                                               onChange={this.marketplaceBorrowCupPerUnit}
+                                               value={this.state.marketplace_borrow_cup_per_unit}/>
                                     </div>
                                 </div>
                                 <div
@@ -543,10 +549,10 @@ class Vendors extends Component {
                                     </div>
                                     <div className='position-relative'>
                                         <div className="dv-custom-unit">£</div>
-                                    <input type='number' className="dv-vendor-price-input"
-                                           name='marketplace_Borrow_bag_per_unit'
-                                           onChange={this.marketplaceBorrowBagPerUnit}
-                                           value={this.state.marketplace_Borrow_bag_per_unit}/>
+                                        <input type='number' className="dv-vendor-price-input"
+                                               name='marketplace_Borrow_bag_per_unit'
+                                               onChange={this.marketplaceBorrowBagPerUnit}
+                                               value={this.state.marketplace_Borrow_bag_per_unit}/>
                                     </div>
                                 </div>
                                 <div
@@ -554,9 +560,10 @@ class Vendors extends Component {
                                     <p className='mb-0'>OD - BorrowCup per unit</p>
                                     <div className='position-relative'>
                                         <div className="dv-custom-unit">£</div>
-                                    <input type='number' className="dv-vendor-price-input"
-                                           name='on_demand_borrow_cup_per_unit' onChange={this.onDemandBorrowCupPerUnit}
-                                           value={this.state.on_demand_borrow_cup_per_unit}/>
+                                        <input type='number' className="dv-vendor-price-input"
+                                               name='on_demand_borrow_cup_per_unit'
+                                               onChange={this.onDemandBorrowCupPerUnit}
+                                               value={this.state.on_demand_borrow_cup_per_unit}/>
                                     </div>
                                 </div>
                                 <div
@@ -564,9 +571,10 @@ class Vendors extends Component {
                                     <p className='mb-0'>OD - BorrowBag per unit</p>
                                     <div className='position-relative'>
                                         <div className="dv-custom-unit">£</div>
-                                    <input type='number' className="dv-vendor-price-input"
-                                           name='on_demand_borrow_bag_per_unit' onChange={this.onDemandBorrowBagPerUnit}
-                                           value={this.state.on_demand_borrow_bag_per_unit}/>
+                                        <input type='number' className="dv-vendor-price-input"
+                                               name='on_demand_borrow_bag_per_unit'
+                                               onChange={this.onDemandBorrowBagPerUnit}
+                                               value={this.state.on_demand_borrow_bag_per_unit}/>
                                     </div>
                                 </div>
                             </form>
@@ -606,7 +614,8 @@ class Vendors extends Component {
                                     </div>
                                 </div>
                                 <div className="d-fle mb-3">
-                                    <textarea name="notes" className='dv-input w-100' onChange={this.notesInputHandler} value={this.state.notes} rows="7"></textarea>
+                                    <textarea name="notes" className='dv-input w-100' onChange={this.notesInputHandler}
+                                              value={this.state.notes} rows="7"></textarea>
                                 </div>
                             </form>
                         </Modal.Body>

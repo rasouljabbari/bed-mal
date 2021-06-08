@@ -5,6 +5,8 @@ import {NavLink} from "react-router-dom";
 import {Nav, Modal} from "react-bootstrap";
 import {MAIN_URL} from "../../../assets/scripts/GeneralVariables";
 import Menu from "./Menu";
+import Pen from "../../../assets/image/Icon material-mode-edit.svg";
+import Swal from "sweetalert2";
 
 class Permissions extends Component {
     constructor(props) {
@@ -57,7 +59,13 @@ class Permissions extends Component {
     }
     /********************** ADD ***********/
     addLogin = () => {
-        this.setState({new_login: true})
+        this.setState({new_login: true,
+            vendor_name : '',
+            vendor_email : '',
+            vendor_password : '',
+            vendor_username : '',
+            vendor_confirm_password : '',
+        })
     }
     onChange = id => {
         const selectedCheckboxes = this.state.selectedCheckboxes;
@@ -87,7 +95,6 @@ class Permissions extends Component {
             selectedCheckboxes
 
         } = this.state
-
         let loginsItem = await getData(MAIN_URL, `vendor/logins/create`, 'post', {
             username: vendor_username,
             name: vendor_name,
@@ -100,6 +107,10 @@ class Permissions extends Component {
             let logins_arr = this.state.logins;
             let newStatuses = [loginsItem.item].concat(logins_arr);
             this.setState({logins: newStatuses, new_login: false});
+            Swal.fire({
+                icon: 'success',
+                title: 'created successful',
+            })
         }
     }
     /********************** ADD ***********/
@@ -147,6 +158,10 @@ class Permissions extends Component {
             this.setState({
                 logins: updatedHeaders
             })
+            Swal.fire({
+                icon: 'success',
+                title: 'edited successful',
+            })
         }
     }
     /********************** EDIT ***********/
@@ -169,6 +184,10 @@ class Permissions extends Component {
                 }
             })
             this.setState({logins: arr, remove_show: false, edit_login: false})
+            Swal.fire({
+                icon: 'success',
+                title: 'removed successful',
+            })
         }
     }
     closeModalDelete = () => {
@@ -231,38 +250,40 @@ class Permissions extends Component {
                         <div className="col-12">
                             <div className="bg-light dv-border-radius dv-box-shadow">
                                 <div className="container py-5">
-                                    <div className="row">
-                                        <div className="col-12 mb-5 d-flex align-items-center justify-content-between">
-                                            <h5 className='dv-logins-title'>Person</h5>
-                                            <h5 className='dv-logins-title'>Permission levels</h5>
-                                            <h5 className='dv-logins-title'></h5>
-                                        </div>
-                                        {
-                                            this.state.logins?.map((item, i) => (
-                                                <div key={i}
-                                                     className="col-12 mb-5 d-flex align-items-center justify-content-between">
-                                                    <h3 className='dv-logins-item-title'>{item.name}</h3>
-                                                    <h3 className='dv-logins-item-title'>{
-                                                        item.vendor_user_permissions?.map((row, i) => (
-                                                            <span className='px-1 dv-logins-title'
-                                                                  key={i}>{row.name}
-                                                                {
-                                                                    i === item.vendor_user_permissions?.length-1 ? '' : ' ,'
-                                                                }
-                                                            </span>
-                                                        ))
-                                                    }</h3>
-                                                    <div className="d-flex align-items-center justify-content-around">
-                                                        <i className='la la-pen dv-pen-icon pr-3'
-                                                           onClick={() => this.editLogins(item.id)}/>
-                                                        <i className='las la-minus-circle dv-minus-icon pl-3'
-                                                           onClick={() => this.removeLogins(item.id)}/>
-                                                    </div>
+                                    {
+                                        this.state.logins?.length !== 0 ?
+                                            <div className="row">
+                                                <div className="col-12 mb-5 d-flex align-items-center justify-content-between">
+                                                    <h5 className='dv-logins-title'>Person</h5>
+                                                    <h5 className='dv-logins-title'>Permission levels</h5>
+                                                    <h5 className='dv-logins-title'></h5>
                                                 </div>
-                                            ))
-                                        }
+                                                {
+                                                    this.state.logins?.map((item, i) => (
+                                                        <div key={i}
+                                                             className="col-12 mb-5 d-flex align-items-center justify-content-between">
+                                                            <h3 className='dv-logins-item-title'>{item.name}</h3>
+                                                            <h3 className='dv-logins-item-title'>{
+                                                                item.vendor_user_permissions?.map((row, i) => (
+                                                                    <span className='px-1 dv-logins-title'
+                                                                          key={i}>{row.name}
+                                                                        {
+                                                                            i === item.vendor_user_permissions?.length-1 ? '' : ' ,'
+                                                                        }
+                                                            </span>
+                                                                ))
+                                                            }</h3>
+                                                            <div className="d-flex align-items-center justify-content-around">
+                                                                <img src={Pen} className='img-fluid dv-pen-icon pr-3'  onClick={() => this.editLogins(item.id)} alt="bed mal"/>
+                                                                <i className='las la-minus-circle dv-minus-icon pl-3'
+                                                                   onClick={() => this.removeLogins(item.id)}/>
+                                                            </div>
+                                                        </div>
+                                                    ))
+                                                }
 
-                                    </div>
+                                            </div> : <h1 className='text-center'>There is no item</h1>
+                                    }
                                 </div>
                             </div>
                         </div>

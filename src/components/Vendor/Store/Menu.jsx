@@ -14,73 +14,97 @@ class Menu extends Component {
 
     async componentDidMount() {
         setTitle('Store')
-        if(localStorage.getItem('Token')){
+        if (localStorage.getItem('Token')) {
             let storeDetails = await getData(MAIN_URL, `vendor/dashboard`, 'get', {}, true, true);
             if (storeDetails?.status === 200) {
                 let key_arr = [];
-                storeDetails.permissions?.map((item)=>{
+                storeDetails.permissions?.map((item) => {
                     key_arr.push(item.key)
                 })
-                this.setState({permissions_item : key_arr})
+                this.setState({permissions_item: key_arr})
             }
         }
     }
+
     render() {
         return (
             <>
                 <Nav>
                     {
-                        this.state.permissions_item.length !== 0 ?
-                            this.state.permissions_item?.map((item)=>(
-                                localStorage.getItem('type') === 'vendor_admin' || item === 'store-details' ?
-                                    <NavLink activeClassName="active"
-                                             className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
-                                             to={'/vendor/store/details'}>Store details</NavLink>
-                                    : ''
-                            )) : <NavLink activeClassName="active"
-                                          className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
-                                          to={'/vendor/store/details'}>Store details</NavLink>
-                    }
-                    {
-                        this.state.permissions_item.length !== 0 ?
-                            this.state.permissions_item?.map((item)=>(
-                                localStorage.getItem('type') === 'vendor_admin' || item === 'collection' && item !== 'store-details' ?
-                                    <NavLink activeClassName="active"
-                                             className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5 mb-3'
-                                             to={'/vendor/store/collections'}>Collections</NavLink>
-                                    : localStorage.getItem('type') === 'vendor_admin' || item === 'collection' ?
-                                    <NavLink activeClassName="active"
-                                             className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
-                                             to={'/vendor/store/collections'}>Collections</NavLink>
-                                    : ''
-                            )) :
+                        localStorage.getItem('type') === 'vendor_admin' ?
                             <>
+                                <NavLink activeClassName="active"
+                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
+                                         to={'/vendor/store/details'}>Store details</NavLink>
                                 <NavLink activeClassName="active"
                                          className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
                                          to={'/vendor/store/collections'}>Collections</NavLink>
+                                <NavLink activeClassName="active"
+                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
+                                         to={'/vendor/store/fulfilment'}>Fulfilment</NavLink>
+                                <NavLink activeClassName="active"
+                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
+                                         to={'/vendor/store/borrow-products'}>Borrow products</NavLink>
+                                <NavLink activeClassName="active"
+                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-0'
+                                         to={'/vendor/store/products'}>Products</NavLink>
+                                <NavLink activeClassName="active"
+                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
+                                         to={'/vendor/store/permissions'}>Permissions</NavLink>
+                            </> :
+                            <>
+                                {
+                                    this.state.permissions_item.length !== 0 ?
+                                        this.state.permissions_item?.map((item) => (
+                                            item === 'store-details' ?
+                                                <NavLink activeClassName="active"
+                                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
+                                                         to={'/vendor/store/details'}>Store details</NavLink>
+                                                : ''
+                                        )) : ''
+                                }
+                                {
+                                    this.state.permissions_item.length !== 0 ?
+                                        this.state.permissions_item?.map((item) => (
+                                            item !== 'store-details' && item === 'collection' ?
+                                                <NavLink activeClassName="active"
+                                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
+                                                         to={'/vendor/store/collections'}>Collections</NavLink>
+                                                : item === 'store-details' && item === 'collection' ?
+                                                <NavLink activeClassName="active"
+                                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
+                                                         to={'/vendor/store/collections'}>Collections</NavLink> : ''
+
+                                        ))
+                                        : ''
+                                }
+                                <NavLink activeClassName="active"
+                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
+                                         to={'/vendor/store/fulfilment'}>Fulfilment</NavLink>
+                                <NavLink activeClassName="active"
+                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
+                                         to={'/vendor/store/borrow-products'}>Borrow products</NavLink>
+
+                                {
+                                    this.state.permissions_item.length !== 0 ?
+                                        this.state.permissions_item?.map((item) => (
+                                            item === 'product' ?
+                                                <NavLink activeClassName="active"
+                                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-0'
+                                                         to={'/vendor/store/products'}>Products</NavLink> : ''
+                                        )) : ''
+                                }
+                                {
+                                    this.state.permissions_item.length !== 0 ?
+                                        this.state.permissions_item?.map((item) => (
+                                            item === 'logins' ?
+                                                <NavLink activeClassName="active"
+                                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
+                                                         to={'/vendor/store/permissions'}>Permissions</NavLink>
+                                                : ''
+                                        )) : ''
+                                }
                             </>
-                    }
-                    <NavLink activeClassName="active"
-                             className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
-                             to={'/vendor/store/fulfilment'}>Fulfilment</NavLink>
-                    <NavLink activeClassName="active"
-                             className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
-                             to={'/vendor/store/borrow-products'}>Borrow products</NavLink>
-                    <NavLink activeClassName="active"
-                             className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-0'
-                             to={'/vendor/store/products'}>Products</NavLink>
-                    {
-                        this.state.permissions_item.length !== 0 ?
-                            this.state.permissions_item?.map((item)=>(
-                                localStorage.getItem('type') === 'vendor_admin' || item === 'logins' ?
-                                    <NavLink activeClassName="active"
-                                             className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
-                                             to={'/vendor/store/permissions'}>Permissions</NavLink>
-                                    : ''
-                            )) :
-                            <NavLink activeClassName="active"
-                                     className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
-                                     to={'/vendor/store/permissions'}>Permissions</NavLink>
                     }
 
                 </Nav>

@@ -42,23 +42,23 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            permissions: []
+            // permissions: []
         }
     }
 
-    async componentDidMount() {
-        if (localStorage.getItem('Token')) {
-            let storeDetails = await getData(MAIN_URL, `vendor/dashboard`, 'get', {}, true, true);
-            if (storeDetails?.status === 200) {
-                let key_arr = [];
-                storeDetails.permissions?.map((item) => {
-                    key_arr.push(item.key)
-                })
-                this.setState({permissions: key_arr})
-            }
-        }
-
-    }
+    // async componentDidMount() {
+    //     if (localStorage.getItem('Token')) {
+    //         let storeDetails = await getData(MAIN_URL, `vendor/dashboard`, 'get', {}, true, true);
+    //         if (storeDetails?.status === 200) {
+    //             let key_arr = [];
+    //             storeDetails.permissions?.map((item) => {
+    //                 key_arr.push(item.key)
+    //             })
+    //             this.setState({permissions: key_arr})
+    //         }
+    //     }
+    //
+    // }
 
     render() {
         return (
@@ -138,7 +138,7 @@ class App extends Component {
                             </div>
                         </> :
                         <Switch>
-                            <Route path="/" component={Login}/>
+                            <Route exact path="/" component={Login}/>
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/forget-password" component={ForgetPassword}/>
                             <Route exact path="/verify-code" component={VerifyCode}/>
