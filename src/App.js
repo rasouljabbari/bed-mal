@@ -32,16 +32,18 @@ import BorrowProducts from "./components/Vendor/Store/BorrowProducts";
 import Fulfilment from "./components/Vendor/Store/Fulfilment";
 import Collections from "./components/Vendor/Store/Collections";
 import Permissions from "./components/Vendor/Store/Permissions";
-import {getData} from "./assets/scripts/GeneralFunctions";
-import {MAIN_URL} from "./assets/scripts/GeneralVariables";
 import Dashboard from "./components/Vendor/Dashboard/Dashboard";
 import VOrders from "./components/Vendor/Orders/VOrders";
 import AddProduct from "./components/Vendor/Store/AddProduct";
+import EditProduct from "./components/Vendor/Store/EditProduct";
+import VendorTransactions from "./components/Vendor/VendorTransactions/VendorTransactions";
+import VendorMessages from "./components/Vendor/VendorMessages/VendorMessages";
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isOpen: true
             // permissions: []
         }
     }
@@ -60,14 +62,16 @@ class App extends Component {
     //
     // }
 
+
+
     render() {
         return (
             <>
                 {
                     localStorage.getItem('Token') ?
                         <>
-                            <Header/>
-                            <div className='dv-content'>
+                            <Header isOpen={this.state.isOpen}/>
+                            <div className='dv-content' >
                                 {
                                     localStorage.getItem('type') === 'super_admin' ?
                                         <Switch>
@@ -121,14 +125,15 @@ class App extends Component {
                                             {/*))*/}
                                             {/*}*/}
 
-                                            <Route exact path="/vendor/messages" component={Messages}/>
                                             <Route exact path="/vendor/store/fulfilment" component={Fulfilment}/>
                                             <Route exact path="/vendor/store/borrow-products"
                                                    component={BorrowProducts}/>
                                             <Route exact path="/vendor/store/products" component={Products}/>
+                                            <Route exact path="/vendor/store/products/edit/:product_id" component={EditProduct}/>
                                             <Route exact path="/vendor/store/products/create" component={AddProduct}/>
                                             <Route exact path="/vendor/orders" component={VOrders}/>
-
+                                            <Route exact path="/vendor/transaction" component={VendorTransactions}/>
+                                            <Route exact path="/vendor/messages" component={VendorMessages}/>
                                             {/****************** Not found *************************/}
                                             <Route exact path="*" component={NotFound}/>
                                         </Switch>

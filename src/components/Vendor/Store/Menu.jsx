@@ -27,6 +27,7 @@ class Menu extends Component {
     }
 
     render() {
+        console.log(this.state.permissions_item)
         return (
             <>
                 <Nav>

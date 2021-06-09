@@ -29,21 +29,26 @@ class Header extends Component {
 
     handleToggle = () => {
         this.setState({
-            isOpen: !this.state.isOpen
+            isOpen: true
         });
     };
     closeNav = () => {
         this.setState({
-            isOpen: !this.state.isOpen
+            isOpen: false
         });
+    }
+    // handleCloseMenu = () => {
+    //     this.setState({
+    //         isOpen: false
+    //     });
+    // }
+    handleLogout = () => {
+        this.setState({sureLogout: true})
     }
     handleCloseMenu = () => {
         this.setState({
             isOpen: false
         });
-    }
-    handleLogout = () => {
-        this.setState({sureLogout: true})
     }
     allowLogout = () => {
 
@@ -59,12 +64,14 @@ class Header extends Component {
 
 
     render() {
-        const {isOpen, permissions} = this.state;
+        const {permissions} = this.state;
+
         return (
             <div className='dv-main-top-menu d-flex justify-content-between align-items-center'>
                 {/*<div className='dv-main-top-menu dv-top-menu-red'>*/}
                 <h4 className='mb-0' id='dv_header_title'></h4>
-                <Link onClick={this.handleCloseMenu} to={'/admin/messages'}
+                <Link to={
+                    localStorage.getItem('type') === 'super_admin' ? '/admin/messages' : '/vendor/messages'}
                       className=' ml-lg-auto dv-navbar-logo d-flex align-items-center'>
                     <div className='position-relative'>
                         <img src={LogoIcon} className='img-fluid dv-header-icon' alt="bed mal"/>
@@ -72,11 +79,11 @@ class Header extends Component {
                     </div>
                     <span>messages</span>
                 </Link>
-                <button className='dv-btn-toggle' onClick={this.handleToggle} aria-controls="basic-navbar-nav"><i
+                <button className='dv-btn-toggle' onMouseDown={this.handleToggle} aria-controls="basic-navbar-nav"><i
                     className='la la-bars'/></button>
 
 
-                <div id="mySidenav" className={isOpen ? "show sidenav" : "sidenav"}>
+                <div id="mySidenav" className={ this.state.isOpen ? "show sidenav" :  "sidenav"}>
                     <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>&times;</a>
                     {
                         localStorage.getItem('type') === 'super_admin' ?

@@ -15,6 +15,7 @@ import {MAIN_URL, MAIN_URL_IMAGE} from "../../../assets/scripts/GeneralVariables
 import Swal from "sweetalert2";
 import placeHolder_img from '../../../assets/image/bedmal-place-holder.jpg'
 import Menu from "./Menu";
+import {toast} from "react-toastify";
 
 mapboxgl.accessToken = 'pk.eyJ1IjoicmpkZXZlbG9wZXIiLCJhIjoiY2twNmtyejhiMHJoaTJ3cXRpd2dsZXJyNSJ9.-vVOy-9UQcN0Dh61WwA-QQ';
 
@@ -278,7 +279,9 @@ class Store extends Component {
                     })
                 }
             }).catch(error => {
-                console.log(error)
+                error.response.data.errors?.map((item) => {
+                    toast.error(item.message)
+                })
             })
 
 
@@ -581,7 +584,7 @@ class Store extends Component {
                                     {this.state.department_items?.map(checkbox => (
                                         <label
                                             className={
-                                                selectedCheckboxes.find(element => element === checkbox.id) ?
+                                                selectedCheckboxes?.find(element => element === checkbox.id) ?
                                                     'dv-label-checkbox-checked' :
                                                     'dv-label-checkbox'
                                             }
@@ -591,7 +594,7 @@ class Store extends Component {
                                                 type="checkbox"
                                                 checked={false}
                                                 onChange={() => this.onChange(checkbox.id)}
-                                                selected={selectedCheckboxes.includes(checkbox.id)}
+                                                selected={selectedCheckboxes?.includes(checkbox.id)}
                                             />
                                         </label>
                                     ))}

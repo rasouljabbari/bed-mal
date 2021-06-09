@@ -5,13 +5,14 @@ import {MAIN_URL, MAIN_URL_IMAGE} from "../../../assets/scripts/GeneralVariables
 import {Modal} from "react-bootstrap";
 import {toast} from "react-toastify";
 import placeHolder_img from "../../../assets/image/bedmal-place-holder.jpg";
-import Img from '../../../assets/image/Add image button.png';
 import axios from "axios";
-import Swal from "sweetalert2";
 import Menu from "./Menu";
 import Switch from "react-input-switch";
+import Swal from "sweetalert2";
+
 const Compress = require('compress.js')
-class AddProduct extends Component {
+
+export default class EditProduct extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -45,17 +46,29 @@ class AddProduct extends Component {
             collection: 0,
             local_delivery: 0,
             nationwide_delivery: 0,
-            option_selected_index : '',
-            product_images:[],
-            selectedCheckboxes:[]
+            option_selected_index : ''
         }
     }
 
     async componentDidMount() {
-        let collections = await getData(MAIN_URL, `vendor/collections`, 'get', {}, true, true);
-        if(collections?.status === 200){
+        let item = await getData(MAIN_URL, `vendor/products/info/${this.props.match.params.product_id}`, 'get', {}, true, true);
+        if (item?.status === 200) {
+            let collections = await getData(MAIN_URL, `vendor/collections`, 'get', {}, true, true);
             this.setState({
+                product_id: item.product.id,
+                product_images: item.product.images,
+                product_name: item.product.name,
+                product_price: item.product.price,
+                ribbon: item.product.ribbon,
+                product_description: item.product.desctiption,
+                sections: item.product.sections,
+                options: item.product.options,
+                borrow_value: item.product.borrow_packing,
+                collection: item.product.collection,
+                local_delivery: item.product.local_delivery,
+                nationwide_delivery: item.product.nationwide_delivery,
                 collections_items: collections.collections,
+                selectedCheckboxes: item.product.collections
             })
         }
     }
@@ -104,13 +117,13 @@ class AddProduct extends Component {
             if (response.status === 200) {
                 loader()
                 let arr = this.state.product_images;
-                arr.push(response?.data.url)
+                arr.push(response.data.url)
                 this.setState({
                     product_images: arr
                 })
             }
         }).catch(error => {
-            error.response?.data.errors.map((item) => {
+            error.response.data.errors?.map((item) => {
                 toast.error(item.message)
             })
         })
@@ -161,19 +174,22 @@ class AddProduct extends Component {
     onChangeCollections = id => {
         const selectedCheckboxes = this.state.selectedCheckboxes;
 
-
         // Find index
-        const findIdx = selectedCheckboxes?.indexOf(id);
+        const findIdx = selectedCheckboxes.indexOf(id);
 
+        // Index > -1 means that the item exists and that the checkbox is checked
+        // and in that case we want to remove it from the array and uncheck it
         if (findIdx > -1) {
             selectedCheckboxes.splice(findIdx, 1);
         } else {
-            selectedCheckboxes?.push(id);
+            selectedCheckboxes.push(id);
         }
-        this.setState({
-            selectedCheckboxes: selectedCheckboxes,
-            selectedId: id
-        });
+        if (selectedCheckboxes?.length <= 3) {
+            this.setState({
+                selectedCheckboxes: selectedCheckboxes,
+                selectedId: id
+            });
+        }
 
     };
 
@@ -370,8 +386,8 @@ class AddProduct extends Component {
             this.setState({nationwide_delivery: 0})
         }
     }
-    /********************************** ADD FORM HANDLER *********************************/
-    addProductMainHandler = async (e) => {
+    /********************************** EDIT FORM HANDLER *********************************/
+    editProductMainHandler = async (e) => {
         e.preventDefault()
         const {
             product_images,
@@ -396,28 +412,21 @@ class AddProduct extends Component {
             selectedCheckboxes,
         )
 
-        let item = await getData(MAIN_URL, `vendor/products/create`, 'post', {
-            name:product_name,
-            images:JSON.stringify(product_images),
-            price:product_price,
-            ribbon:ribbon,
-            description:product_description,
-            sections:JSON.stringify(sections),
-            options: JSON.stringify(options),
-            borrow_packing: borrow_value,
-            collection: collection,
-            local_delivery: local_delivery,
-            nationwide_delivery: nationwide_delivery,
-            collections: JSON.stringify(selectedCheckboxes)
-        }, true, true);
+        // let item = await getData(MAIN_URL, `vendor/products/info/${this.props.match.params.product_id}`, 'post', {}, true, true);
+
         Swal.fire({
             icon: 'success',
             title: 'successful',
         })
-        this.props.history.push('/vendor/store/products')
-
-
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -442,7 +451,7 @@ class AddProduct extends Component {
                         <Menu/>
                     </div>
                     <div className='dv-vendor-right-content dv-vendor-right-content-2 position-relative'>
-                        <form onSubmit={this.addProductMainHandler} className="py-3">
+                        <form onSubmit={this.editProductMainHandler} className="py-3">
                             <div className="row">
                                 <div
                                     className="col-12 d-flex flex-column flex-sm-row mb-5 px-md-4 justify-content-between align-items-center">
@@ -930,5 +939,3 @@ class AddProduct extends Component {
             ;
     }
 }
-
-export default AddProduct;

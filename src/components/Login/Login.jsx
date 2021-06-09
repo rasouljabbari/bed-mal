@@ -82,7 +82,7 @@ class Login extends Component {
                         </label>
                         <label htmlFor="dv-forget-password" className='mb-5'>
                             <button id='dv-forget-password' className='dv-forget-password' type='button'
-                                    onClick={this.forgetPasswordClick}>Forget your password
+                                    onClick={this.forgetPasswordClick}>Forgot your password ?
                             </button>
                         </label>
                         <label htmlFor="dv-login-btn" className='mt-5'>

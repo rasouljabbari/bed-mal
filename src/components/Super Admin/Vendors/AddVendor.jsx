@@ -538,7 +538,7 @@ class AddVendor extends Component {
                                     {this.state.department_items?.map(checkbox => (
                                         <label
                                             className={
-                                                selectedCheckboxes.find(element => element === checkbox.id) ?
+                                                selectedCheckboxes?.find(element => element === checkbox.id) ?
                                                     'dv-label-checkbox-checked mr-3' :
                                                     'dv-label-checkbox mr-3'
                                             }
@@ -548,7 +548,7 @@ class AddVendor extends Component {
                                                 type="checkbox"
                                                 checked={false}
                                                 onChange={() => this.onChange(checkbox.id)}
-                                                selected={selectedCheckboxes.includes(checkbox.id)}
+                                                selected={selectedCheckboxes?.includes(checkbox.id)}
                                             />
                                         </label>
                                     ))}

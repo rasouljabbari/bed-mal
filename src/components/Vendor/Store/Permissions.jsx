@@ -330,9 +330,9 @@ class Permissions extends Component {
                                         <span>{checkbox.name}</span>
                                         <input
                                             type="checkbox"
-                                            checked={selectedCheckboxes.find(element => element === checkbox.id) ? true : false}
+                                            checked={selectedCheckboxes?.find(element => element === checkbox.id) ? true : false}
                                             onChange={() => this.onChange(checkbox.id)}
-                                            selected={selectedCheckboxes.includes(checkbox.id)}
+                                            selected={selectedCheckboxes?.includes(checkbox.id)}
                                         />
                                     </label>
                                 ))}
@@ -389,9 +389,9 @@ class Permissions extends Component {
                                         <span>{checkbox.name}</span>
                                         <input
                                             type="checkbox"
-                                            checked={selectedCheckboxes.find(element => element === checkbox.id) ? true : false}
+                                            checked={selectedCheckboxes?.find(element => element === checkbox.id) ? true : false}
                                             onChange={() => this.onChange(checkbox.id)}
-                                            selected={selectedCheckboxes.includes(checkbox.id)}
+                                            selected={selectedCheckboxes?.includes(checkbox.id)}
                                         />
                                     </label>
                                 ))}
