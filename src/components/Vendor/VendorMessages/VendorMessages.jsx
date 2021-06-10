@@ -3,7 +3,6 @@ import {setTitle} from "../../../assets/scripts/GeneralFunctions";
 
 class VendorMessages extends Component {
     componentDidMount() {
-        console.log('vsdvsd')
         setTitle('Messages');
     }
     render() {

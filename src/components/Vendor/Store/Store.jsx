@@ -18,6 +18,7 @@ import Menu from "./Menu";
 import {toast} from "react-toastify";
 
 mapboxgl.accessToken = 'pk.eyJ1IjoicmpkZXZlbG9wZXIiLCJhIjoiY2twNmtyejhiMHJoaTJ3cXRpd2dsZXJyNSJ9.-vVOy-9UQcN0Dh61WwA-QQ';
+const Compress = require('compress.js')
 
 class Store extends Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class Store extends Component {
             lat: 53.0544,
             zoom: 5, new_uploaded_img: '', new_uploaded_img_arr: [], sure_remove: false,
             monday: [], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: [], sunday: [],
-            selected_name: '', store_item: '',store_plan_terms:'',permissions_item:[]
+            selected_name: '', store_item: '', store_plan_terms: '', permissions_item: []
         }
         this.mapContainer = React.createRef();
     }
@@ -192,106 +193,57 @@ class Store extends Component {
             selectedCheckboxes.push(id);
         }
 
-        this.setState({
-            selectedCheckboxes: selectedCheckboxes,
-            selectedId: id
-        });
+        if(selectedCheckboxes?.length <= 3 ) {
+            this.setState({
+                selectedCheckboxes: selectedCheckboxes,
+                selectedId: id
+            });
+        }
+        // this.setState({
+        //     selectedCheckboxes: selectedCheckboxes,
+        //     selectedId: id
+        // });
     };
 
     // Image Uploading and Remove
     thisUploadImage = async (e) => {
+
         let file = e.target.files[0];
-        let reader = new FileReader();
-        reader.onload = (e) => {
-            let img = document.createElement("img");
-            img.onload = () => {
+        const compress = new Compress();
+        const resizedImage = await compress.compress([file], {
+            size: 2, // the max size in MB, defaults to 2MB
+            quality: 1, // the quality of the image, max is 1,
+            maxWidth: 300, // the max width of the output image, defaults to 1920px
+            maxHeight: 300, // the max height of the output image, defaults to 1920px
+            resize: true // defaults to true, set false if you do not want to resize the image width and height
+        })
+        const img = resizedImage[0];
+        const base64str = img.data
+        const imgExt = img.ext
+        const resizedFile = Compress.convertBase64ToFile(base64str, imgExt)
 
-                let MAX_WIDTH = 300;
+        let file_name = new File([resizedFile], file.name, {lastModified: file.lastModified, type: file.type});
 
-                let width = img.width;
-                let height = img.height;
-
-                if (width > MAX_WIDTH) {
-
-                    let MAX_HEIGHT = (height * MAX_WIDTH) / width
-
-                    width = MAX_WIDTH;
-                    height = MAX_HEIGHT;
-
-                }
-                return img
-            }
-
-            img.src = e.target.result;
-
-
-            let ImageURL = img.src;
-// Split the base64 string in data and contentType
-            let block = ImageURL.split(";");
-// Get the content type of the image
-            let contentType = block[0].split(":")[1];// In this case "image/gif"
-// get the real base64 content of the file
-            let realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
-
-
-            function b64toBlob(b64Data, contentType, sliceSize) {
-                contentType = contentType || '';
-                sliceSize = sliceSize || 512;
-
-                let byteCharacters = atob(b64Data);
-                let byteArrays = [];
-
-                for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-                    let slice = byteCharacters.slice(offset, offset + sliceSize);
-
-                    let byteNumbers = new Array(slice.length);
-                    for (let i = 0; i < slice.length; i++) {
-                        byteNumbers[i] = slice.charCodeAt(i);
-                    }
-
-                    let byteArray = new Uint8Array(byteNumbers);
-
-                    byteArrays.push(byteArray);
-                }
-
-                let blob = new Blob(byteArrays, {type: contentType});
-                return blob;
-            }
-
-            let blob = b64toBlob(realData, contentType);
-
-
-            let fd = new FormData();
-
-            // Check file selected or not
-            fd.append('image', blob);
-            const headers = {
-                'Authorization': `Bearer ${localStorage.getItem("Token")}`,
-            };
-            loader(true)
-            axios.post(`${MAIN_URL}vendor/store-details/upload-image`, fd, {headers}).then(response => {
-                if (response.status === 200) {
-                    loader()
-                    let arr = this.state.new_uploaded_img_arr;
-                    arr.push(response.data.url)
-                    this.setState({
-                        new_uploaded_img_arr: arr
-                    })
-                }
-            }).catch(error => {
-                error.response.data.errors?.map((item) => {
-                    toast.error(item.message)
+        let fd = new FormData();
+        fd.append('image', file_name);
+        const headers = {
+            'Authorization': `Bearer ${localStorage.getItem("Token")}`,
+        };
+        loader(true)
+        axios.post(`${MAIN_URL}vendor/products/upload-image`, fd, {headers}).then(response => {
+            if (response.status === 200) {
+                loader()
+                let arr = this.state.new_uploaded_img_arr;
+                arr.push(response?.data.url)
+                this.setState({
+                    new_uploaded_img_arr: arr
                 })
+            }
+        }).catch(error => {
+            error?.response.data.errors?.map((item) => {
+                toast.error(item.message)
             })
-
-
-        }
-        reader.readAsDataURL(file);
-
-
-        /***********************************************************************/
-
-
+        })
     }
     removeHandler = (item) => {
         this.setState({sure_remove: true, remove_selected_item: item})

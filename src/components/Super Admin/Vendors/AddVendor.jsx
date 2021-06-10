@@ -176,6 +176,7 @@ class AddVendor extends Component {
 
     // Image Uploading
     thisUploadImage = async (e) => {
+
         let file = e.target.files[0];
         const compress = new Compress();
         const resizedImage = await compress.compress([file], {
@@ -188,9 +189,9 @@ class AddVendor extends Component {
         const img = resizedImage[0];
         const base64str = img.data
         const imgExt = img.ext
-        const resizedFiile = Compress.convertBase64ToFile(base64str, imgExt)
+        const resizedFile = Compress.convertBase64ToFile(base64str, imgExt)
 
-        let file_name = new File([resizedFiile], file.name, {lastModified: file.lastModified, type: file.type});
+        let file_name = new File([resizedFile], file.name, {lastModified: file.lastModified, type: file.type});
 
         let fd = new FormData();
         fd.append('image', file_name);
@@ -202,14 +203,13 @@ class AddVendor extends Component {
             if (response.status === 200) {
                 loader()
                 let arr = this.state.new_uploaded_img_arr;
-                arr.push(response.data.url)
+                arr.push(response?.data.url)
                 this.setState({
                     new_uploaded_img_arr: arr
                 })
             }
         }).catch(error => {
-            loader()
-            error.response.data.errors?.map((item) => {
+            error?.response.data.errors?.map((item) => {
                 toast.error(item.message)
             })
         })
