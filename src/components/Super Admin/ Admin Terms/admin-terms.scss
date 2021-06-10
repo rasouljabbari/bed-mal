@@ -54,17 +54,41 @@
         align-items: center;
         width: 40px;
         height: 40px;
-        border: 1px solid #FAFAFA;
         box-shadow: $dv-box-shadow;
         color: #000;
         font-size: 1.6rem;
+        transition: all 0.3s linear;
+        &:hover{
+          background-color: #eaeaea;
+        }
       }
     }
   }
 }
-.dv-right-content-terms{
-  margin-left: 360px;
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link , .nav-pills .nav-link.active .dv-list-items{
+  background-color: $dv-gray-ea !important;
+  color: #413F3F !important;
+}
+.nav-pills .nav-link{
+  background-color: #413F3F;
   width: 100%;
+  font-size: 20px;
+  line-height: 27px;
+  margin: 0.4rem 0;
+  color: #C3BFBF;
+  padding: 0 !important;
+  text-decoration: none;
+  transition: all 0.3s linear;
+}
+.dv-right-content-terms{
+  //margin-left: 360px;
+  padding: 1rem 2rem;
+  width: 100%;
+  h1{
+    font-size: 30px;
+    line-height: 40px;
+    font-weight: normal;
+  }
   .dv-terms-edit-btn{
     background-color: $dv-gray-ea;
     color: $main-blue;
@@ -83,6 +107,7 @@
       line-height: 24px;
       color: #413F3F;
       margin-bottom: 0;
+      font-family: 'FuturaPT-Book' !important;
     }
   }
 }

@@ -42,7 +42,7 @@ class Menu extends Component {
                                          to={'/vendor/store/collections'}>Collections</NavLink>
                                 <NavLink activeClassName="active"
                                          className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
-                                         to={'/vendor/store/fulfilment'}>Fulfilment</NavLink>
+                                         to={'/vendor/store/fulfillment'}>Fulfillment</NavLink>
                                 <NavLink activeClassName="active"
                                          className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
                                          to={'/vendor/store/borrow-products'}>Borrow products</NavLink>
@@ -81,7 +81,7 @@ class Menu extends Component {
                                 }
                                 <NavLink activeClassName="active"
                                          className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
-                                         to={'/vendor/store/fulfilment'}>Fulfilment</NavLink>
+                                         to={'/vendor/store/fulfillment'}>Fulfillment</NavLink>
                                 <NavLink activeClassName="active"
                                          className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
                                          to={'/vendor/store/borrow-products'}>Borrow products</NavLink>

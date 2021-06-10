@@ -86,7 +86,7 @@ export default class EditProduct extends Component {
     saveNewProductName = (e) => {
         e.preventDefault()
         this.setState({show_add_product_name: false})
-        toast.success('product name updated successful')
+        toast.success('product name updated successfully')
     }
     /******************************************************************************/
     /********************** Image Uploading,Edit,Remove ****************/
@@ -143,7 +143,7 @@ export default class EditProduct extends Component {
             }
         })
         this.setState({remove_options: false, show_options: false, product_images: arr})
-        toast.success('image removed successful')
+        toast.success('image removed successfully')
     }
 
     arrowUpHandler = (index) => {
@@ -207,7 +207,7 @@ export default class EditProduct extends Component {
         sections_arr.push(section)
 
         this.setState({add_new_section_show: false, sections: sections_arr})
-        toast.success('section added successful')
+        toast.success('section added successfully')
     }
     editSection = (index) => {
         let item = this.state.sections[index]
@@ -226,7 +226,7 @@ export default class EditProduct extends Component {
         this.setState({
             sections: updatedHeaders, edit_section_show: false
         })
-        toast.success('section edited successful')
+        toast.success('section edited successfully')
     }
     deleteSectionHandler = () => {
         this.setState({remove_section: true})
@@ -239,7 +239,7 @@ export default class EditProduct extends Component {
             }
         })
         this.setState({remove_section: false, edit_section_show: false, sections: arr})
-        toast.success('section removed successful')
+        toast.success('section removed successfully')
     }
     closeModalDelete = () => {
         this.setState({remove_section: false})
@@ -286,7 +286,7 @@ export default class EditProduct extends Component {
             options: updatedHeaders,show_options: false, edit_option: false
         })
 
-        toast.success('option edited successful')
+        toast.success('option edited successfully')
     }
     handleRadioInput = (e) => {
         this.setState({option_selected: e.target.value, option_with_input_selected: ''})
@@ -306,7 +306,7 @@ export default class EditProduct extends Component {
             }
         })
         this.setState({remove_options: false, show_options: false, options: arr})
-        toast.success('option removed successful')
+        toast.success('option removed successfully')
         // }
     }
     closeModalOptionDelete = () => {
@@ -348,7 +348,7 @@ export default class EditProduct extends Component {
         }
         options.push(new_option);
         this.setState({show_options: false, options: options})
-        toast.success('option added successful')
+        toast.success('option added successfully')
     }
 
     /************** Change Borrow Status *************/
@@ -363,7 +363,7 @@ export default class EditProduct extends Component {
         }
     };
 
-    /********************** Fulfilment ****************/
+    /********************** Fulfillment ****************/
     onChangeCollection = (collection) => {
         if(collection == 0){
             this.setState({collection: 1})
@@ -416,7 +416,7 @@ export default class EditProduct extends Component {
 
         Swal.fire({
             icon: 'success',
-            title: 'successful',
+            title: 'successfully',
         })
     }
 
@@ -622,7 +622,7 @@ export default class EditProduct extends Component {
                                     <div className="dv-bg-light dv-box-shadow mb-4 py-3 px-4">
                                         <div className="row">
                                             <div className="col-12 mb-3">
-                                                <h5 className='dv-img-product-title mb-0'>Fulfilment options</h5>
+                                                <h5 className='dv-img-product-title mb-0'>Fulfillment options</h5>
                                                 <span className='dv-product-name-label pb-1'>Select the options available to this product.</span>
                                             </div>
                                             <div className="col-12 col-md-8">

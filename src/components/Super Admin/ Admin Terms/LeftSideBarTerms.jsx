@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './admin-terms.scss'
 import {Nav, Navbar} from "react-bootstrap";
 import {NavLink} from "react-router-dom";
+import Trash from "../../../assets/image/Icon material-delete.svg";
 
 class LeftSideBarTerms extends Component {
     constructor(props) {
@@ -34,7 +35,9 @@ class LeftSideBarTerms extends Component {
                             <div className="d-flex align-items-center justify-content-end">
                                 <i className="las la-arrow-down dv-terms-sidebar-icon" onClick={()=>this.downDepartment('down')}/>
                                 <i className="las la-arrow-up dv-terms-sidebar-icon mx-2" onClick={()=>this.upDepartment('up')}/>
-                                <i className="las la-trash dv-terms-sidebar-icon" onClick={()=>this.removeDepartment('trash')}/>
+                                <div className='dv-terms-sidebar-icon'>
+                                    <img src={Trash} className='img-fluid' alt="bed mal" onClick={() => this.removeDepartment('trash')}/>
+                                </div>
                             </div>
                         </div>
                         <div className='dv-list-items active d-flex align-items-center justify-content-around' >
@@ -42,7 +45,9 @@ class LeftSideBarTerms extends Component {
                             <div className="d-flex align-items-center justify-content-end">
                                 <i className="las la-arrow-down dv-terms-sidebar-icon" onClick={()=>this.downDepartment('down')}/>
                                 <i className="las la-arrow-up dv-terms-sidebar-icon mx-2" onClick={()=>this.upDepartment('up')}/>
-                                <i className="las la-trash dv-terms-sidebar-icon" onClick={()=>this.removeDepartment('trash')}/>
+                                <div className='dv-terms-sidebar-icon'>
+                                    <img src={Trash} className='img-fluid' alt="bed mal" onClick={() => this.removeDepartment('trash')}/>
+                                </div>
                             </div>
                         </div>
                         <div className='dv-list-items d-flex align-items-center justify-content-around' >
@@ -50,7 +55,9 @@ class LeftSideBarTerms extends Component {
                             <div className="d-flex align-items-center justify-content-end">
                                 <i className="las la-arrow-down dv-terms-sidebar-icon" onClick={()=>this.downDepartment('down')}/>
                                 <i className="las la-arrow-up dv-terms-sidebar-icon mx-2" onClick={()=>this.upDepartment('up')}/>
-                                <i className="las la-trash dv-terms-sidebar-icon" onClick={()=>this.removeDepartment('trash')}/>
+                                <div className='dv-terms-sidebar-icon'>
+                                    <img src={Trash} className='img-fluid' alt="bed mal" onClick={() => this.removeDepartment('trash')}/>
+                                </div>
                             </div>
                         </div>
                     </div>

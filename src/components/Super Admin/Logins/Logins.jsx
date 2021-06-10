@@ -66,7 +66,7 @@ class Logins extends Component {
             this.setState({logins: newStatuses,new_login:false });
             Swal.fire({
                 icon: 'success',
-                title: 'created successful',
+                title: 'created successfully',
             })
         }
     }
@@ -106,7 +106,7 @@ class Logins extends Component {
             })
             Swal.fire({
                 icon: 'success',
-                title: 'edited successful',
+                title: 'edited successfully',
             })
         }
     }
@@ -132,7 +132,7 @@ class Logins extends Component {
             this.setState({logins: arr , remove_show: false , edit_login: false})
             Swal.fire({
                 icon: 'success',
-                title: 'removed successful',
+                title: 'removed successfully',
             })
         }
     }

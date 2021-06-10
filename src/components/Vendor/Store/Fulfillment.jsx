@@ -3,7 +3,7 @@ import './store.scss';
 import {setTitle} from "../../../assets/scripts/GeneralFunctions";
 import Menu from './Menu'
 
-class Fulfilment extends Component {
+class Fulfillment extends Component {
 
     async componentDidMount() {
         setTitle('Store');
@@ -17,7 +17,7 @@ class Fulfilment extends Component {
                     <Menu/>
                 </div>
                 <div className='dv-vendor-right-content dv-vendor-right-content-2 position-relative'>
-                    <h1>Fulfilment</h1>
+                    <h1>Fulfillment</h1>
                 </div>
 
             </div>
@@ -25,4 +25,4 @@ class Fulfilment extends Component {
     }
 }
 
-export default Fulfilment;
+export default Fulfillment;

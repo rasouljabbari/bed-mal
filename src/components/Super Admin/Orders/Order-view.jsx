@@ -18,10 +18,7 @@ class OrderView extends Component {
 
     handleMessage = (id) => {
         console.log(id)
-    }
-
-    handleCall = (id) => {
-        console.log(id)
+        this.props.history.push('/admin/messages')
     }
     /**********************************************/
     // Lazy Load
@@ -72,8 +69,8 @@ class OrderView extends Component {
         return (
             <div className="row py-3 px-3 px-md-4 position-relative mb-5">
                 <div className="col-12 mb-3">
-                    <div className="d-flex">
-                        <button className='mr-3 dv-back-btn'><Link to={'/admin/orders'}><i
+                    <div className="d-flex justify-content-start align-items-center">
+                        <button className='mr-3 dv-back-btn-order'><Link to={'/admin/orders'}><i
                             className="las la-arrow-left"/></Link></button>
                         <h3>Orders</h3>
                     </div>
@@ -86,7 +83,8 @@ class OrderView extends Component {
                             <div className="d-flex">
                                 <button className='dv-blue-btn mx-1' onClick={() => this.handleMessage('10')}>Message
                                 </button>
-                                <button className='dv-white-btn mx-1' onClick={() => this.handleCall('0')}>Call</button>
+                                <a href={`tel:${147852369}`}
+                                   className='dv-white-btn ml-1 d-flex align-items-center justify-content-center text-dark'>Call</a>
                             </div>
                         </div>
                     </div>
@@ -96,9 +94,10 @@ class OrderView extends Component {
                             <h4 className='mb-1'>Tulip Cafe</h4>
                             <span className='mb-2 dv-span-color'>Vendor ID: 123456</span>
                             <div className="d-flex">
-                                <button className='dv-blue-btn mx-1' onClick={() => this.handleMessage('11')}>Message
+                                <button className='dv-blue-btn mx-1' onClick={() => this.handleMessage('10')}>Message
                                 </button>
-                                <button className='dv-white-btn mx-1' onClick={() => this.handleCall('1')}>Call</button>
+                                <a href={`tel:${147852369}`}
+                                   className='dv-white-btn ml-1 d-flex align-items-center justify-content-center text-dark'>Call</a>
                             </div>
                         </div>
                     </div>

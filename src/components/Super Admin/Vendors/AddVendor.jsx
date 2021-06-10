@@ -289,7 +289,7 @@ class AddVendor extends Component {
             if (vendorItem?.status === 200) {
                 Swal.fire({
                     icon: 'success',
-                    title: 'created successful',
+                    title: 'created successfully',
                 })
                 this.props.history.push('/admin/vendors')
             }
@@ -330,7 +330,7 @@ class AddVendor extends Component {
                         </li>
                         <li className="dv-vendor-list-items d-flex flex-column align-items-start"
                             onClick={() => this.vendorListItemHandler(3)}>
-                            <h5 className='dv-vendor-list-title mb-0'>Fulfilment</h5>
+                            <h5 className='dv-vendor-list-title mb-0'>Fulfillment</h5>
                         </li>
                         <li className="dv-vendor-list-items d-flex flex-column align-items-start"
                             onClick={() => this.vendorListItemHandler(4)}>

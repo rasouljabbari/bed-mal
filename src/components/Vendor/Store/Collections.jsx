@@ -5,6 +5,7 @@ import {Modal} from "react-bootstrap";
 import {MAIN_URL} from "../../../assets/scripts/GeneralVariables";
 import Menu from "./Menu";
 import Swal from "sweetalert2";
+import Trash from "../../../assets/image/Icon material-delete.svg";
 
 class Collections extends Component {
     constructor(props) {
@@ -44,7 +45,7 @@ class Collections extends Component {
             let newStatuses = items.concat(new_item?.item);
             Swal.fire({
                 icon: 'success',
-                title: 'created successful',
+                title: 'created successfully',
             })
             this.setState({items: newStatuses});
         }
@@ -66,7 +67,7 @@ class Collections extends Component {
             })
             Swal.fire({
                 icon: 'success',
-                title: 'removed successful',
+                title: 'removed successfully',
             })
             this.setState({items: arr})
         }
@@ -177,9 +178,15 @@ class Collections extends Component {
                                                                            onClick={() => this.upCollections(row.row_index, row.id, i)}/>
                                                                     </div>
                                                                 </td>
-                                                                <td className='d-flex justify-content-center'><i
-                                                                    className="las la-trash dv-department-icon"
-                                                                    onClick={() => this.removeCollections(row.id)}/></td>
+                                                                <td className='d-flex justify-content-center'>
+                                                                    <div className='dv-department-icon'>
+                                                                        <img src={Trash} className='img-fluid' alt="bed mal" onClick={() => this.removeCollections(row.id)}/>
+                                                                    </div>
+                                                                    {/*<i*/}
+                                                                    {/*className="las la-trash dv-department-icon"*/}
+                                                                    {/*onClick={() => this.removeCollections(row.id)}/>*/}
+
+                                                                </td>
                                                             </tr>
                                                         ))
                                                     }

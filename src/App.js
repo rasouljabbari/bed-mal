@@ -29,7 +29,7 @@ import NotFound from "./components/Not Found/NotFound";
 import Store from "./components/Vendor/Store/Store";
 import Products from "./components/Vendor/Store/Products";
 import BorrowProducts from "./components/Vendor/Store/BorrowProducts";
-import Fulfilment from "./components/Vendor/Store/Fulfilment";
+import Fulfillment from "./components/Vendor/Store/Fulfillment";
 import Collections from "./components/Vendor/Store/Collections";
 import Permissions from "./components/Vendor/Store/Permissions";
 import Dashboard from "./components/Vendor/Dashboard/Dashboard";
@@ -125,7 +125,7 @@ class App extends Component {
                                             {/*))*/}
                                             {/*}*/}
 
-                                            <Route exact path="/vendor/store/fulfilment" component={Fulfilment}/>
+                                            <Route exact path="/vendor/store/fulfillment" component={Fulfillment}/>
                                             <Route exact path="/vendor/store/borrow-products"
                                                    component={BorrowProducts}/>
                                             <Route exact path="/vendor/store/products" component={Products}/>

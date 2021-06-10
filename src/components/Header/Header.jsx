@@ -148,8 +148,8 @@ class Header extends Component {
 
                                         <NavDropdown.Item>
                                             <NavLink onClick={this.handleCloseMenu} activeClassName="active" to={{
-                                                pathname: "/vendor/store/fulfilment"
-                                            }}>Fulfilment</NavLink>
+                                                pathname: "/vendor/store/fulfillment"
+                                            }}>Fulfillment</NavLink>
                                         </NavDropdown.Item>
                                         <NavDropdown.Item>
                                             <NavLink onClick={this.handleCloseMenu} activeClassName="active"
@@ -190,8 +190,8 @@ class Header extends Component {
                                     }
                                     <NavDropdown.Item>
                                         <NavLink onClick={this.handleCloseMenu} activeClassName="active" to={{
-                                            pathname: "/vendor/store/fulfilment"
-                                        }}>Fulfilment</NavLink>
+                                            pathname: "/vendor/store/fulfillment"
+                                        }}>Fulfillment</NavLink>
                                     </NavDropdown.Item>
                                     <NavDropdown.Item>
                                         <NavLink onClick={this.handleCloseMenu} activeClassName="active"

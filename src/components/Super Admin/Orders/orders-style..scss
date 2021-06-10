@@ -140,6 +140,8 @@
   width: 99px;
   height: 33px;
   color: #fff;
+  font-size: 18px !important;
+  line-height: 24px !important;
   margin-left: 0 !important;
   transition: all 0.3s linear;
   &:hover{
@@ -173,7 +175,7 @@
   }
 }
 
-.dv-back-btn {
+.dv-back-btn-order {
   background-color: #F0F0F0;
   border: none;
   border-radius: 50%;

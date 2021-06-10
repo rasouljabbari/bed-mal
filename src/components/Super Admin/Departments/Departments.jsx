@@ -7,6 +7,7 @@ import {getData} from "../../../assets/scripts/GeneralFunctions";
 import {MAIN_URL} from "../../../assets/scripts/GeneralVariables";
 import {Modal} from "react-bootstrap";
 import Swal from "sweetalert2";
+import Trash from "../../../assets/image/Icon material-delete.svg";
 
 class Departments extends Component {
     constructor(props) {
@@ -49,7 +50,7 @@ class Departments extends Component {
         }
         Swal.fire({
             icon: 'success',
-            title: 'created successful',
+            title: 'created successfully',
         })
     }
     removeDepartment = async (id) => {
@@ -68,7 +69,7 @@ class Departments extends Component {
             })
             Swal.fire({
                 icon: 'success',
-                title: 'removed successful',
+                title: 'removed successfully',
             })
             this.setState({items: arr})
         }
@@ -170,9 +171,15 @@ class Departments extends Component {
                                                                        onClick={() => this.upDepartment(row.row_index, row.id, i)}/>
                                                                 </div>
                                                             </td>
-                                                            <td className='text-left'><i
-                                                                className="las la-trash dv-department-icon"
-                                                                onClick={() => this.removeDepartment(row.id)}/></td>
+                                                            <td className='text-left'>
+                                                                <div className='dv-department-icon'>
+                                                                    <img src={Trash} className='img-fluid' alt="bed mal" onClick={() => this.removeDepartment(row.id)}/>
+                                                                </div>
+
+                                                                {/*<i*/}
+                                                                {/*className="las la-trash dv-department-icon"*/}
+                                                                {/*onClick={() => this.removeDepartment(row.id)}/>*/}
+                                                            </td>
                                                         </tr>
                                                     ))
                                                 }

@@ -318,7 +318,7 @@ class Store extends Component {
             console.log(storeItem)
             Swal.fire({
                 icon: 'success',
-                title: 'updated successful',
+                title: 'updated successfully',
                 allowOutsideClick: false,
             })
         }
