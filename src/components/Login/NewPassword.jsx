@@ -74,7 +74,7 @@ class NewPassword extends Component {
                                 <i className="lar la-check-circle dv-check-circle-icon"/>
                             </div>
                             <div className="col-12 mb-5">
-                                <h5 className='dv-h5'>Password changed successfullyly</h5>
+                                <h5 className='dv-h5'>Password changed successfully</h5>
                             </div>
                             <div className="col-12 mt-5">
                                 <button className='dv-back-btn d-flex justify-content-center' type='button' onClick={this.backHandler}>Go to login</button>

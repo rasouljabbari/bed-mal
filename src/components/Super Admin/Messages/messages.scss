@@ -1,27 +1,340 @@
 @import "../../../assets/style/variables";
-.dv-btn-message-parent-sidebar{
+
+.dv-left-sidebar-message{
+  background-color: #5A5A5A;
+  width: 25%;
+  height: 100vh;
+  position: fixed;
+  .dv-btn-terms-parent-sidebar{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    .dv-btn-term-new-doc{
+      background-color: $dv-gray-ea;
+      color: $main-blue;
+      padding: 0.5rem 4rem;
+      margin-top: 0.2rem;
+      &:hover{
+        background-color: $bg-customer-vendor;
+      }
+    }
+  }
+  .dv-navbar-terms{
+    background: #5A5A5A;
+    width: 100%;
+    padding: 0;
+    .dv-list-items{
+      background-color: #413F3F;
+      width: 100%;
+      font-size: 20px;
+      line-height: 27px;
+      margin: 0.4rem 0;
+      color: #C3BFBF;
+      padding: 1rem;
+      text-decoration: none;
+      transition: all 0.3s linear;
+      &:hover{
+        background-color:$dv-gray-ea ;
+        color: #413F3F;
+        text-decoration: none;
+      }
+      &.active{
+        background-color: $dv-gray-ea;
+        color: #413F3F;
+      }
+      .dv-terms-sidebar-icon{
+        background-color: #FAFAFA;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        box-shadow: $dv-box-shadow;
+        color: #000;
+        font-size: 1.6rem;
+        transition: all 0.3s linear;
+        &:hover{
+          background-color: #eaeaea;
+        }
+      }
+    }
+  }
+}
+.dv-right-content-message {
+  background: #fff;
+  width: calc(100% - 25%);
+  margin-left: 25%;
+  height: 100%;
+  .dv-user-name-parent {
+    background-color: #fff;
+    position: fixed;
+    top: 3rem;
+    width: 100%;
+    height: 80px;
+
+    .dv-user-name {
+      position: fixed;
+      top: 4rem;
+      color: #000000;
+      font-size: 20px;
+      line-height: 20px;
+      border-radius: 10px 10px 10px 0;
+      box-shadow: $dv-box-shadow;
+      padding: 1rem;
+      background-color: #F7F7F7;
+      width: 340px;
+      text-align: center;
+      margin-left: 2.5rem;
+    }
+  }
+  .dv-messages-content {
+    //margin-top: 5rem;
+    padding: 5rem 0 3.5rem 0;
+    overflow-y: auto;
+    width: 100%;
+    //height: 76vh;
+    //position: absolute;
+    background: #fff;
+
+    .dv-user-message-send {
+      font-size: 20px;
+      line-height: 20px;
+      background-color: #D8FFAA;
+      border-radius: 10px 10px 0 10px;
+      box-shadow: $dv-box-shadow;
+      width: 78%;
+      margin-left: 17.5%;
+
+      p{
+        color: #707070;
+        font-size: 18px;
+        line-height: 20px;
+        padding: 1rem 2rem 0.3rem 2rem;
+      }
+
+      .dv-message-send-time {
+        color: #C3BCBC;
+        text-align: right;
+        font-size: 12px;
+        line-height: 20px;
+        padding-right: 0.45rem;
+        padding-bottom: 0.3rem;
+      }
+    }
+
+    .dv-admin-message-send {
+      font-size: 20px;
+      line-height: 20px;
+      background-color: #FAFAFA;
+      border-radius: 10px 10px 10px 0;
+      box-shadow: $dv-box-shadow;
+      width: 55%;
+      margin-right: 17.5%;
+      margin-left: 2.5rem;
+
+      p{
+        color: #707070;
+        font-size: 18px;
+        line-height: 20px;
+        padding: 1rem 2rem 0.3rem 2rem;
+      }
+
+      .dv-message-send-time {
+        color: #C3BCBC;
+        text-align: right;
+        font-size: 12px;
+        line-height: 20px;
+        padding-right: 0.45rem;
+        padding-bottom: 0.3rem;
+      }
+    }
+  }
+  .dv-messages-footer {
+    background-color: #FAFAFA;
+    width: 100%;
+    height: 89px;
+    box-shadow: $dv-box-shadow;
+    position: fixed;
+    bottom: 0;
+    //left: 22.5rem;
+    .dv-message-input {
+      width: 72%;
+      background-color: #EAEAEA;
+      box-shadow: $dv-box-shadow;
+      border-radius: 50px;
+      padding: 0.8rem 1rem;
+      border: none;
+    }
+    .dv-btn-send-message-icon{
+      box-shadow: none !important;
+      border: none !important;
+      position: absolute;
+      right:28%;
+      background-color: transparent !important;
+    }
+    .dv-upload-file-label-message {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      width: 50px;
+      .dc-upload-file {
+        visibility: hidden;
+      }
+
+      .la-plus {
+        font-size: 5rem;
+        color: $main-blue;
+        position: absolute;
+      }
+    }
+  }
+  .dv-messages-footer-image {
+    background-color: #FAFAFA;
+    width: 100%;
+    min-height: 89px;
+    box-shadow: $dv-box-shadow;
+    position: fixed;
+    bottom: 0;
+
+    .dv-btn-send-message-icon {
+      box-shadow: none !important;
+      border: none !important;
+      position: absolute;
+      right: 28%;
+      background-color: transparent !important;
+    }
+
+    .dv-upload-file-label-message {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      width: 50px;
+
+      .dc-upload-file {
+        visibility: hidden;
+      }
+
+      .la-plus {
+        font-size: 5rem;
+        color: $main-blue;
+        position: absolute;
+      }
+    }
+
+    .dv-img-message-parent {
+      position: relative;
+      background-color: #eaeaea;
+      width: 60%;
+      height: 200px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+
+      img {
+        border-radius: 10px;
+        object-fit: cover;
+      }
+
+      .dv-store-icons {
+        color: #fafafa;
+        cursor: pointer;
+
+        &.la-times-circle {
+          font-size: 3rem;
+          position: absolute;
+          top: 0.5rem;
+          right: 0.5rem;
+
+          &:hover {
+            color: $main-blue;
+          }
+        }
+
+        &.la-arrow-up, &.la-arrow-right {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 2rem;
+          position: absolute;
+          bottom: 0.5rem;
+          right: 40%;
+          transform: translateX(50%);
+          width: 35px;
+          height: 35px;
+          background-color: #fafafa;
+          color: #000;
+          border-radius: 50%;
+
+          &:hover {
+            color: #fff;
+            background-color: $main-blue;
+          }
+        }
+
+        &.la-arrow-down, &.la-arrow-left {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 2rem;
+          position: absolute;
+          bottom: 0.5rem;
+          left: 40%;
+          transform: translateX(-50%);
+          width: 35px;
+          height: 35px;
+          background-color: #fafafa;
+          color: #000;
+          border-radius: 50%;
+
+          &:hover {
+            color: #fff;
+            background-color: $main-blue;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+.dv-btn-message-parent-sidebar {
   margin: auto;
   height: 100px;
   padding: 10px 1rem;
 }
-.w-10{
+
+.w-10 {
   width: 10%;
 }
-.w-90{
+
+.w-90 {
   width: 90%;
 }
-.dv-circle-red{
+
+.dv-circle-red {
   width: 22px;
   height: 22px;
   border-radius: 50%;
   box-shadow: $dv-box-shadow;
   background-color: $main-light-red;
 }
-.dv-navbar-message{
+
+.dv-navbar-message {
   background: #5A5A5A;
   width: 100%;
   padding: 0;
-  .dv-list-items{
+
+  .dv-list-items {
     background-color: #413F3F;
     width: 100%;
     font-size: 20px;
@@ -31,18 +344,22 @@
     padding: 0;
     text-decoration: none;
     transition: all 0.3s linear;
-    &:hover{
-      background-color:$dv-gray-ea ;
+
+    &:hover {
+      background-color: $dv-gray-ea;
       color: #413F3F;
       text-decoration: none;
-      .dv-message-name{
+
+      .dv-message-name {
         color: #2B2626;
       }
-      .dv-message-text{
+
+      .dv-message-text {
         color: #C3BFBF;
       }
     }
-    .dv-terms-sidebar-icon{
+
+    .dv-terms-sidebar-icon {
       background-color: #FAFAFA;
       border-radius: 50%;
       display: flex;
@@ -54,23 +371,27 @@
       color: #000;
       font-size: 1.6rem;
       transition: all 0.3s linear;
-      &:hover{
+
+      &:hover {
         background-color: #eaeaea;
       }
     }
-    .dv-message-name{
+
+    .dv-message-name {
       font-size: 18px;
       line-height: 20px;
       color: #F2EFEF;
       font-family: 'FuturaPT-Book' !important;
     }
-    .dv-message-date{
+
+    .dv-message-date {
       font-size: 14px;
       line-height: 20px;
       color: #707070;
       font-family: 'FuturaPT-Book' !important;
     }
-    .dv-message-text{
+
+    .dv-message-text {
       font-size: 14px;
       line-height: 20px;
       color: #C3BFBF;
@@ -90,106 +411,21 @@
     }
   }
 }
-.nav-link.active{
+
+.nav-link.active {
   background-color: $dv-gray-ea;
   color: #413F3F;
-  .dv-message-name{
+
+  .dv-message-name {
     color: #2B2626;
   }
-  .dv-message-text{
+
+  .dv-message-text {
     color: #C3BFBF;
   }
 }
-.dv-bg-message{
-  background: #fff;
-  margin-left: 360px;
-  height: 100vh;
-  //position: fixed;
-  .dv-user-name-parent{
-    position: fixed;
-    top: 4rem;
-    left: 24rem;
-    width: 100%;
-    z-index: 99;
-    background-color: #fff;
-    height: 75px;
-    .dv-user-name{
-      color: #000000;
-      font-size: 20px;
-      line-height: 20px;
-      border-radius: 10px 10px 10px 0;
-      box-shadow: $dv-box-shadow;
-      padding: 1rem;
-      background-color: #F7F7F7;
-      width: 340px;
-      text-align: center;
-    }
-  }
-}
 
-.dv-messages-content{
-  margin-top: 5rem;
-  overflow-y: auto;
-  width: 100%;
-  height: 73vh;
-  position: absolute;
-  background: #fff;
-  .dv-user-message-send{
-    font-size: 20px;
-    line-height: 20px;
-    background-color: #D8FFAA;
-    border-radius: 10px 10px 0 10px;
-    box-shadow: $dv-box-shadow;
-    width: 78%;
-    margin-left: 17.5%;
-    p{
-      color: #707070;
-      font-size: 18px;
-      line-height: 20px;
-      padding: 1rem 2rem 0.3rem 2rem;
-    }
-    .dv-message-send-time{
-      color: #C3BCBC;
-      text-align: right;
-      font-size: 12px;
-      line-height: 20px;
-      padding-right: 0.45rem;
-      padding-bottom: 0.3rem;
-    }
-  }
-  .dv-admin-message-send{
-    font-size: 20px;
-    line-height: 20px;
-    background-color: #FAFAFA;
-    border-radius: 10px 10px 10px 0 ;
-    box-shadow: $dv-box-shadow;
-    width: 55% ;
-    margin-right: 17.5%;
-    p{
-      color: #707070;
-      font-size: 18px;
-      line-height: 20px;
-      padding: 1rem 2rem 0.3rem 2rem;
-    }
-    .dv-message-send-time{
-      color: #C3BCBC;
-      text-align: right;
-      font-size: 12px;
-      line-height: 20px;
-      padding-right: 0.45rem;
-      padding-bottom: 0.3rem;
-    }
-  }
-}
-.dv-messages-footer{
-  background-color: #FAFAFA;
-  width: 100%;
-  height: 89px;
-  box-shadow: $dv-box-shadow;
-  position: fixed;
-  bottom: -1rem;
-  left: 22.5rem;
-}
+
 
 @media (max-width: 1200px) {
   .dv-left-sidebar-message {
@@ -197,7 +433,7 @@
     position: unset !important;
     height: auto !important;
   }
-  .dv-right-content-message , .dv-bg-message{
+  .dv-right-content-message, .dv-bg-message {
     margin-left: 0;
     width: 100%;
   }
