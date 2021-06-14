@@ -1,2 +1,123 @@
 @import "src/assets/style/variables";
 
+.dv-call {
+  width: 50%;
+  color: #707070;
+  background-color: #fff;
+  box-shadow: $dv-box-shadow;
+  border-radius: 25px;
+  border: none;
+  padding: 0.5rem 0;
+  transition: all 0.3s linear;
+  text-align: center;
+  font-size: 25px;
+  line-height: 33px;
+
+  &:hover {
+    background-color: #C3BFBF;
+    color: #fff;
+  }
+}
+
+.dv-message {
+  width: 50%;
+  color: #fff;
+  background-color: #C3BFBF;
+  box-shadow: $dv-box-shadow;
+  border-radius: 25px;
+  border: none;
+  padding: 0.5rem 0;
+  transition: all 0.3s linear;
+  text-align: center;
+  font-size: 25px;
+  line-height: 33px;
+
+  &:hover {
+    background-color: #B0ABAB;
+  }
+}
+
+.dv-vendor-list-items-order {
+  width: 100%;
+  background-color: #413F3F;
+  color: #C3BFBF;
+  font-size: 18px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+
+  .dv-left-border {
+    height: 70px;
+    border-radius: 1rem;
+    border: 6px solid $main-light-red;
+  }
+
+  .dv-left-border-green {
+    height: 70px;
+    border-radius: 1rem;
+    border: 6px solid $main-green;
+  }
+
+  &.active , &:hover {
+    background-color: #fff;
+    color: $bg-customer-vendor;
+  }
+}
+
+.dv-vorder-right-content {
+  margin-left: 291px;
+  padding: 1rem 1.5rem;
+  width: calc(100% - 291px);
+
+  .custom-height-right-items {
+    position: unset !important;
+    //top: 0;
+    //left: 24%;
+    width: 100%;
+    //.bg-custom-light-1 {
+    //  width: 94%;
+    //  margin-bottom: 1rem;
+    //}
+    .bg-custom-light{
+      position: unset !important;
+
+      .dv-color {
+        color: $light-gray-text;
+      }
+
+      .dv-borrows {
+        width: 100%;
+        background: url(../../../assets/image/BG.png) no-repeat;
+        background-size: cover;
+        text-align: center;
+
+        .dv-circle {
+          width: 55px;
+          height: 55px;
+          //position: relative;
+          border-radius: 50%;
+          background: #fff;
+          color: #000;
+          //left: 1.8rem;
+          //top: 1rem;
+          box-shadow: $dv-box-shadow;
+          font-size: 1.6rem;
+        }
+
+        .dv-return-text {
+          font-size: 18px;
+          line-height: 24px;
+          color: #C3BCBC;
+        }
+      }
+    }
+    .bg-custom-light-2 {
+      box-shadow: none !important;
+      position: unset !important;
+      background-color: transparent !important;
+      width: 70%;
+      margin-left: 2%;
+    }
+  }
+
+}
+
