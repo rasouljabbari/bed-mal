@@ -383,31 +383,43 @@
       line-height: 24px;
       color: $bg-customer-vendor;
     }
-    .dv-fulfilment-input{
-      border: 1px solid #C3BFBF;
-      border-radius: 5px;
-      background-color: #fff;
-      width: 100%;
-      padding: 0.3rem 0.6rem;
-      ::placeholder{
-        color: #C3BFBF;
-        font-size: 18px;
-        line-height: 24px;
-        font-family: FuturaPT-Book !important;
-      }
-    }
-    .dv-switch-text{
-      font-size: 18px;
-      line-height: 24px;
-      color: #000;
-      span{
-        color: #C3BFBF;
-      }
-    }
+
+  }
+}
+.dv-fulfilment-input{
+  border: 1px solid #C3BFBF;
+  border-radius: 5px;
+  background-color: #fff;
+  width: 100%;
+  padding: 0.3rem 0.6rem;
+  ::placeholder{
+    color: #C3BFBF;
+    font-size: 18px;
+    line-height: 24px;
+    font-family: FuturaPT-Book !important;
   }
 }
 .w-30{
   width: 30%;
+}
+.dv-fulfilment-unit{
+    left: 0.4rem;
+    top: 0.4rem;
+    color: #000;
+}
+.dv-fulfilment-unit2{
+  left: 0.8rem;
+  top: 0.4rem;
+  color: #000;
+}
+.dv-switch-text{
+  font-size: 18px;
+  line-height: 24px;
+  font-family: "FuturaPT-Book";
+  color: #000;
+  span{
+    color: #C3BFBF;
+  }
 }
 @media (max-width: 768px) {
   .dv-vendor .dv-vendor-right-content {

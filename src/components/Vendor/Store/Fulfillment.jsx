@@ -15,7 +15,7 @@ class Fulfillment extends Component {
         super(props);
         this.state = {
             selected_fulfilment: '', edit_fulfilment: false,
-            time:'',instructions:'',postcodes:'',
+            time: '', instructions: '', postcodes: '', cost: '',over_order:'',delivery_time:'',
         }
     }
 
@@ -62,9 +62,9 @@ class Fulfillment extends Component {
     //     }
     // }
     /********************** EDIT ***********/
-    inputHandler = (e) =>{
+    inputHandler = (e) => {
         this.setState({
-            [e.target.name] : e.target.value
+            [e.target.name]: e.target.value
         })
     }
     saveModal = async (e) => {
@@ -107,8 +107,8 @@ class Fulfillment extends Component {
         //             arr.push(item)
         //         }
         //     })
-            this.setState({remove_show: false, selected_fulfilment: false})
-            // this.setState({logins: arr, remove_show: false, edit_login: false})
+        this.setState({remove_show: false, selected_fulfilment: false})
+        // this.setState({logins: arr, remove_show: false, edit_login: false})
         //     Swal.fire({
         //         icon: 'success',
         //         title: 'removed successfully',
@@ -121,7 +121,7 @@ class Fulfillment extends Component {
 
     closeModal = () => {
         this.setState({
-            selected_fulfilment: false,remove_show: false
+            selected_fulfilment: false, remove_show: false
         })
     }
 
@@ -169,7 +169,7 @@ class Fulfillment extends Component {
                 </div>
                 <Modal style={{textAlign: 'center'}} centered={true} show={this.state.selected_fulfilment}
                        onHide={this.closeModal} className='dv-plan-modal'>
-                    <Modal.Body className='p-3 pb-0 px-3 px-md-5'>
+                    <Modal.Body className='p-3 pb-0 pl-3 pl-md-5'>
                         {
                             this.state.selected_fulfilment === 'Pick up' ?
                                 <form onSubmit={this.saveModal} id='myForm' className='d-flex flex-column'>
@@ -178,45 +178,43 @@ class Fulfillment extends Component {
                                         <div className='d-flex flex-column w-100 mb-5'>
                                             <label className='w-50 mb-3'>
                                                 <p className='text-left mb-1'>Est. time</p>
-                                                <input type="text" name='time' value={this.state.time} onChange={this.inputHandler} placeholder='e.g up to 1hr'
+                                                <input type="text" name='time' value={this.state.time}
+                                                       onChange={this.inputHandler} placeholder='e.g up to 1hr'
                                                        className='dv-fulfilment-input'/>
                                             </label>
                                             <label className='w-100 mb-3'>
                                                 <p className='text-left mb-1'>Instructions</p>
-                                                <textarea rows='3' name='instructions' value={this.state.instructions} onChange={this.inputHandler} placeholder='Please do not arrive before your order is ready.
-                                                    Check store opening & address times.' className='dv-fulfilment-input'/>
+                                                <textarea rows='3' name='instructions' value={this.state.instructions}
+                                                          onChange={this.inputHandler} placeholder='Please do not arrive before your order is ready.
+                                                    Check store opening & address times.'
+                                                          className='dv-fulfilment-input'/>
                                             </label>
-                                            <label className='d-flex align-items-center'>
+                                            <div className="d-flex align-items-center dv-borrow-switch">
                                                 <Switch
-                                                    className='mb-0'
-                                                    // value={switchId == item.id ? switchValue : item.status}
-                                                    // value={this.state.vendor_info.borrow_partner_cup}
+                                                    // value={this.state.borrow_value}
                                                     value={0}
                                                     on={1}
                                                     off={0}
-                                                    // id={item.id}
-                                                    // onChange={(e)=>this.HandlerChangeStatus(e,item.id)}
-                                                    onChange={() => this.HandlerChangeStatusCup(this.state.vendor_info.id, this.state.vendor_info.borrow_partner_cup)}
+                                                    onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
                                                 />
-                                                <div className='pl-2 dv-switch-text'>Can users return Borrow Products? <span> (Mandatory)</span></div>
-                                            </label>
-                                            <label className='d-flex align-items-center'>
+                                                <div className='pl-2 dv-switch-text'>Can users return Borrow
+                                                    Products? <span> (Mandatory)</span></div>
+                                            </div>
+                                            <div className="d-flex align-items-center dv-borrow-switch">
                                                 <Switch
-                                                    className='mb-0'
-                                                    // value={switchId == item.id ? switchValue : item.status}
-                                                    // value={this.state.vendor_info.borrow_partner_cup}
-                                                    value={1}
+                                                    // value={this.state.borrow_value}
+                                                    value={0}
                                                     on={1}
                                                     off={0}
-                                                    // id={item.id}
-                                                    // onChange={(e)=>this.HandlerChangeStatus(e,item.id)}
-                                                    // onChange={() => this.HandlerChangeStatusCup(this.state.vendor_info.id, this.state.vendor_info.borrow_partner_cup)}
+                                                    onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
                                                 />
-                                                <div className='pl-2 dv-switch-text'>Can users have their items packed in BorrowBags?</div>
-                                            </label>
+                                                <div className='pl-2 dv-switch-text'>Can users have their items packed
+                                                    in BorrowBags?
+                                                </div>
+                                            </div>
                                         </div>
                                         <div
-                                            className='d-flex justify-content-between flex-column flex-md-row align-items-center'>
+                                            className='d-flex justify-content-between align-items-center'>
                                             <div>
                                                 <button type='button' className='dv-btn-remove-modal'
                                                         onClick={this.removeLoginsModal}>Delete
@@ -237,52 +235,67 @@ class Fulfillment extends Component {
                                         <div className='d-flex flex-column w-100 mb-5'>
                                             <label className='w-100 mb-5'>
                                                 <p className='text-left mb-1'>Set postcodes (separate with a comma)</p>
-                                                <input type="text" name='postcodes' value={this.state.postcodes} onChange={this.inputHandler} placeholder='e.g NW3, NW5, N8, N6'
+                                                <input type="text" name='postcodes' value={this.state.postcodes}
+                                                       onChange={this.inputHandler} placeholder='e.g NW3, NW5, N8, N6'
                                                        className='dv-fulfilment-input'/>
                                             </label>
                                             <div className="d-flex w-100">
                                                 <label className='w-50 mb-3 mr-3'>
                                                     <p className='text-left mb-1'>Est. delivery time</p>
-                                                    <input type="text" name='instructions' value={this.state.instructions} onChange={this.inputHandler} placeholder='Please do not arrive before your order is ready.
-                                                    Check store opening & address times.' className='dv-fulfilment-input'/>
+                                                    <input type="text" name='time' value={this.state.time}
+                                                           onChange={this.inputHandler} placeholder='e.g 1hr, 2 days'
+                                                           className='dv-fulfilment-input'/>
                                                 </label>
                                                 <label className='w-30 mb-3'>
                                                     <p className='text-left mb-1'>Cost</p>
-                                                    <input type="text" name='instructions' value={this.state.instructions} onChange={this.inputHandler} placeholder='Please do not arrive before your order is ready.
-                                                    Check store opening & address times.' className='dv-fulfilment-input'/>
+                                                    <div className='position-relative'>
+                                                        <div className="dv-custom-unit dv-fulfilment-unit">£</div>
+                                                        <input type="number" name='cost' value={this.state.cost}
+                                                               onChange={this.inputHandler}
+                                                               className='dv-fulfilment-input pl-4'/>
+                                                    </div>
                                                 </label>
                                             </div>
-                                            <label className='d-flex align-items-center'>
+                                            <div className="d-flex align-items-center dv-borrow-switch mb-4">
                                                 <Switch
-                                                    className='mb-0'
-                                                    // value={switchId == item.id ? switchValue : item.status}
-                                                    // value={this.state.vendor_info.borrow_partner_cup}
+                                                    // value={this.state.borrow_value}
                                                     value={0}
                                                     on={1}
                                                     off={0}
-                                                    // id={item.id}
-                                                    // onChange={(e)=>this.HandlerChangeStatus(e,item.id)}
-                                                    onChange={() => this.HandlerChangeStatusCup(this.state.vendor_info.id, this.state.vendor_info.borrow_partner_cup)}
+                                                    onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
                                                 />
-                                                <div className='pl-2 dv-switch-text'>Can users return Borrow Products? <span> (Mandatory)</span></div>
-                                            </label>
-                                            <label className='d-flex align-items-center'>
+                                                <div className="d-flex flex-column">
+                                                    <div className='pl-2 dv-switch-text text-left'>Free for orders over</div>
+                                                    <div className='pl-2 position-relative'>
+                                                        <div className="dv-custom-unit dv-fulfilment-unit2">£</div>
+                                                        <input type="number" name='over_order' value={this.state.over_order}
+                                                               onChange={this.inputHandler}
+                                                               className='dv-fulfilment-input pl-3'/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="d-flex align-items-center dv-borrow-switch mb-3">
                                                 <Switch
-                                                    className='mb-0'
-                                                    // value={switchId == item.id ? switchValue : item.status}
-                                                    // value={this.state.vendor_info.borrow_partner_cup}
-                                                    value={1}
+                                                    // value={this.state.borrow_value}
+                                                    value={0}
                                                     on={1}
                                                     off={0}
-                                                    // id={item.id}
-                                                    // onChange={(e)=>this.HandlerChangeStatus(e,item.id)}
-                                                    // onChange={() => this.HandlerChangeStatusCup(this.state.vendor_info.id, this.state.vendor_info.borrow_partner_cup)}
+                                                    onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
+                                                />
+                                                <div className='pl-2 dv-switch-text'>Can users return Borrow Products?</div>
+                                            </div>
+                                            <div className="d-flex align-items-center dv-borrow-switch">
+                                                <Switch
+                                                    // value={this.state.borrow_value}
+                                                    value={0}
+                                                    on={1}
+                                                    off={0}
+                                                    onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
                                                 />
                                                 <div className='pl-2 dv-switch-text'>Can users have their items packed in BorrowBags?</div>
-                                            </label>
+                                            </div>
                                         </div>
-                                        <div
-                                            className='d-flex justify-content-between flex-column flex-md-row align-items-center'>
+                                        <div className='d-flex justify-content-between align-items-center'>
                                             <div>
                                                 <button type='button' className='dv-btn-remove-modal'
                                                         onClick={this.removeLoginsModal}>Delete
@@ -297,12 +310,73 @@ class Fulfillment extends Component {
                                         </div>
                                     </div>
                                 </form> :
-                                <form onSubmit={this.saveNoteModal} id='myForm' className='d-flex flex-column'>
-                                    <div className="d-flex align-items-center justify-content-between mb-4">
-                                        <h5 className='mb-0'>Nationwide delivery</h5>
-
-                                        <div
-                                            className='d-flex justify-content-between flex-column flex-md-row align-items-center'>
+                                <form onSubmit={this.saveModal} id='myForm' className='d-flex flex-column'>
+                                    <div className="dv-fulfilment-modal">
+                                        <h5 className='mb-0 text-left py-4'>Nationwide delivery</h5>
+                                        <div className='d-flex flex-column w-100 mb-5'>
+                                            <label className='w-100 mb-5'>
+                                                <p className='text-left mb-1'>Set postcodes (separate with a comma)</p>
+                                                <input type="text" name='postcodes' value={this.state.postcodes}
+                                                       onChange={this.inputHandler} placeholder='e.g NW3, NW5, N8, N6'
+                                                       className='dv-fulfilment-input'/>
+                                            </label>
+                                            <div className="d-flex w-100">
+                                                <label className='w-50 mb-3 mr-3'>
+                                                    <p className='text-left mb-1'>Est. delivery time</p>
+                                                    <input type="text" name='time' value={this.state.time}
+                                                           onChange={this.inputHandler} placeholder='e.g 1hr, 2 days'
+                                                           className='dv-fulfilment-input'/>
+                                                </label>
+                                                <label className='w-30 mb-3'>
+                                                    <p className='text-left mb-1'>Cost</p>
+                                                    <div className='position-relative'>
+                                                        <div className="dv-custom-unit dv-fulfilment-unit">£</div>
+                                                        <input type="number" name='cost' value={this.state.cost}
+                                                               onChange={this.inputHandler}
+                                                               className='dv-fulfilment-input pl-4'/>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                            <div className="d-flex align-items-center dv-borrow-switch mb-4">
+                                                <Switch
+                                                    // value={this.state.borrow_value}
+                                                    value={0}
+                                                    on={1}
+                                                    off={0}
+                                                    onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
+                                                />
+                                                <div className="d-flex flex-column">
+                                                    <div className='pl-2 dv-switch-text text-left'>Free for orders over</div>
+                                                    <div className='pl-2 position-relative'>
+                                                        <div className="dv-custom-unit dv-fulfilment-unit2">£</div>
+                                                        <input type="number" name='over_order' value={this.state.over_order}
+                                                               onChange={this.inputHandler}
+                                                               className='dv-fulfilment-input pl-3'/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="d-flex align-items-center dv-borrow-switch mb-3">
+                                                <Switch
+                                                    // value={this.state.borrow_value}
+                                                    value={0}
+                                                    on={1}
+                                                    off={0}
+                                                    onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
+                                                />
+                                                <div className='pl-2 dv-switch-text'>Can users return Borrow Products?</div>
+                                            </div>
+                                            <div className="d-flex align-items-center dv-borrow-switch">
+                                                <Switch
+                                                    // value={this.state.borrow_value}
+                                                    value={0}
+                                                    on={1}
+                                                    off={0}
+                                                    onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
+                                                />
+                                                <div className='pl-2 dv-switch-text'>Can users have their items packed in BorrowBags?</div>
+                                            </div>
+                                        </div>
+                                        <div className='d-flex justify-content-between align-items-center'>
                                             <div>
                                                 <button type='button' className='dv-btn-remove-modal'
                                                         onClick={this.removeLoginsModal}>Delete
