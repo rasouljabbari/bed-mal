@@ -22,6 +22,7 @@ class Messages extends Component {
 
     componentDidMount() {
         setTitle('Messages');
+        alert('لیزی لود برعکس')
     }
 
     handleInput = (e) => {
@@ -91,12 +92,6 @@ class Messages extends Component {
 
 
     render() {
-
-
-
-
-
-
         return (
             <>
                 <div className='d-flex flex-column flex-md-row w-100'>

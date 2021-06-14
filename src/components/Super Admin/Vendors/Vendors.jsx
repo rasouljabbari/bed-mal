@@ -613,7 +613,7 @@ class Vendors extends Component {
                                         <button type='submit' className='dv-btn-plan-save ml-1'>Save</button>
                                     </div>
                                 </div>
-                                <div className="d-fle mb-3">
+                                <div className="d-flex mb-3">
                                     <textarea name="notes" className='dv-input w-100' onChange={this.notesInputHandler}
                                               value={this.state.notes} rows="7"></textarea>
                                 </div>

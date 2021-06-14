@@ -59,12 +59,22 @@
     &:nth-child(even) {
       background-color: #FFF;
     }
+    &:last-child{
+      td:first-child {
+        border-radius: 0 0 0 10px !important;
+      }
+
+      td:last-child {
+        border-radius: 0 0 10px 0 !important;
+      }
+    }
 
     td {
       padding: 1.3rem 0.8rem;
       font-size: 18px;
       border: none !important;
       color: $light-gray-text;
+
     }
 
     .dv-arrow-right {

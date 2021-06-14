@@ -362,6 +362,53 @@
   width: 680px;
   word-break: break-all
 }
+.dv-fulfilment-table{
+  tr{
+    td{
+      color: #000 !important;
+    }
+  }
+}
+.dv-fulfilment-modal{
+  h5{
+    font-size: 30px;
+    line-height: 40px;
+    font-family: FuturaPT-Medium !important;
+    color: #000 !important;
+  }
+  label{
+    font-family: "FuturaPT-Book";
+    p{
+      font-size: 18px;
+      line-height: 24px;
+      color: $bg-customer-vendor;
+    }
+    .dv-fulfilment-input{
+      border: 1px solid #C3BFBF;
+      border-radius: 5px;
+      background-color: #fff;
+      width: 100%;
+      padding: 0.3rem 0.6rem;
+      ::placeholder{
+        color: #C3BFBF;
+        font-size: 18px;
+        line-height: 24px;
+        font-family: FuturaPT-Book !important;
+      }
+    }
+    .dv-switch-text{
+      font-size: 18px;
+      line-height: 24px;
+      color: #000;
+      span{
+        color: #C3BFBF;
+      }
+    }
+  }
+}
+.w-30{
+  width: 30%;
+}
 @media (max-width: 768px) {
   .dv-vendor .dv-vendor-right-content {
     padding: 1rem 1rem !important;

@@ -51,8 +51,9 @@
   font-size: 20px;
   line-height: 27px;
   padding: 0.3rem 1.8rem;
+  font-family: FuturaPT-Medium;
   &:hover{
-    background-color:  $main-light-red !important;
+    background-color: $main-light-red !important;
     color: #fff;
     box-shadow: $dv-box-shadow !important;
   }

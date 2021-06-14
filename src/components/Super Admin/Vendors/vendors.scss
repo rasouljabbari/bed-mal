@@ -3,6 +3,7 @@
 body::-webkit-scrollbar {
   width: 10px;
 }
+
 /* Track */
 body::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px #969292;
@@ -19,6 +20,8 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-thumb:hover {
   background: #707070;
 }
+
+
 .dv-vendor {
   .dv-vendors-right-admin {
     background-color: $bg-right-sidebar;
@@ -27,6 +30,27 @@ body::-webkit-scrollbar-thumb:hover {
     height: 100%;
     overflow-y: auto;
     padding-bottom: 3rem;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px #969292;
+      border-radius: 10px;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #969292;
+      border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #707070;
+    }
 
     .dv-vendor-search-label {
       padding: 0.4rem 0.8rem;
@@ -140,9 +164,11 @@ body::-webkit-scrollbar-thumb:hover {
           width: 54px;
           height: 70px;
         }
-        .css-jfsaru-Switch{
+
+        .css-jfsaru-Switch {
           background-color: $main-blue !important;
         }
+
         .css-jfsaru-Switch, .css-153wf2s-Switch {
           box-shadow: 0 3px 6px rgb(0 0 0 / 30%);
           border-radius: 25px !important;
@@ -272,13 +298,17 @@ body::-webkit-scrollbar-thumb:hover {
 
 .dv-plan-modal {
   .modal-content {
-    background-color: $dv-gray-ea!important;
-    h5{
+    background-color: $dv-gray-ea !important;
+    border-radius: 20px !important;
+
+    h5 {
       color: #707070;
     }
-    p{
+
+    p {
       color: #969292;
     }
+
     .dv-btn-plan-save {
       background-color: $main-blue;
       color: $dv-gray-ea;
@@ -403,6 +433,7 @@ body::-webkit-scrollbar-thumb:hover {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+
   img {
     border-radius: 10px;
     object-fit: cover;
@@ -423,7 +454,7 @@ body::-webkit-scrollbar-thumb:hover {
       }
     }
 
-    &.la-arrow-up,&.la-arrow-right {
+    &.la-arrow-up, &.la-arrow-right {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -444,7 +475,7 @@ body::-webkit-scrollbar-thumb:hover {
       }
     }
 
-    &.la-arrow-down,&.la-arrow-left {
+    &.la-arrow-down, &.la-arrow-left {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -467,43 +498,50 @@ body::-webkit-scrollbar-thumb:hover {
   }
 }
 
-.dv-label-checkbox{
+.dv-label-checkbox {
   border: 1px solid #707070;
   padding: 0.3rem 2rem;
   border-radius: 25px;
   box-shadow: $dv-box-shadow;
   position: relative;
   cursor: pointer;
-    span{
-      font-size: 20px;
-      line-height: 24px;
-      color: #707070;
-      //position: absolute;
-    }
-  input{
+
+  span {
+    font-size: 20px;
+    line-height: 24px;
+    color: #707070;
+    //position: absolute;
+  }
+
+  input {
     visibility: hidden;
   }
 }
-.dv-label-checkbox-checked{
+
+.dv-label-checkbox-checked {
   border: 1px solid $main-blue;
   padding: 0.3rem 2rem;
   border-radius: 25px;
   box-shadow: $dv-box-shadow;
   position: relative;
   cursor: pointer;
-  span{
+
+  span {
     font-size: 20px;
     line-height: 24px;
     color: $main-blue;
-  //position: absolute;
+    //position: absolute;
   }
-  input{
+
+  input {
     visibility: hidden;
   }
 }
+
 .map-container {
   height: 400px;
 }
+
 .sidebar {
   background-color: rgba(35, 55, 75, 0.9);
   color: #ffffff;
@@ -516,20 +554,23 @@ body::-webkit-scrollbar-thumb:hover {
   margin: 12px;
   border-radius: 4px;
 }
-.mapboxgl-marker-anchor-center{
-  transform: translate(0 , 0);
+
+.mapboxgl-marker-anchor-center {
+  transform: translate(0, 0);
   top: 0;
   left: 0;
   position: absolute;
   pointer-events: auto;
 }
-.outside_container.active .modal_container{
+
+.outside_container.active .modal_container {
   top: 50% !important;
   left: 50% !important;
-  transform: translate(-50%,-50%) !important;
+  transform: translate(-50%, -50%) !important;
   position: fixed;
 }
-.dv-bg-new-vendor-override{
+
+.dv-bg-new-vendor-override {
   background-color: $main-blue;
   color: $dv-gray-ea;
   padding: 0.6rem 2rem;
@@ -541,21 +582,25 @@ body::-webkit-scrollbar-thumb:hover {
   width: 100%;
   box-shadow: $dv-box-shadow;
   transition: all 0.3s linear;
-  &:hover{
-    background-color:$dv-gray-ea ;
+
+  &:hover {
+    background-color: $dv-gray-ea;
     text-decoration: none;
     color: $main-blue-hover;
   }
 }
-.f-18{
+
+.f-18 {
   font-size: 18px;
   line-height: 24px;
 }
-.dv-plus-icon{
+
+.dv-plus-icon {
   font-size: 24px;
   line-height: 24px;
 }
-.dv-custom-unit{
+
+.dv-custom-unit {
   position: absolute;
   left: 0.1rem;
   top: 0.1rem;
@@ -564,7 +609,8 @@ body::-webkit-scrollbar-thumb:hover {
   color: #3D80F2;
   background-color: #fff;
 }
-.dv-custom-unit-percent{
+
+.dv-custom-unit-percent {
   position: absolute;
   right: 0.1rem;
   top: 0.1rem;
@@ -573,6 +619,7 @@ body::-webkit-scrollbar-thumb:hover {
   color: #3D80F2;
   background-color: #fff;
 }
+
 @media (max-width: 1360px) {
   .dv-store-icons {
 
@@ -587,6 +634,7 @@ body::-webkit-scrollbar-thumb:hover {
     }
   }
 }
+
 @media (max-width: 992px) {
   .dv-store-icons {
 
@@ -601,6 +649,7 @@ body::-webkit-scrollbar-thumb:hover {
     }
   }
 }
+
 @media (max-width: 768px) {
   .dv-vendors-right-admin {
     width: 100% !important;
@@ -622,9 +671,11 @@ body::-webkit-scrollbar-thumb:hover {
     }
   }
 }
-.dv-custom-width-label{
+
+.dv-custom-width-label {
   width: 50px;
 }
+
 @media (max-width: 576px) {
   .dv-store-icons {
     &.la-arrow-up {
