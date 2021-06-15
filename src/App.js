@@ -38,6 +38,7 @@ import AddProduct from "./components/Vendor/Store/AddProduct";
 import EditProduct from "./components/Vendor/Store/EditProduct";
 import VendorTransactions from "./components/Vendor/VendorTransactions/VendorTransactions";
 import VendorMessages from "./components/Vendor/VendorMessages/VendorMessages";
+import VOrderEdit from "./components/Vendor/Orders/VOrderEdit";
 
 class App extends Component {
     constructor(props) {
@@ -108,23 +109,9 @@ class App extends Component {
                                             <Route exact path="/vendor/dashboard" component={Dashboard}/>
                                             <Route exact path="/login"
                                                    render={() => <Redirect to="/vendor/dashboard"/>}/>
-                                            {/*{*/}
-                                            {/*    this.state.permissions?.map((itm)=>(*/}
-                                            {/*        itm === 'store-details' ?*/}
-                                            {/*        <>*/}
                                             <Route exact path="/vendor/store/details" component={Store}/>
-                                            {/*</>*/}
-                                            {/*: itm === 'collection' ?*/}
-                                            {/*    <>*/}
                                             <Route exact path="/vendor/store/collections" component={Collections}/>
-                                            {/*   </>*/}
-                                            {/*: itm === 'logins' ?*/}
-                                            {/*       <>*/}
                                             <Route exact path="/vendor/store/permissions" component={Permissions}/>
-                                            {/*            </> : ''*/}
-                                            {/*))*/}
-                                            {/*}*/}
-
                                             <Route exact path="/vendor/store/fulfillment" component={Fulfillment}/>
                                             <Route exact path="/vendor/store/borrow-products"
                                                    component={BorrowProducts}/>
@@ -132,6 +119,7 @@ class App extends Component {
                                             <Route exact path="/vendor/store/products/edit/:product_id" component={EditProduct}/>
                                             <Route exact path="/vendor/store/products/create" component={AddProduct}/>
                                             <Route exact path="/vendor/orders" component={VOrders}/>
+                                            <Route exact path="/vendor/orders-edit" component={VOrderEdit}/>
                                             <Route exact path="/vendor/transaction" component={VendorTransactions}/>
                                             <Route exact path="/vendor/messages" component={VendorMessages}/>
                                             {/****************** Not found *************************/}
