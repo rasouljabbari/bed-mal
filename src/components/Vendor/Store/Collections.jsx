@@ -139,7 +139,7 @@ class Collections extends Component {
     render() {
         const {items} = this.state;
         return (
-            <div className='d-flex flex-column flex-md-row dv-vendor'>
+            <div className='d-flex flex-column flex-xl-row dv-vendor'>
                 <div className="dv-vendors-right-admin dv-vendors-right-admin-2">
                     <Menu/>
                 </div>
@@ -160,7 +160,7 @@ class Collections extends Component {
                                                     <thead>
                                                     <tr>
                                                         <th className='pl-md-5 text-left' scope="col">Category name </th>
-                                                        <th scope="col" className='text-right pr-4'>Reorder</th>
+                                                        <th scope="col" className='text-right pr-5'>Reorder</th>
                                                         <th scope="col" className='text-center'>Delete</th>
                                                     </tr>
                                                     </thead>
@@ -169,7 +169,7 @@ class Collections extends Component {
                                                         items?.map((row, i) => (
                                                             <tr key={i}>
                                                                 <td className='pl-md-5 mb-0 text-left'>{row.name}</td>
-                                                                <td className='text-right'>
+                                                                <td className='text-right pr-4'>
                                                                     <div
                                                                         className="d-flex align-items-center justify-content-end">
                                                                         <i className="las la-arrow-down dv-department-icon mr-1"

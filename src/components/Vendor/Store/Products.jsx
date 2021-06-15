@@ -43,7 +43,7 @@ class Products extends Component {
 
     render() {
         return (
-            <div className='d-flex flex-column flex-md-row dv-vendor'>
+            <div className='d-flex flex-column flex-xl-row dv-vendor'>
                 <div className="dv-vendors-right-admin dv-vendors-right-admin-2">
                     <Menu/>
                 </div>

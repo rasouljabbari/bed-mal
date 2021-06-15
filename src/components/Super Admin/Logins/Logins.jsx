@@ -232,7 +232,7 @@ class Logins extends Component {
                                        onClick={this.handleShow}/>
                                     <input type={this.state.isShow ? 'text' : "password"} placeholder='Password'
                                            value={this.state.vendor_password} onChange={this.inputHandler}
-                                           name='vendor_password' className='dv-input mb-3 w-100 pr-5' required={true}/>
+                                           name='vendor_password' className='dv-input mb-3 w-100 pr-5'/>
                                 </div>
                                 <div className='position-relative'>
                                     {/*<i className='la la-eye dv-eye'/>*/}
@@ -240,7 +240,7 @@ class Logins extends Component {
                                        onClick={this.handleConfirmShow}/>
                                     <input type={this.state.is_confirm_show ? 'text' : "password"} placeholder='Confirms Password'
                                            value={this.state.vendor_confirm_password} onChange={this.inputHandler}
-                                           name='vendor_confirm_password' className='dv-input mb-3 w-100 pr-5' required={true}/>
+                                           name='vendor_confirm_password' className='dv-input mb-3 w-100 pr-5'/>
                                 </div>
                                 <select required={true} name="vendor_type" defaultValue={this.state.vendor_type} className='dv-input mb-3' onChange={this.inputHandler}>
                                     <option value='-1' disabled={true} selected={true}>choose type</option>
@@ -289,7 +289,7 @@ class Logins extends Component {
                                        onClick={this.handleShow}/>
                                     <input type={this.state.isShow ? 'text' : "password"} placeholder='Password'
                                            value={this.state.vendor_password} onChange={this.inputHandler}
-                                           name='vendor_password' className='dv-input mb-3 w-100 pr-5' required={true}/>
+                                           name='vendor_password' className='dv-input mb-3 w-100 pr-5'/>
                                 </div>
                                 <div className='position-relative'>
                                     {/*<i className='la la-eye dv-eye'/>*/}
@@ -297,7 +297,7 @@ class Logins extends Component {
                                        onClick={this.handleConfirmShow}/>
                                     <input type={this.state.is_confirm_show ? 'text' : "password"} placeholder='Confirms Password'
                                            value={this.state.vendor_confirm_password} onChange={this.inputHandler}
-                                           name='vendor_confirm_password' className='dv-input mb-3 w-100 pr-5' required={true}/>
+                                           name='vendor_confirm_password' className='dv-input mb-3 w-100 pr-5'/>
                                 </div>
                                 <select required={true} name="vendor_type" defaultValue={this.state.vendor_type} className='dv-input mb-3' onChange={this.inputHandler}>
                                     {/*<option value='-1' disabled={true} selected={true}>choose type</option>*/}

@@ -27,7 +27,6 @@ class Menu extends Component {
     }
 
     render() {
-        console.log(this.state.permissions_item)
         return (
             <>
                 <Nav>
@@ -59,7 +58,7 @@ class Menu extends Component {
                                         this.state.permissions_item?.map((item) => (
                                             item === 'store-details' ?
                                                 <NavLink activeClassName="active"
-                                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
+                                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start mt-5 mb-3'
                                                          to={'/vendor/store/details'}>Store details</NavLink>
                                                 : ''
                                         )) : ''
@@ -67,31 +66,45 @@ class Menu extends Component {
                                 {
                                     this.state.permissions_item.length !== 0 ?
                                         this.state.permissions_item?.map((item) => (
-                                            item !== 'store-details' && item === 'collection' ?
-                                                <NavLink activeClassName="active"
-                                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
-                                                         to={'/vendor/store/collections'}>Collections</NavLink>
-                                                : item === 'store-details' && item === 'collection' ?
+                                            item === 'collection' ?
                                                 <NavLink activeClassName="active"
                                                          className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
-                                                         to={'/vendor/store/collections'}>Collections</NavLink> : ''
-
+                                                         to={'/vendor/store/collections'}>Collections</NavLink>
+                                                : ''
                                         ))
                                         : ''
                                 }
-                                <NavLink activeClassName="active"
-                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
-                                         to={'/vendor/store/fulfillment'}>Fulfillment</NavLink>
-                                <NavLink activeClassName="active"
-                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
-                                         to={'/vendor/store/borrow-products'}>Borrow products</NavLink>
+
+                                {
+                                    this.state.permissions_item.length !== 0 ?
+                                        this.state.permissions_item?.map((item) => (
+                                            item === 'fulfillment' ?
+                                                <NavLink activeClassName="active"
+                                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
+                                                         to={'/vendor/store/fulfillment'}>Fulfillment</NavLink>
+                                                : ''
+                                        ))
+                                        : ''
+                                }
+
+                                {
+                                    this.state.permissions_item.length !== 0 ?
+                                        this.state.permissions_item?.map((item) => (
+                                            item === 'borrow-products' ?
+                                                <NavLink activeClassName="active"
+                                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
+                                                         to={'/vendor/store/borrow-products'}>Borrow products</NavLink>
+                                                : ''
+                                        ))
+                                        : ''
+                                }
 
                                 {
                                     this.state.permissions_item.length !== 0 ?
                                         this.state.permissions_item?.map((item) => (
                                             item === 'product' ?
                                                 <NavLink activeClassName="active"
-                                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-0'
+                                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
                                                          to={'/vendor/store/products'}>Products</NavLink> : ''
                                         )) : ''
                                 }
@@ -100,7 +113,7 @@ class Menu extends Component {
                                         this.state.permissions_item?.map((item) => (
                                             item === 'logins' ?
                                                 <NavLink activeClassName="active"
-                                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start my-5'
+                                                         className='dv-vendor-store-list-items d-flex flex-column align-items-start mb-3'
                                                          to={'/vendor/store/permissions'}>Permissions</NavLink>
                                                 : ''
                                         )) : ''

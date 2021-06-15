@@ -11,13 +11,19 @@
 }
 .dv-logins-title{
   color: $light-gray-text;
-  font-size: 18px;
-  line-height: 24px;
+  h4{
+    font-size: 18px;
+    line-height: 24px;
+  }
 }
 .dv-logins-item-title{
   color: #000000;
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 18px !important;
+  line-height: 24px !important;
+  h3{
+    font-size: 18px !important;
+    line-height: 24px !important;
+  }
 }
 .dv-pen-icon{
   color: $main-blue;

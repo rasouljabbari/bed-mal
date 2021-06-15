@@ -339,7 +339,7 @@ class Store extends Component {
         let saturday = this.state.saturday
         let sunday = this.state.sunday
         return (
-            <div className='d-flex flex-column flex-md-row dv-vendor'>
+            <div className='d-flex flex-column flex-xl-row dv-vendor'>
                 <div className="dv-vendors-right-admin dv-vendors-right-admin-2">
                     <Menu/>
                 </div>
@@ -375,12 +375,12 @@ class Store extends Component {
                                               className='dv-store-input'/>
                                 </label>
                                 <label htmlFor="dv_postal_code" className='d-flex flex-column'>
-                                    <span className='dv-store-name pl-2'>Postal code</span>
+                                    <span className='dv-store-name pl-2 pt-1'>Postal code</span>
                                     <input type="text" name='postal_code' value={this.state.postal_code}
                                            onChange={this.inputHandler} id='dv_postal_code'
                                            className='dv-store-input w-100'/>
                                 </label>
-                                <label htmlFor="dv_map_coordinates" className='d-flex flex-column position-relative'>
+                                <label htmlFor="dv_map_coordinates" className='d-flex flex-column position-relative pt-1'>
                                     <span className='dv-store-name pl-2'>Map coordinates</span>
                                     <div ref={this.mapContainer} className="map-container"/>
                                 </label>

@@ -61,7 +61,7 @@ class Header extends Component {
     render() {
         const {permissions} = this.state;
 
-        console.log(permissions)
+        // console.log(permissions)
 
         return (
             <div className='dv-main-top-menu d-flex justify-content-between align-items-center'>

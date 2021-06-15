@@ -489,8 +489,11 @@
 
 }
 @media (max-width: 1200px) {
-  .dv-remove-ml{
+  .dv-remove-ml , .dv-vendor .dv-vendor-right-content-2{
     margin-left: 0 !important;
+  }
+  .dv-overflow-auto{
+    overflow-x: auto;
   }
 }
 @media (max-width: 768px) {

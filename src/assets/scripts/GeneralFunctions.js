@@ -85,7 +85,6 @@ export const getData = async (base_url, url, type, dataParams = {}, isToken = fa
                     })
                 }
                 else if (e.response.status === 400) {
-                    console.log('dsvdsvd')
                     e.response.data.errors?.map((row)=>{
                         toast.error(row.message)
                     })

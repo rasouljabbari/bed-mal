@@ -410,7 +410,7 @@ class Permissions extends Component {
                                        onClick={this.handleShow}/>
                                     <input type={this.state.isShow ? 'text' : "password"} placeholder='Password'
                                            value={this.state.vendor_password} onChange={this.inputHandler}
-                                           name='vendor_password' className='dv-input mb-3 w-100 pr-5' required={true}/>
+                                           name='vendor_password' className='dv-input mb-3 w-100 pr-5'/>
                                 </div>
                                 <div className='position-relative'>
                                     {/*<i className='la la-eye dv-eye'/>*/}
@@ -420,7 +420,7 @@ class Permissions extends Component {
                                            placeholder='Confirms Password'
                                            value={this.state.vendor_confirm_password} onChange={this.inputHandler}
                                            name='vendor_confirm_password' className='dv-input mb-3 w-100 pr-5'
-                                           required={true}/>
+                                    />
                                 </div>
                                 <div className={'dv-text-modal text-left pt-4 pb-2'}>Permissions</div>
                                 {this.state.permissions?.map(checkbox => (

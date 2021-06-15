@@ -3,7 +3,11 @@
 body{
   margin: 0;
   padding: 0;
-  font-family: "FuturaPT-Medium", "FuturaPT-Book" !important;
+  font-family: FuturaPT-Medium, FuturaPT-Book !important;
+  //font-family: FuturaPT-Medium;
+  font-weight: 400 !important;
+  font-size: 18px;
+  line-height: 24px;
 }
 body{
   background-color: $main-background-gray !important;
