@@ -195,6 +195,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  i{
+    color: $main-blue;
+  }
 }
 
 .bg-customer-vendor {

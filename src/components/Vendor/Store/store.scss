@@ -149,8 +149,11 @@
         color: #212121;
 
         .dv-table-img {
-          width: 104px;
-          height: 72px;
+          img{
+            width: 104px;
+            height: 72px;
+            object-fit: cover;
+          }
         }
 
         .dv-table-eye {

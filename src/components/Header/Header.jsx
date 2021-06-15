@@ -37,11 +37,6 @@ class Header extends Component {
             isOpen: false
         });
     }
-    // handleCloseMenu = () => {
-    //     this.setState({
-    //         isOpen: false
-    //     });
-    // }
     handleLogout = () => {
         this.setState({sureLogout: true})
     }
@@ -65,6 +60,8 @@ class Header extends Component {
 
     render() {
         const {permissions} = this.state;
+
+        console.log(permissions)
 
         return (
             <div className='dv-main-top-menu d-flex justify-content-between align-items-center'>
