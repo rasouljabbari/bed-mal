@@ -56,16 +56,19 @@
   background-color: #FAFAFA;
   margin-bottom: 0 !important;
   padding: 0.85rem 7rem 0.85rem 5rem;
+
   span {
     background-color: transparent;
     border: 0;
     width: auto !important;
   }
 }
+
 .dv-checkbox-add-even {
   background-color: #fff;
   margin-bottom: 0 !important;
   padding: 0.85rem 7rem 0.85rem 5rem;
+
   span {
     background-color: transparent;
     border: 0;
@@ -149,7 +152,7 @@
         color: #212121;
 
         .dv-table-img {
-          img{
+          img {
             width: 104px;
             height: 72px;
             object-fit: cover;
@@ -165,9 +168,11 @@
           min-width: 330px;
           vertical-align: top;
         }
-        a{
+
+        a {
           color: #212121;
-          &:hover{
+
+          &:hover {
             text-decoration: none;
           }
         }
@@ -328,27 +333,32 @@
     text-align: center;
   }
 }
+
 .dv-borrow-switch {
   .css-xjimrv-Switch {
     padding: 13px 30px;
 
   }
-  .css-153wf2s-Switch , .css-jfsaru-Switch {
+
+  .css-153wf2s-Switch, .css-jfsaru-Switch {
     border-radius: 25px;
     box-shadow: $dv-box-shadow;
   }
+
   .css-19a995p-Switch {
     left: 3px;
     border-radius: 25px;
     width: 23px;
   }
+
   .css-1v96km2-Switch {
     border-radius: 25px;
     right: 2px;
     left: 35px;
   }
 }
-.dv-collection-border{
+
+.dv-collection-border {
   border: 1px solid #C3BFBF;
   border-radius: 5px;
   padding: 1rem;
@@ -357,31 +367,37 @@
   color: #C3BFBF;
   font-size: 18px;
   line-height: 24px;
-  input{
+
+  input {
     margin-right: 0.75rem;
   }
 }
-.dv-custom-width{
+
+.dv-custom-width {
   width: 680px;
   word-break: break-all
 }
-.dv-fulfilment-table{
-  tr{
-    td{
+
+.dv-fulfilment-table {
+  tr {
+    td {
       color: #000 !important;
     }
   }
 }
-.dv-fulfilment-modal{
-  h5{
+
+.dv-fulfilment-modal {
+  h5 {
     font-size: 30px;
     line-height: 40px;
     font-family: FuturaPT-Medium !important;
     color: #000 !important;
   }
-  label{
+
+  label {
     font-family: "FuturaPT-Book";
-    p{
+
+    p {
       font-size: 18px;
       line-height: 24px;
       color: $bg-customer-vendor;
@@ -389,61 +405,48 @@
 
   }
 }
-.dv-fulfilment-input{
+
+.dv-fulfilment-input {
   border: 1px solid #C3BFBF;
   border-radius: 5px;
   background-color: #fff;
   width: 100%;
   padding: 0.3rem 0.6rem;
-  ::placeholder{
+
+  ::placeholder {
     color: #C3BFBF;
     font-size: 18px;
     line-height: 24px;
     font-family: FuturaPT-Book !important;
   }
 }
-.w-30{
+
+.w-30 {
   width: 30%;
 }
-.dv-fulfilment-unit{
-    left: 0.4rem;
-    top: 0.4rem;
-    color: #000;
+
+.dv-fulfilment-unit {
+  left: 0.4rem;
+  top: 0.4rem;
+  color: #000;
 }
-.dv-fulfilment-unit2{
+
+.dv-fulfilment-unit2 {
   left: 0.8rem;
   top: 0.4rem;
   color: #000;
 }
-.dv-switch-text{
+
+.dv-switch-text {
   font-size: 18px;
   line-height: 24px;
   font-family: "FuturaPT-Book";
   color: #000;
-  span{
+
+  span {
     color: #C3BFBF;
   }
 }
-@media (max-width: 768px) {
-  .dv-vendor .dv-vendor-right-content {
-    padding: 1rem 1rem !important;
-  }
-  .dv-product-table tbody tr td.dv-product-name {
-    min-width: 140px;
-  }
-  .dv-overflow-auto{
-    overflow-y: auto;
-  }
-  .dv-custom-width {
-    width: 300px;
-    word-break: break-all;
-  }
-  .dv-checkbox-add-odd , .dv-checkbox-add-even {
-    padding: 0.85rem 1rem 0.85rem 1rem;
-  }
-
-}
-
 .bg-inventory .dv-current-inventory .dv-btn-inventory-glass {
   background-color: $dv-gray-ea;
   color: $main-blue;
@@ -455,6 +458,59 @@
   box-shadow: $dv-box-shadow;
   transition: all 0.3s linear;
 }
-.bg-inventory .dv-current-inventory .dv-btn-inventory-glass:hover{
+
+.bg-inventory .dv-current-inventory .dv-btn-inventory-glass:hover {
   background-color: #E5E5E5;
 }
+
+.dv-permission {
+  border-collapse: unset;
+
+  thead {
+    tr {
+      border: none;
+      //height: 90px;
+      th {
+        border: none;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      border: none;
+      height: 90px;
+
+      td {
+        border: none;
+      }
+    }
+  }
+
+}
+@media (max-width: 1200px) {
+  .dv-remove-ml{
+    margin-left: 0 !important;
+  }
+}
+@media (max-width: 768px) {
+  .dv-vendor .dv-vendor-right-content {
+    padding: 1rem 1rem !important;
+  }
+  .dv-product-table tbody tr td.dv-product-name {
+    min-width: 140px;
+  }
+  .dv-overflow-auto {
+    overflow-y: auto;
+  }
+  .dv-custom-width {
+    width: 300px;
+    word-break: break-all;
+  }
+  .dv-checkbox-add-odd, .dv-checkbox-add-even {
+    padding: 0.85rem 1rem 0.85rem 1rem;
+  }
+
+}
+
+

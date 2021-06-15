@@ -59,12 +59,13 @@ class Permissions extends Component {
     }
     /********************** ADD ***********/
     addLogin = () => {
-        this.setState({new_login: true,
-            vendor_name : '',
-            vendor_email : '',
-            vendor_password : '',
-            vendor_username : '',
-            vendor_confirm_password : '',
+        this.setState({
+            new_login: true,
+            vendor_name: '',
+            vendor_email: '',
+            vendor_password: '',
+            vendor_username: '',
+            vendor_confirm_password: '',
         })
     }
     onChange = id => {
@@ -121,7 +122,7 @@ class Permissions extends Component {
         let selected_item_for_edit = this.state.logins?.find((elem => elem.id === id));
         let permissions = selected_item_for_edit?.vendor_user_permissions;
         let permissions_ids = [];
-        permissions?.map((item)=>{
+        permissions?.map((item) => {
             permissions_ids.push(item.id)
         })
         this.setState({
@@ -229,17 +230,18 @@ class Permissions extends Component {
 
         }
     }
+
     /**********************************************/
 
 
     render() {
         const {selectedCheckboxes} = this.state
         return (
-            <div className='d-flex flex-column flex-md-row dv-vendor overflow-hidden'>
+            <div className='d-flex flex-column flex-xl-row dv-vendor overflow-hidden'>
                 <div className="dv-vendors-right-admin dv-vendors-right-admin-2">
                     <Menu/>
                 </div>
-                <div className='lazyLoad dv-vendor-right-content dv-vendor-right-content-2 position-relative'
+                <div className='lazyLoad dv-vendor-right-content dv-vendor-right-content-2 position-relative dv-remove-ml'
                      onScroll={this.getDataOnScrolledBoards}>
                     <div className="row">
                         <div
@@ -252,37 +254,76 @@ class Permissions extends Component {
                                 <div className="container py-5">
                                     {
                                         this.state.logins?.length !== 0 ?
-                                            <div className="row">
-                                                <div className="col-12 mb-5 d-flex align-items-center justify-content-between">
-                                                    <h5 className='dv-logins-title'>Person</h5>
-                                                    <h5 className='dv-logins-title'>Permission levels</h5>
-                                                    <h5 className='dv-logins-title'></h5>
-                                                </div>
+                                            <table className="table dv-permission">
+                                                <thead>
+                                                <tr>
+                                                    <th className="dv-logins-title"><h4>Person</h4></th>
+                                                    <th className="dv-logins-title"><h4>Permission levels</h4></th>
+                                                    <th></th>
+
+                                                </tr>
+                                                </thead>
                                                 {
                                                     this.state.logins?.map((item, i) => (
-                                                        <div key={i}
-                                                             className="col-12 mb-5 d-flex align-items-center justify-content-between">
-                                                            <h3 className='dv-logins-item-title'>{item.name}</h3>
-                                                            <h3 className='dv-logins-item-title'>{
+                                                        <tbody key={i}>
+                                                        <tr>
+                                                            <td className='dv-logins-item-title'><h3>{item.name}</h3></td>
+                                                            <td className='dv-logins-item-title'><h3>{
                                                                 item.vendor_user_permissions?.map((row, i) => (
                                                                     <span className='px-1 dv-logins-title'
                                                                           key={i}>{row.name}
                                                                         {
-                                                                            i === item.vendor_user_permissions?.length-1 ? '' : ' ,'
+                                                                            i === item.vendor_user_permissions?.length - 1 ? '' : ' ,'
                                                                         }
-                                                            </span>
+                                                                            </span>
                                                                 ))
-                                                            }</h3>
-                                                            <div className="d-flex align-items-center justify-content-around">
-                                                                <img src={Pen} className='img-fluid dv-pen-icon pr-3'  onClick={() => this.editLogins(item.id)} alt="bed mal"/>
-                                                                <i className='las la-minus-circle dv-minus-icon pl-3'
-                                                                   onClick={() => this.removeLogins(item.id)}/>
-                                                            </div>
-                                                        </div>
+                                                            }
+                                                            </h3>
+                                                            </td>
+                                                            <td>
+                                                                <div className="d-flex align-items-center justify-content-around">
+                                                                    <img src={Pen} className='img-fluid dv-pen-icon pr-3'  onClick={() => this.editLogins(item.id)} alt="bed mal"/>
+                                                                    <i className='las la-minus-circle dv-minus-icon pl-3'
+                                                                       onClick={() => this.removeLogins(item.id)}/>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
                                                     ))
                                                 }
-
-                                            </div> : <h1 className='text-center'>There is no item</h1>
+                                            </table>
+                                            // <div className="row">
+                                            //     <div className="col-12 mb-5 d-flex align-items-center justify-content-between">
+                                            //         <h5 className='dv-logins-title'>Person</h5>
+                                            //         <h5 className='dv-logins-title'>Permission levels</h5>
+                                            //         <h5 className='dv-logins-title'></h5>
+                                            //     </div>
+                                            //     {
+                                            //         this.state.logins?.map((item, i) => (
+                                            //             <div key={i}
+                                            //                  className="col-12 mb-5 d-flex align-items-center justify-content-between">
+                                            //                 <h3 className='dv-logins-item-title'>{item.name}</h3>
+                                            //                 <h3 className='dv-logins-item-title'>{
+                                            //                     item.vendor_user_permissions?.map((row, i) => (
+                                            //                         <span className='px-1 dv-logins-title'
+                                            //                               key={i}>{row.name}
+                                            //                             {
+                                            //                                 i === item.vendor_user_permissions?.length-1 ? '' : ' ,'
+                                            //                             }
+                                            //                 </span>
+                                            //                     ))
+                                            //                 }</h3>
+                                            //                 <div className="d-flex align-items-center justify-content-around">
+                                            //                     <img src={Pen} className='img-fluid dv-pen-icon pr-3'  onClick={() => this.editLogins(item.id)} alt="bed mal"/>
+                                            //                     <i className='las la-minus-circle dv-minus-icon pl-3'
+                                            //                        onClick={() => this.removeLogins(item.id)}/>
+                                            //                 </div>
+                                            //             </div>
+                                            //         ))
+                                            //     }
+                                            //
+                                            // </div>
+                                            : <h1 className='text-center'>There is no item</h1>
                                     }
                                 </div>
                             </div>
