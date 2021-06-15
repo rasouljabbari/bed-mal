@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import './store.scss';
 import {setTitle} from "../../../assets/scripts/GeneralFunctions";
 import Menu from "./Menu";
-import Glass from "../../../assets/image/complete.png";
+import Cup from "../../../assets/image/complete.png"
+import Glass from "../../../assets/image/bag.png";
 import {Modal} from "react-bootstrap";
 
 class BorrowProducts extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            search_value: '',
             isAllBoardsLoaded: true,
             BorrowCup: false,
             BorrowBag: false,
@@ -22,7 +22,30 @@ class BorrowProducts extends Component {
     async componentDidMount() {
         setTitle('Store')
     }
-
+    handleInput = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+    UpdateHandlerCup = (id) => {
+        console.log(id)
+        this.setState({BorrowCup : true})
+    }
+    UpdateHandlerBag = (id) => {
+        console.log(id)
+        this.setState({BorrowBag: true})
+    }
+    BorrowCupHandler = (e) =>{
+        e.preventDefault()
+        this.setState({BorrowCup : false})
+    }
+    BorrowBagHandler = (e) =>{
+        e.preventDefault()
+        this.setState({BorrowBag: false})
+    }
+    closeModal = () =>{
+        this.setState({BorrowCup : false , BorrowBag: false})
+    }
 
     render() {
         return (
@@ -32,42 +55,13 @@ class BorrowProducts extends Component {
                 </div>
                 <div className='dv-vendor-right-content dv-vendor-right-content-2 position-relative'>
                     <h1>BorrowProducts</h1>
-                    <div className='row'>
-                        <div className="col-12 col-md-8">
-                            <h1>Inventory</h1>
-                        </div>
-                        <div className="col-12 col-md-4">
-                            <form action="" onSubmit={this.searchHandler} dir='ltr'>
-                                <label htmlFor="dv-search" className='w-100 position-relative'>
-                                    <input type="search" placeholder='Search for store' onChange={this.handleInput}
-                                           value={this.state.search_value} name='search_value'
-                                           className='dv-search-input'
-                                           id='dv-search'/>
-                                    <button type='submit' className='dv-search-icon'><i className='la la-search'/>
-                                    </button>
-                                </label>
-                            </form>
-                        </div>
-                        <div className="col-12 mb-4">
-                            <div className="d-flex flex-column align-items-start pl-md-5">
-                                <h4 className='mb-1'>Tulip Cafe</h4>
-                                <span className='mb-1 dv-span-color-gray'>User ID: 123456</span>
-                                <span className='dv-span-color-gray mb-2'>32 Hampstead High Street, Hampstead, London, NW3 4UU</span>
-                                <div className="d-flex">
-                                    <button className='dv-blue-btn mr-1'
-                                            onClick={() => this.handleMessage('10')}>Message
-                                    </button>
-                                    <button className='dv-white-btn ml-1' onClick={() => this.handleCall('0')}>Call
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                    <div className='row mt-4'>
                         <div className='col-12 mb-4'>
                             <div className="bg-inventory">
                                 <div className="d-flex flex-column flex-md-row">
                                     <div className="img-parent-inventory">
                                         <div className="dv-parent-of-img">
-                                            <img src={Glass} className='img-fluid' alt="bed mal"/>
+                                            <img src={Cup} className='img-fluid' alt="bed mal"/>
                                         </div>
                                         <p className={'dv-p-inventory'}>BorrowCup</p>
                                     </div>
@@ -92,21 +86,18 @@ class BorrowProducts extends Component {
                                         </div>
                                         <p className={'dv-p-inventory'}>BorrowBag</p>
                                     </div>
-                                    <div className="dv-current-inventory w-100 d-flex flex-column">
-                                        <h5>Current inventory figures</h5>
-                                        <div className="dv-title-inventory d-flex align-items-center justify-content-start mb-3">
-                                            <div className='pr-5 dv-inventory-text'><span>Bag </span> <span>24</span></div>
-                                        </div>
-                                        <button className='dv-btn-inventory ml-md-auto' onClick={()=>this.UpdateHandlerBag(1)}>Update</button>
+                                    <div className="dv-current-inventory w-100 d-flex flex-column mt-4">
+                                        <h5>You do not currently offer BorrowBag.</h5>
+                                        {/*<div className="dv-title-inventory d-flex align-items-center justify-content-start mb-3">*/}
+                                        {/*    <div className='pr-5 dv-inventory-text'><span>Bag </span> <span>24</span></div>*/}
+                                        {/*</div>*/}
+                                        <button className='dv-btn-inventory-glass ml-md-auto' onClick={()=>this.UpdateHandlerBag(1)}>Get more info</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
-
                 <Modal style={{textAlign: 'center'}} className='dv-gray-modal' centered={true} show={this.state.BorrowCup}
                        onHide={this.closeModal}>
                     <Modal.Body>
@@ -155,7 +146,9 @@ class BorrowProducts extends Component {
                                         <input type="number" name='twelve_oz_cups2' value={this.state.twelve_oz_cups2} onChange={this.handleInput}/>
                                     </label>
                                     <label className="col-12 mb-5">
-                                        <p className='modal-inventory-title-p'>Ensure delivery of new inventory has arrived before updating.</p>
+                                        <p className='modal-inventory-title-p'>Items lost or broken in-house do not require inputting.
+                                            We’ll review this update within 48hrs & arrange collection of
+                                            any downgrades / delivery of replacements.</p>
                                     </label>
                                     <label className='col-12 mb-0 d-flex justify-content-end'>
                                         <button type='button' className='dv-inventory-cancel mr-1' onClick={this.closeModal}>Cancel</button>
@@ -194,7 +187,9 @@ class BorrowProducts extends Component {
                                         <input type="number" name='bags2' value={this.state.bags2} onChange={this.handleInput}/>
                                     </label>
                                     <label className="col-12 my-3 my-md-5">
-                                        <p className='modal-inventory-title-p'>Ensure delivery of new inventory has arrived before updating.</p>
+                                        <p className='modal-inventory-title-p'>Items lost or broken in-house do not require inputting.
+                                            We’ll review this update within 48hrs & arrange collection of
+                                            any downgrades / delivery of replacements.</p>
                                     </label>
                                     <label className='col-12 mb-0 d-flex justify-content-end'>
                                         <button type='button' className='dv-inventory-cancel mr-1' onClick={this.closeModal}>Cancel</button>

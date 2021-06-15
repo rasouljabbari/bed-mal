@@ -440,3 +440,18 @@
   }
 
 }
+
+.bg-inventory .dv-current-inventory .dv-btn-inventory-glass {
+  background-color: $dv-gray-ea;
+  color: $main-blue;
+  border-radius: 25px;
+  border: none;
+  font-size: 20px;
+  line-height: 27px;
+  padding: 0.3rem 4.5rem;
+  box-shadow: $dv-box-shadow;
+  transition: all 0.3s linear;
+}
+.bg-inventory .dv-current-inventory .dv-btn-inventory-glass:hover{
+  background-color: #E5E5E5;
+}
