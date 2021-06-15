@@ -100,10 +100,10 @@ body::-webkit-scrollbar-thumb:hover {
       padding: 1rem !important;
     }
   }
-
   .dv-vendor-right-content {
     padding: 1rem 1.5rem;
-    width: 100%;
+    width: calc(100% - 290px);
+    margin-left: auto;
 
     .dv-bg-light-vendors {
       background-color: #FAFAFA;
@@ -281,10 +281,13 @@ body::-webkit-scrollbar-thumb:hover {
       }
     }
   }
-
   .dv-vendor-right-content-2 {
-    margin-left: 200px;
+    width: calc(100% - 200px) !important;
+    margin-left: auto !important;
   }
+
+
+
 
   .dv-suspended {
     background-color: $main-light-red;
@@ -674,7 +677,12 @@ body::-webkit-scrollbar-thumb:hover {
 .dv-custom-width-label {
   width: 50px;
 }
-
+@media (max-width: 1200px) {
+  .dv-vendor-right-content {
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+}
 @media (max-width: 576px) {
   .dv-store-icons {
     &.la-arrow-up {

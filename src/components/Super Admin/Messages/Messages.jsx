@@ -22,7 +22,7 @@ class Messages extends Component {
 
     componentDidMount() {
         setTitle('Messages');
-        alert('لیزی لود برعکس')
+        alert('LazyLoad')
     }
 
     handleInput = (e) => {

@@ -210,7 +210,7 @@ export const getData = async (base_url, url, type, dataParams = {}, isToken = fa
 
 export const editedItems = (lastItems, newItem) => {
     return lastItems.map(item => {
-        if (item.name === newItem.name) {
+        if (item.id === newItem.id) {
             return {...newItem}
         } else {
             return {...item}

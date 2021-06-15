@@ -262,7 +262,7 @@ class Vendors extends Component {
 
         return (
             this.state.department_list?.length !== 0 ?
-                <div className='d-flex flex-column flex-md-row dv-vendor'>
+                <div className='d-flex flex-column flex-xl-row dv-vendor'>
                     <div className="dv-vendors-right-admin">
                         <div className="dv-btn-add-vendor d-flex justify-content-center my-2">
                             <Link to={`/admin/add-vendor`}
@@ -401,7 +401,7 @@ class Vendors extends Component {
                                     <h5 className='dv-vendor-override-h6'>Vendor Override</h5>
                                     <div
                                         className="d-flex justify-content-between flex-wrap dv-light-gray-text align-items-center">
-                                        <div className="d-flex">
+                                        <div className="d-flex mb-3 mb-xl-0">
                                             {
                                                 this.state.vendor_info.status === 'approved' ?
                                                     <div className="dv-vendor-override-circle mr-2 ml-2"></div> :

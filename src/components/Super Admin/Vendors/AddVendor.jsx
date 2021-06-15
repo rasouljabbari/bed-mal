@@ -377,13 +377,13 @@ class AddVendor extends Component {
                                               value={this.state.store_address} onChange={this.inputHandler} rows="3"
                                               className='dv-store-input'/>
                                 </label>
-                                <label htmlFor="dv_postal_code" className='d-flex flex-column'>
+                                <label htmlFor="dv_postal_code" className='d-flex flex-column mt-2'>
                                     <span className='dv-store-name pl-2'>Postal code</span>
                                     <input type="text" name='postal_code' value={this.state.postal_code}
                                            onChange={this.inputHandler} id='dv_postal_code'
                                            className='dv-store-input w-100'/>
                                 </label>
-                                <label htmlFor="dv_map_coordinates" className='d-flex flex-column position-relative'>
+                                <label htmlFor="dv_map_coordinates" className='d-flex flex-column position-relative mt-2'>
                                     <span className='dv-store-name pl-2'>Map coordinates</span>
                                     <div ref={this.mapContainer} className="map-container"/>
                                 </label>

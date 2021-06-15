@@ -39,6 +39,7 @@ import EditProduct from "./components/Vendor/Store/EditProduct";
 import VendorTransactions from "./components/Vendor/VendorTransactions/VendorTransactions";
 import VendorMessages from "./components/Vendor/VendorMessages/VendorMessages";
 import VOrderEdit from "./components/Vendor/Orders/VOrderEdit";
+import {editedItems} from "./assets/scripts/GeneralFunctions";
 
 class App extends Component {
     constructor(props) {
@@ -66,6 +67,7 @@ class App extends Component {
 
 
     render() {
+
         return (
             <>
                 {

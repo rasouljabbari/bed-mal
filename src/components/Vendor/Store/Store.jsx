@@ -356,14 +356,14 @@ class Store extends Component {
                                     <input type="text" name='store_name' value={this.state.store_name}
                                            onChange={this.inputHandler} id='dv-store-name' className='dv-store-input'/>
                                 </label>
-                                <label htmlFor="dv-store-email" className='d-flex mb-4'>
-                                    <span className='dv-store-name pr-2'>Email</span>
+                                <label htmlFor="dv-store-email" className='d-flex align-items-center mb-4'>
+                                    <span className='dv-store-name dv-custom-width-label'>Email</span>
                                     <input type="email" name='store_email' value={this.state.store_email}
                                            onChange={this.inputHandler} id='dv-store-email'
-                                           className='dv-store-input w-75'/>
+                                           className='dv-store-input w-75' required={true}/>
                                 </label>
-                                <label htmlFor="dv-store-phone" className='d-flex mb-4'>
-                                    <span className='dv-store-name pr-2'>Phone</span>
+                                <label htmlFor="dv-store-phone" className='d-flex align-items-center mb-4'>
+                                    <span className='dv-store-name dv-custom-width-label'>Phone</span>
                                     <input type="tel" name='store_phone' value={this.state.store_phone}
                                            onChange={this.inputHandler} id='dv-store-phone'
                                            className='dv-store-input w-75'/>
@@ -537,8 +537,8 @@ class Store extends Component {
                                         <label
                                             className={
                                                 selectedCheckboxes?.find(element => element === checkbox.id) ?
-                                                    'dv-label-checkbox-checked' :
-                                                    'dv-label-checkbox'
+                                                    'dv-label-checkbox-checked mr-2' :
+                                                    'dv-label-checkbox mr-2'
                                             }
                                             key={checkbox.id}>
                                             <span>{checkbox.name}</span>
