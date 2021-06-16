@@ -97,11 +97,26 @@ class App extends Component {
                                             <Route exact path="/admin/edit-terms" component={EditTerms}/>
                                             <Route exact path="/admin/vendors" component={Vendors}/>
                                             <Route exact path="/admin/edit-overide/:term_id" component={EditOveride}/>
-                                            <Route exact path="/admin/add-vendor/" component={AddVendor}/>
+                                            <Route exact path="/admin/add-vendor" component={AddVendor}/>
                                             <Route exact path="/admin/transaction" component={Transactions}/>
                                             <Route exact path="/admin/users" component={Users}/>
                                             <Route exact path="/admin/messages" component={Messages}/>
                                             <Route exact path="/admin/logins" component={Logins}/>
+
+                                            {/*Redirect from vendor to super admin*/}
+                                            <Route exact path="/vendor/store/details" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/vendor/store/collections" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/vendor/store/permissions" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/vendor/store/fulfillment" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/vendor/store/borrow-products" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/vendor/store/products" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/vendor/store/products/edit/:product_id" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/vendor/store/products/create" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/vendor/orders" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/vendor/orders-edit" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/vendor/transaction" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/vendor/messages" render={() => <Redirect to="/login"/>}/>
+
                                             {/****************** Not found *************************/}
                                             <Route exact path="*" component={NotFound}/>
                                         </Switch> :
@@ -109,14 +124,12 @@ class App extends Component {
                                             {/****************** Vendor *************************/}
                                             <Route exact path="/" component={Dashboard}/>
                                             <Route exact path="/vendor/dashboard" component={Dashboard}/>
-                                            <Route exact path="/login"
-                                                   render={() => <Redirect to="/vendor/dashboard"/>}/>
+                                            <Route exact path="/login" render={() => <Redirect to="/vendor/dashboard"/>}/>
                                             <Route exact path="/vendor/store/details" component={Store}/>
                                             <Route exact path="/vendor/store/collections" component={Collections}/>
                                             <Route exact path="/vendor/store/permissions" component={Permissions}/>
                                             <Route exact path="/vendor/store/fulfillment" component={Fulfillment}/>
-                                            <Route exact path="/vendor/store/borrow-products"
-                                                   component={BorrowProducts}/>
+                                            <Route exact path="/vendor/store/borrow-products" component={BorrowProducts}/>
                                             <Route exact path="/vendor/store/products" component={Products}/>
                                             <Route exact path="/vendor/store/products/edit/:product_id" component={EditProduct}/>
                                             <Route exact path="/vendor/store/products/create" component={AddProduct}/>
@@ -124,21 +137,41 @@ class App extends Component {
                                             <Route exact path="/vendor/orders-edit" component={VOrderEdit}/>
                                             <Route exact path="/vendor/transaction" component={VendorTransactions}/>
                                             <Route exact path="/vendor/messages" component={VendorMessages}/>
+
+                                            {/*Redirect from super admin to vendor*/}
+                                            <Route exact path="/admin/orders" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/admin/orders/:order_id" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/admin/borrowing" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/admin/borrow-receipts" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/admin/borrow-receipts/:borrow_receipts_id" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/admin/borrowing-active" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/admin/borrowing-inventory" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/admin/borrowing-loan-report" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/admin/departments" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/admin/terms" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/admin/add-terms" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/admin/edit-terms" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/admin/vendors" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/admin/edit-overide/:term_id" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/admin/add-vendor" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/admin/transaction" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/admin/users" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/admin/messages" render={() => <Redirect to="/login"/>}/>
+                                            <Route exact path="/admin/logins" render={() => <Redirect to="/login"/>}/>
+
                                             {/****************** Not found *************************/}
                                             <Route exact path="*" component={NotFound}/>
                                         </Switch>
                                 }
-
-
                             </div>
                         </> :
                         <Switch>
-                            <Route exact path="/" component={Login}/>
                             <Route exact path="/login" component={Login}/>
+                            <Route path="/" render={() => <Redirect to="/login"/>}/>
+                            <Route exact path="/" component={Login}/>
                             <Route exact path="/forget-password" component={ForgetPassword}/>
                             <Route exact path="/verify-code" component={VerifyCode}/>
                             <Route exact path="/set-new-password" component={NewPassword}/>
-                            <Route exact path="*" component={NotFound}/>
                         </Switch>
 
                 }

@@ -65,7 +65,7 @@ class VOrders extends Component {
         console.log(id)
     }
     handleEdit = async (id) => {
-        console.log(id)
+        // console.log(id)
         this.props.history.push({
             pathname:'/vendor/orders-edit',
             // state: { detail: [{name:'rasoul'} , {name:'Farzan'}] }
@@ -136,7 +136,7 @@ class VOrders extends Component {
                 </div>
                 <div className="dv-vorder-right-content">
                     <div className="custom-height-right-items d-flex">
-                        <div className="bg-custom-light bg-custom-light-1 d-flex flex-column align-items-start p-4">
+                        <div className="bg-custom-light bg-custom-light-1 d-flex flex-column align-items-start px-2 py-4">
                             <span className='dv-span-color'>#O210428TCSS1</span>
                             <p className='dv-p-name'>Sophie Smith</p>
                             <span className="dv-date-right mb-5">17.56 - 28/04/21</span>
@@ -154,19 +154,19 @@ class VOrders extends Component {
                             </p>
                             <h4 className="dv-color pl-2">RETURNING BORROWS</h4>
                             <div className="dv-borrows d-flex justify-content-center">
-                                <div className="d-flex pt-3 flex-column justify-content-start align-items-center mx-1">
+                                <div className="d-flex pt-3 flex-column justify-content-start align-items-center">
                                     <div className="dv-circle d-flex justify-content-center align-items-center">0</div>
                                      <p className='mt-2 text-center dv-return-text'>sleeve</p>
                                 </div>
-                                <div className="d-flex pt-3 flex-column justify-content-start align-items-center mx-1">
+                                <div className="d-flex pt-3 flex-column justify-content-start align-items-center">
                                     <div className="dv-circle d-flex justify-content-center align-items-center">3</div>
                                     <p className='mt-2 text-center dv-return-text'>cup</p>
                                 </div>
-                                <div className="d-flex pt-3 flex-column justify-content-start align-items-center mx-1">
+                                <div className="d-flex pt-3 flex-column justify-content-start align-items-center">
                                     <div className="dv-circle d-flex justify-content-center align-items-center">0</div>
                                     <p className='mt-2 text-center dv-return-text'>lid</p>
                                 </div>
-                                <div className="d-flex pt-3 flex-column justify-content-start align-items-center mx-1">
+                                <div className="d-flex pt-3 flex-column justify-content-start align-items-center">
                                     <div className="dv-circle d-flex justify-content-center align-items-center">2</div>
                                     <p className='mt-2 text-center dv-return-text'>bag</p>
                                 </div>

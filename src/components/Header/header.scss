@@ -132,9 +132,10 @@
   box-shadow: none !important;
   border-radius: 0 !important;
   text-align: left;
-  padding-left: 1.8rem;
+  padding-left: 2rem;
   font-size: 25px !important;
   color: #413F3F !important;
+  transition: all 0.3s linear;
 }
 @media (max-width: 768px) {
   .show.sidenav {

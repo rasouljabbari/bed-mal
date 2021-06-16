@@ -26,7 +26,7 @@ class Vendors extends Component {
             monday_to: '', monday_from: '', postal_code: '',
             selectedCheckboxes: [], selectedId: '', lng: '', department_items: [],
             lat: '',
-            zoom: 5, new_uploaded_img: '', new_uploaded_img_arr: [], sure_remove: false,
+            zoom: 8, new_uploaded_img: '', new_uploaded_img_arr: [], sure_remove: false,
             monday: [], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: [], sunday: [], vendor_items: ''
         }
         this.mapContainer = React.createRef();
@@ -384,6 +384,7 @@ class Vendors extends Component {
 
             }, true, true);
             if (vendorItem?.status === 200) {
+                console.log(vendorItem , lat , lng)
                 Swal.fire({
                     icon: 'success',
                     title: 'edited successfully',
@@ -486,7 +487,7 @@ class Vendors extends Component {
                             <div className="dv-bg-light-vendors dv-bg-light pb-3 mb-3 px-3 px-md-5 d-flex flex-column">
                                 <h2 className='dv-gray-h'>Opening hours</h2>
                                 <label className='d-flex justify-content-between align-items-center mt-4 mb-2'>
-                                    <span className='dv-store-name pl-2'>Monday</span>
+                                    <span className='dv-store-name pl-0'>Monday</span>
                                     <div className="d-flex">
                                         <TimePicker
                                             onTimeChange={this.timeInputHandlerMondayFrom}
@@ -501,7 +502,7 @@ class Vendors extends Component {
                                     </div>
                                 </label>
                                 <label className='d-flex justify-content-between align-items-center mb-2'>
-                                    <span className='dv-store-name pl-2'>Tuesday</span>
+                                    <span className='dv-store-name pl-0'>Tuesday</span>
                                     <div className="d-flex">
                                         <TimePicker
                                             onTimeChange={this.timeInputHandlerTuesdayFrom}
@@ -516,7 +517,7 @@ class Vendors extends Component {
                                     </div>
                                 </label>
                                 <label className='d-flex justify-content-between align-items-center mb-2'>
-                                    <span className='dv-store-name pl-2'>Wednesday</span>
+                                    <span className='dv-store-name pl-0'>Wednesday</span>
                                     <div className="d-flex">
                                         <TimePicker
                                             onTimeChange={this.timeInputHandlerWednesdayFrom}
@@ -531,7 +532,7 @@ class Vendors extends Component {
                                     </div>
                                 </label>
                                 <label className='d-flex justify-content-between align-items-center mb-2'>
-                                    <span className='dv-store-name pl-2'>Thursday</span>
+                                    <span className='dv-store-name pl-0'>Thursday</span>
                                     <div className="d-flex">
                                         <TimePicker
                                             onTimeChange={this.timeInputHandlerThursdayFrom}
@@ -546,7 +547,7 @@ class Vendors extends Component {
                                     </div>
                                 </label>
                                 <label className='d-flex justify-content-between align-items-center mb-2'>
-                                    <span className='dv-store-name pl-2'>Friday</span>
+                                    <span className='dv-store-name pl-0'>Friday</span>
                                     <div className="d-flex">
                                         <TimePicker
                                             onTimeChange={this.timeInputHandlerFridayFrom}
@@ -561,7 +562,7 @@ class Vendors extends Component {
                                     </div>
                                 </label>
                                 <label className='d-flex justify-content-between align-items-center mb-2'>
-                                    <span className='dv-store-name pl-2'>Saturday</span>
+                                    <span className='dv-store-name pl-0'>Saturday</span>
                                     <div className="d-flex">
                                         <TimePicker
                                             onTimeChange={this.timeInputHandlerSaturdayFrom}
@@ -576,7 +577,7 @@ class Vendors extends Component {
                                     </div>
                                 </label>
                                 <label className='d-flex justify-content-between align-items-center mb-2'>
-                                    <span className='dv-store-name pl-2'>Sunday</span>
+                                    <span className='dv-store-name pl-0'>Sunday</span>
                                     <div className="d-flex">
                                         <TimePicker
                                             onTimeChange={this.timeInputHandlerSundayFrom}

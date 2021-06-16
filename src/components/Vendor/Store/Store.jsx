@@ -28,7 +28,7 @@ class Store extends Component {
             monday_to: '', monday_from: '', postal_code: '',
             selectedCheckboxes: [], selectedId: '', lng: -2.3899, department_items: [],
             lat: 53.0544,
-            zoom: 5, new_uploaded_img: '', new_uploaded_img_arr: [], sure_remove: false,
+            zoom: 8, new_uploaded_img: '', new_uploaded_img_arr: [], sure_remove: false,
             monday: [], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: [], sunday: [],
             selected_name: '', store_item: '', store_plan_terms: '', permissions_item: []
         }
@@ -41,6 +41,7 @@ class Store extends Component {
         const {lng, lat, zoom} = this.state;
         let storeDetails = await getData(MAIN_URL, `vendor/store-details`, 'get', {}, true, true);
         if (storeDetails?.status === 200) {
+            console.log(storeDetails?.item , storeDetails?.item.latitude, storeDetails?.item.longitude)
             this.setState({
                 store_item: storeDetails?.item,
                 store_name: storeDetails?.item.name,
@@ -71,14 +72,14 @@ class Store extends Component {
         const map = new mapboxgl.Map({
             container: this.mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [lng, lat],
+            center: [storeDetails?.item.longitude, storeDetails?.item.latitude],
             zoom: zoom
         });
 
         let marker = new mapboxgl.Marker({
             draggable: true
         })
-            .setLngLat([lng, lat])
+            .setLngLat([storeDetails?.item.longitude, storeDetails?.item.latitude])
             .addTo(map);
 
 

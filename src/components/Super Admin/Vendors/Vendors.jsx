@@ -262,7 +262,7 @@ class Vendors extends Component {
 
         return (
             this.state.department_list?.length !== 0 ?
-                <div className='d-flex flex-column flex-xl-row dv-vendor'>
+                <div className='d-flex flex-column flex-lg-row dv-vendor'>
                     <div className="dv-vendors-right-admin">
                         <div className="dv-btn-add-vendor d-flex justify-content-center my-2">
                             <Link to={`/admin/add-vendor`}
@@ -516,6 +516,7 @@ class Vendors extends Component {
                                         <div className="dv-custom-unit">£</div>
                                         <input type='number' className="dv-vendor-price-input"
                                                name='marketplace_per_transaction'
+                                               step={0.01}
                                                onChange={this.marketplacePerTransaction}
                                                value={this.state.marketplace_per_transaction}/>
                                     </div>
@@ -526,7 +527,7 @@ class Vendors extends Component {
                                     <div className='position-relative'>
 
                                         <input type='number' className="dv-vendor-price-input" name='marketplace_fee'
-                                               onChange={this.marketplaceFee} value={this.state.marketplace_fee}/>
+                                               onChange={this.marketplaceFee} step={0.01} value={this.state.marketplace_fee}/>
                                         <div className="dv-custom-unit-percent">%</div>
                                     </div>
                                 </div>
@@ -537,7 +538,7 @@ class Vendors extends Component {
                                         <div className="dv-custom-unit">£</div>
                                         <input type='number' className="dv-vendor-price-input"
                                                name='marketplace_borrow_cup_per_unit'
-                                               onChange={this.marketplaceBorrowCupPerUnit}
+                                               onChange={this.marketplaceBorrowCupPerUnit} step={0.01}
                                                value={this.state.marketplace_borrow_cup_per_unit}/>
                                     </div>
                                 </div>
@@ -551,7 +552,7 @@ class Vendors extends Component {
                                         <div className="dv-custom-unit">£</div>
                                         <input type='number' className="dv-vendor-price-input"
                                                name='marketplace_Borrow_bag_per_unit'
-                                               onChange={this.marketplaceBorrowBagPerUnit}
+                                               onChange={this.marketplaceBorrowBagPerUnit} step={0.01}
                                                value={this.state.marketplace_Borrow_bag_per_unit}/>
                                     </div>
                                 </div>
@@ -562,7 +563,7 @@ class Vendors extends Component {
                                         <div className="dv-custom-unit">£</div>
                                         <input type='number' className="dv-vendor-price-input"
                                                name='on_demand_borrow_cup_per_unit'
-                                               onChange={this.onDemandBorrowCupPerUnit}
+                                               onChange={this.onDemandBorrowCupPerUnit} step={0.01}
                                                value={this.state.on_demand_borrow_cup_per_unit}/>
                                     </div>
                                 </div>
@@ -573,7 +574,7 @@ class Vendors extends Component {
                                         <div className="dv-custom-unit">£</div>
                                         <input type='number' className="dv-vendor-price-input"
                                                name='on_demand_borrow_bag_per_unit'
-                                               onChange={this.onDemandBorrowBagPerUnit}
+                                               onChange={this.onDemandBorrowBagPerUnit} step={0.01}
                                                value={this.state.on_demand_borrow_bag_per_unit}/>
                                     </div>
                                 </div>

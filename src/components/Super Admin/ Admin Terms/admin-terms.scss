@@ -116,7 +116,7 @@
   font-size: 2rem;
 }
 .dv-add-title-terms{
-  border-bottom: 1px solid #212121;
+  border-bottom: 1px solid #707070;
   cursor: pointer;
 }
 .dv-terms-submit-btn {
@@ -164,12 +164,184 @@
     background-color: $main-blue-hover
   }
 }
+
+
+.dv-terms-right-admin {
+  background-color: $bg-right-sidebar;
+  width: 290px;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 3rem;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #969292;
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #969292;
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #707070;
+  }
+  .dv-btn-term-new-doc{
+    background-color: $dv-gray-ea;
+    color: $main-blue;
+    padding: 0.3rem 2rem;
+    font-size: 18px;
+    line-height: 24px;
+    border-radius: 25px;
+    margin: 0.4rem 2rem;
+    text-align: center;
+    width: 100%;
+    box-shadow: $dv-box-shadow;
+    transition: all 0.3s linear;
+    text-decoration: none;
+    &:hover{
+      background-color: $main-blue-hover;
+      color: $dv-gray-ea;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    .dv-list-items{
+      background-color: #413F3F;
+      width: 100%;
+      font-size: 20px;
+      line-height: 27px;
+      margin: 0.4rem 0;
+      color: #C3BFBF;
+      padding: 1rem;
+      text-decoration: none;
+      transition: all 0.3s linear;
+      &:hover{
+        background-color:$dv-gray-ea ;
+        color: #413F3F;
+        text-decoration: none;
+      }
+      &.active{
+        background-color: $dv-gray-ea;
+        color: #413F3F;
+      }
+      .dv-terms-sidebar-icon{
+        background-color: #FAFAFA;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        box-shadow: $dv-box-shadow;
+        color: #000;
+        font-size: 1.6rem;
+        transition: all 0.3s linear;
+        &:hover{
+          background-color: #eaeaea;
+        }
+      }
+    }
+  }
+}
+
+.dv-terms-right-content {
+  padding: 1rem 1.5rem;
+  width: calc(100% - 290px);
+  margin-left: auto;
+  .dv-edit-terms{
+    background-color: $dv-gray-ea;
+    padding: 0.2rem 3rem;
+    box-shadow: $dv-box-shadow;
+    color: $main-blue;
+    font-size: 1.2rem;
+    line-height: 27px;
+    transition: all 0.3s linear;
+    &:hover{
+      background-color: $main-blue-hover;
+      color: #fff;
+    }
+  }
+  .dv-cancel-terms{
+    background-color: transparent;
+    padding: 0.2rem 1.5rem;
+    box-shadow: none !important;
+    color: $main-blue;
+    font-size: 1.2rem;
+    line-height: 27px;
+    font-family: "FuturaPT-Book";
+    transition: all 0.3s linear;
+    &:hover{
+      background-color: $main-blue-hover;
+      color: #fff;
+    }
+  }
+  .dv-save-terms{
+    background-color: $main-blue;
+    padding: 0.2rem 1.5rem;
+    box-shadow: none !important;
+    color: #fff;
+    font-size: 1.2rem;
+    line-height: 27px;
+    font-family: "FuturaPT-Book";
+    transition: all 0.3s linear;
+    &:hover{
+      background-color: $main-blue-hover;
+    }
+  }
+  .dv-bg-light-terms{
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 2rem 0.3rem 2rem 2rem;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    line-height: 27px;
+    box-shadow: $dv-box-shadow;
+  p{
+    margin-bottom: 0;
+  }
+  }
+  .dv-title-doc{
+    border: none;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid #707070;
+    font-size: 30px;
+    line-height: 40px;
+    input{
+      background-color: transparent;
+      border: none;
+      &::placeholder{
+        color: #413F3F;
+      }
+    }
+  }
+  .dv-textarea-description{
+    border: none;
+    color: #413F3F;
+    font-size: 20px;
+    line-height: 27px;
+    width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
-  .dv-left-sidebar-terms {
+  .dv-terms-right-admin {
     width: 100%;
     position: unset !important;
   }
-  .dv-right-content-terms{
+  .dv-terms-right-content{
     margin-left: 0;
     width: 100%;
   }

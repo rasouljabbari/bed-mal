@@ -305,12 +305,17 @@ class AddProduct extends Component {
         this.setState({option_items: newOptionItem});
     };
     inputItemValueHandler = idx => evt => {
-        const newOptionItem = this.state.option_items.map((option_item, sidx) => {
-            if (idx !== sidx) return option_item;
-            return {...option_item, price: evt.target.value};
-        });
 
-        this.setState({option_items: newOptionItem});
+        // const re = /^(\+|\-)?[0-9\b]+(\.?[0-9]*(\e((\+|\-)?[0-9]*)?))?$/g;
+        // if (evt.target.value === '' || re.test(evt.target.value)) {
+            const newOptionItem = this.state.option_items.map((option_item, sidx) => {
+                if (idx !== sidx) return option_item;
+                return {...option_item, price: parseFloat(evt.target.value)};
+            });
+            this.setState({option_items: newOptionItem});
+        // }
+
+
     };
     handleAddOptionItem = () => {
         this.setState({
@@ -831,8 +836,8 @@ class AddProduct extends Component {
                                                    onChange={this.inputItemTitleHandler(idx)}/>
                                         </div>
                                         <div className='w-40 mr-2'>
-                                            <input type="number" className='dv-input w-100' placeholder='- 0.50'
-                                                   value={parseFloat(item.price)}
+                                            <input type="number" className='dv-input w-100' placeholder='0.5'
+                                                   value={item.price}
                                                    name='option_item_value'
                                                    onChange={this.inputItemValueHandler(idx)}/>
                                         </div>

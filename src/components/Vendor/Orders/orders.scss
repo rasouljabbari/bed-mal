@@ -77,22 +77,42 @@
 
       .dv-color {
         color: $light-gray-text;
+        font-size: 18px;
+        line-height: 24px;
       }
 
       .dv-edit-color {
         cursor: pointer;
         color: $main-blue;
       }
+      @media (min-width: 1260px) {
+        .dv-borrows {
+          width: 100%;
+          background: url(../../../assets/image/BG.png) no-repeat;
+          background-size: 100% 100%;
+          text-align: center;
 
+          .dv-circle {
+            width: 45px;
+            height: 45px;
+            margin: 0 0.2rem;
+            border-radius: 50%;
+            background: #fff;
+            color: #000;
+            box-shadow: $dv-box-shadow;
+            font-size: 20px;
+          }
+        }
+      }
       .dv-borrows {
         width: 100%;
         background: url(../../../assets/image/BG.png) no-repeat;
-        background-size: cover;
+        background-size: 100% 100%;
         text-align: center;
 
         .dv-circle {
-          width: 45px;
-          height: 45px;
+          width: 40px;
+          height: 40px;
           //position: relative;
           border-radius: 50%;
           background: #fff;
@@ -100,7 +120,7 @@
           //left: 1.8rem;
           //top: 1rem;
           box-shadow: $dv-box-shadow;
-          font-size: 1.3rem;
+          font-size: 20px;
         }
 
         .dv-return-text {
@@ -252,7 +272,7 @@
   cursor: pointer;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 986px) {
   .dv-vendors-right-admin {
     width: 100% !important;
     position: unset !important;

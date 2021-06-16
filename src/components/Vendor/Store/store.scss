@@ -373,8 +373,15 @@
   }
 }
 
+
+@media (min-width: 1260px) {
+  .dv-custom-width {
+    width: 680px;
+    word-break: break-all
+  }
+}
 .dv-custom-width {
-  width: 680px;
+  width: 100%;
   word-break: break-all
 }
 
@@ -488,7 +495,7 @@
   }
 
 }
-@media (max-width: 1200px) {
+@media (max-width: 986px) {
   .dv-remove-ml , .dv-vendor .dv-vendor-right-content-2{
     margin-left: 0 !important;
   }

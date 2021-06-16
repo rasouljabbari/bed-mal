@@ -92,6 +92,8 @@ class Header extends Component {
                                     <NavLink onClick={this.handleCloseMenu} activeClassName="active"
                                              to={'/admin/users'}>Users</NavLink>
                                     <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                             to={'/admin/terms'}>Legals</NavLink>
+                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
                                              to={'/admin/departments'}>Departments</NavLink>
                                     <NavDropdown title="Borrowing" id="basic-nav-dropdown">
                                         <NavDropdown.Item>
@@ -144,6 +146,13 @@ class Header extends Component {
                                         </NavDropdown.Item>
 
                                         <NavDropdown.Item>
+                                            <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                                     to={{
+                                                         pathname: "/vendor/store/products"
+                                                     }}>Products</NavLink>
+                                        </NavDropdown.Item>
+
+                                        <NavDropdown.Item>
                                             <NavLink onClick={this.handleCloseMenu} activeClassName="active" to={{
                                                 pathname: "/vendor/store/fulfillment"
                                             }}>Fulfillment</NavLink>
@@ -182,7 +191,14 @@ class Header extends Component {
                                                                      pathname: "/vendor/store/collections"
                                                                  }}>Collections</NavLink>
                                                     </NavDropdown.Item>
-                                                    : ''
+                                                    : itm === 'products' ?
+                                                        <NavDropdown.Item>
+                                                            <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                                                     to={{
+                                                                         pathname: "/vendor/store/products"
+                                                                     }}>Collections</NavLink>
+                                                        </NavDropdown.Item>
+                                                        : ''
                                             )) : ''
                                     }
                                     <NavDropdown.Item>
