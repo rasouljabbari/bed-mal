@@ -40,6 +40,7 @@ import VendorTransactions from "./components/Vendor/VendorTransactions/VendorTra
 import VendorMessages from "./components/Vendor/VendorMessages/VendorMessages";
 import VOrderEdit from "./components/Vendor/Orders/VOrderEdit";
 import {editedItems} from "./assets/scripts/GeneralFunctions";
+import DepartmentDnd from "./components/Super Admin/Departments/DepartmentDnd";
 
 class App extends Component {
     constructor(props) {
@@ -91,7 +92,7 @@ class App extends Component {
                                             <Route exact path="/admin/borrowing-inventory"
                                                    component={BorrowingInventory}/>
                                             <Route exact path="/admin/borrowing-loan-report" component={LoanReport}/>
-                                            <Route exact path="/admin/departments" component={Departments}/>
+                                            <Route exact path="/admin/departments" component={DepartmentDnd}/>
                                             <Route exact path="/admin/terms" component={AdminTerms}/>
                                             <Route exact path="/admin/add-terms" component={AddTerms}/>
                                             <Route exact path="/admin/edit-terms" component={EditTerms}/>

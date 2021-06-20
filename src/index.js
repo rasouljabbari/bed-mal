@@ -8,7 +8,6 @@ import './assets/style/_variables.scss';
 import './assets/style/main-styles.scss'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../src/assets/style/line-awesome.min.css';
-
 ReactDOM.render(
         <BrowserRouter>
             <ToastContainer

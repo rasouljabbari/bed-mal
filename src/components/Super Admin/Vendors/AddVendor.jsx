@@ -8,12 +8,12 @@ import 'react-times/css/material/default.css';
 import 'react-times/css/classic/default.css';
 // Open street
 import axios from "axios";
-import mapboxgl from 'mapbox-gl';
 import {MAIN_URL, MAIN_URL_IMAGE} from "../../../assets/scripts/GeneralVariables";
 import {Modal} from "react-bootstrap";
 import placeHolder_img from "../../../assets/image/bedmal-place-holder.jpg";
 import Swal from "sweetalert2";
 import {toast} from "react-toastify";
+import mapboxgl from 'mapbox-gl';
 mapboxgl.accessToken = 'pk.eyJ1IjoicmpkZXZlbG9wZXIiLCJhIjoiY2twNmtyejhiMHJoaTJ3cXRpd2dsZXJyNSJ9.-vVOy-9UQcN0Dh61WwA-QQ';
 const Compress = require('compress.js')
 
