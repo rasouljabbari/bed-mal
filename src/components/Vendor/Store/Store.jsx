@@ -501,34 +501,32 @@ class Store extends Component {
                                     <div className="col-12 mb-3">
                                         <h3 className='dv-gray-h'>Add store images</h3>
                                     </div>
-                                    <div className="col-6 mb-3">
-                                        <label className='dv-upload-file-label'>
-                                            <i className='las la-plus'></i>
-                                            <input type="file" accept="image/*" onChange={this.thisUploadImage}
-                                                   className='dc-upload-file'/>
-                                        </label>
-                                    </div>
-                                    {
-                                        new_uploaded_img_arr?.map((item, i) => (
-                                            <div className="col-6 mb-3">
-                                                <div className="dv-img-store-parent">
-                                                    <img className='img-fluid'
-                                                         onError={(e) => {
-                                                             e.target.onerror = null;
-                                                             e.target.src = `${placeHolder_img}`
-                                                         }}
-                                                         src={`${MAIN_URL_IMAGE}${item}`} key={i}
-                                                         alt="Bed mal"/>
-                                                    <i className="las la-times-circle dv-store-icons"
-                                                       onClick={() => this.removeHandler(item)}/>
-                                                    <i className="las la-arrow-up dv-store-icons"
-                                                       onClick={() => this.arrowUpHandler(i)}/>
-                                                    <i className="las la-arrow-down dv-store-icons"
-                                                       onClick={() => this.arrowDownHandler(i)}/>
-                                                </div>
-                                            </div>
-                                        ))
-                                    }
+                                        <div className="col-12 d-flex flex-wrap px-xl-4">
+                                            <label className='dv-upload-file-label mb-3'>
+                                                <i className='las la-plus'></i>
+                                                <input type="file" accept="image/*" onChange={this.thisUploadImage}
+                                                       className='dc-upload-file'/>
+                                            </label>
+                                            {
+                                                new_uploaded_img_arr?.map((item, i) => (
+                                                    <div className="dv-img-store-parent mb-3">
+                                                        <img className='img-fluid'
+                                                             onError={(e) => {
+                                                                 e.target.onerror = null;
+                                                                 e.target.src = `${placeHolder_img}`
+                                                             }}
+                                                             src={`${MAIN_URL_IMAGE}${item}`} key={i}
+                                                             alt="Bed mal"/>
+                                                        <i className="las la-times-circle dv-store-icons"
+                                                           onClick={() => this.removeHandler(item)}/>
+                                                        <i className="las la-arrow-up dv-store-icons"
+                                                           onClick={() => this.arrowUpHandler(i)}/>
+                                                        <i className="las la-arrow-down dv-store-icons"
+                                                           onClick={() => this.arrowDownHandler(i)}/>
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
                                 </div>
                             </div>
                             <div className="dv-bg-light-vendors dv-bg-light pb-2 mb-3 px-3 px-md-5">

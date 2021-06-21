@@ -96,6 +96,7 @@ class Permissions extends Component {
             selectedCheckboxes
 
         } = this.state
+        this.setState({new_login: false})
         let loginsItem = await getData(MAIN_URL, `vendor/logins/create`, 'post', {
             username: vendor_username,
             name: vendor_name,
@@ -107,7 +108,7 @@ class Permissions extends Component {
         if (loginsItem?.status === 200) {
             let logins_arr = this.state.logins;
             let newStatuses = [loginsItem.item].concat(logins_arr);
-            this.setState({logins: newStatuses, new_login: false});
+            this.setState({logins: newStatuses});
             Swal.fire({
                 icon: 'success',
                 title: 'created successfully',
@@ -176,6 +177,7 @@ class Permissions extends Component {
     }
     changeRemoveShow = async () => {
         let arr = [];
+        this.setState({remove_show: false, edit_login: false})
         let removeItem = await getData(MAIN_URL, `vendor/logins/remove/${this.state.selected_login}`, 'post', {}, true, true);
         // console.log(items)
         if (removeItem?.status === 200) {
@@ -184,7 +186,7 @@ class Permissions extends Component {
                     arr.push(item)
                 }
             })
-            this.setState({logins: arr, remove_show: false, edit_login: false})
+            this.setState({logins: arr})
             Swal.fire({
                 icon: 'success',
                 title: 'removed successfully',
@@ -404,24 +406,24 @@ class Permissions extends Component {
                                 <input type="email" placeholder='Email' value={this.state.vendor_email}
                                        onChange={this.inputHandler} name='vendor_email' className='dv-input mb-3'
                                        required={true}/>
-                                <div className='position-relative'>
-                                    {/*<i className='la la-eye dv-eye'/>*/}
-                                    <i className={this.state.isShow ? 'la la-eye dv-eye' : "las la-eye-slash dv-eye"}
-                                       onClick={this.handleShow}/>
-                                    <input type={this.state.isShow ? 'text' : "password"} placeholder='Password'
-                                           value={this.state.vendor_password} onChange={this.inputHandler}
-                                           name='vendor_password' className='dv-input mb-3 w-100 pr-5'/>
-                                </div>
-                                <div className='position-relative'>
-                                    {/*<i className='la la-eye dv-eye'/>*/}
-                                    <i className={this.state.is_confirm_show ? 'la la-eye dv-eye' : "las la-eye-slash dv-eye"}
-                                       onClick={this.handleConfirmShow}/>
-                                    <input type={this.state.is_confirm_show ? 'text' : "password"}
-                                           placeholder='Confirms Password'
-                                           value={this.state.vendor_confirm_password} onChange={this.inputHandler}
-                                           name='vendor_confirm_password' className='dv-input mb-3 w-100 pr-5'
-                                    />
-                                </div>
+                                {/*<div className='position-relative'>*/}
+                                {/*    /!*<i className='la la-eye dv-eye'/>*!/*/}
+                                {/*    <i className={this.state.isShow ? 'la la-eye dv-eye' : "las la-eye-slash dv-eye"}*/}
+                                {/*       onClick={this.handleShow}/>*/}
+                                {/*    <input type={this.state.isShow ? 'text' : "password"} placeholder='Password'*/}
+                                {/*           value={this.state.vendor_password} onChange={this.inputHandler}*/}
+                                {/*           name='vendor_password' className='dv-input mb-3 w-100 pr-5'/>*/}
+                                {/*</div>*/}
+                                {/*<div className='position-relative'>*/}
+                                {/*    /!*<i className='la la-eye dv-eye'/>*!/*/}
+                                {/*    <i className={this.state.is_confirm_show ? 'la la-eye dv-eye' : "las la-eye-slash dv-eye"}*/}
+                                {/*       onClick={this.handleConfirmShow}/>*/}
+                                {/*    <input type={this.state.is_confirm_show ? 'text' : "password"}*/}
+                                {/*           placeholder='Confirms Password'*/}
+                                {/*           value={this.state.vendor_confirm_password} onChange={this.inputHandler}*/}
+                                {/*           name='vendor_confirm_password' className='dv-input mb-3 w-100 pr-5'*/}
+                                {/*    />*/}
+                                {/*</div>*/}
                                 <div className={'dv-text-modal text-left pt-4 pb-2'}>Permissions</div>
                                 {this.state.permissions?.map(checkbox => (
                                     <label

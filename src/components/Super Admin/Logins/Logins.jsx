@@ -50,7 +50,7 @@ class Logins extends Component {
     addSubmitForm = async (e) => {
         e.preventDefault()
         const {vendor_name,vendor_email,vendor_password,vendor_username,vendor_type,vendor_id,vendor_confirm_password} = this.state
-
+        this.setState({new_login:false })
         let loginsItem = await getData(MAIN_URL, `admin/logins/create`, 'post', {
             username: vendor_username,
             name: vendor_name,
@@ -63,7 +63,7 @@ class Logins extends Component {
         if (loginsItem?.status === 200) {
             let logins_arr = this.state.logins;
             let newStatuses = [loginsItem.item].concat(logins_arr);
-            this.setState({logins: newStatuses,new_login:false });
+            this.setState({logins: newStatuses});
             Swal.fire({
                 icon: 'success',
                 title: 'created successfully',
@@ -88,6 +88,7 @@ class Logins extends Component {
         e.preventDefault()
         const {vendor_name,vendor_email,vendor_password,vendor_username,vendor_type,vendor_id,vendor_confirm_password} = this.state
 
+        this.setState({edit_login:false})
         let loginsItem = await getData(MAIN_URL, `admin/logins/edit/${this.state.selected_login}`, 'post', {
             username: vendor_username,
             name: vendor_name,
@@ -102,7 +103,7 @@ class Logins extends Component {
                 return obj.id === loginsItem.item.id ? loginsItem.item : obj;
             });
             this.setState({
-                logins: updatedHeaders,edit_login:false
+                logins: updatedHeaders,
             })
             Swal.fire({
                 icon: 'success',
@@ -121,6 +122,7 @@ class Logins extends Component {
     }
     changeRemoveShow = async () => {
         let arr = [];
+        this.setState({remove_show: false , edit_login: false})
         let removeItem = await getData(MAIN_URL, `admin/logins/remove/${this.state.selected_login}`, 'post', {}, true, true);
         // console.log(items)
         if (removeItem?.status === 200) {
@@ -129,7 +131,7 @@ class Logins extends Component {
                     arr.push(item)
                 }
             })
-            this.setState({logins: arr , remove_show: false , edit_login: false})
+            this.setState({logins: arr})
             Swal.fire({
                 icon: 'success',
                 title: 'removed successfully',
@@ -283,22 +285,22 @@ class Logins extends Component {
                                        onChange={this.inputHandler} name='vendor_name' className='dv-input mb-3' required={true}/>
                                 <input type="email" placeholder='Email' value={this.state.vendor_email}
                                        onChange={this.inputHandler} name='vendor_email' className='dv-input mb-3' required={true}/>
-                                <div className='position-relative'>
-                                    {/*<i className='la la-eye dv-eye'/>*/}
-                                    <i className={this.state.isShow ? 'la la-eye dv-eye' : "las la-eye-slash dv-eye"}
-                                       onClick={this.handleShow}/>
-                                    <input type={this.state.isShow ? 'text' : "password"} placeholder='Password'
-                                           value={this.state.vendor_password} onChange={this.inputHandler}
-                                           name='vendor_password' className='dv-input mb-3 w-100 pr-5'/>
-                                </div>
-                                <div className='position-relative'>
-                                    {/*<i className='la la-eye dv-eye'/>*/}
-                                    <i className={this.state.is_confirm_show ? 'la la-eye dv-eye' : "las la-eye-slash dv-eye"}
-                                       onClick={this.handleConfirmShow}/>
-                                    <input type={this.state.is_confirm_show ? 'text' : "password"} placeholder='Confirms Password'
-                                           value={this.state.vendor_confirm_password} onChange={this.inputHandler}
-                                           name='vendor_confirm_password' className='dv-input mb-3 w-100 pr-5'/>
-                                </div>
+                                {/*<div className='position-relative'>*/}
+                                {/*    /!*<i className='la la-eye dv-eye'/>*!/*/}
+                                {/*    <i className={this.state.isShow ? 'la la-eye dv-eye' : "las la-eye-slash dv-eye"}*/}
+                                {/*       onClick={this.handleShow}/>*/}
+                                {/*    <input type={this.state.isShow ? 'text' : "password"} placeholder='Password'*/}
+                                {/*           value={this.state.vendor_password} onChange={this.inputHandler}*/}
+                                {/*           name='vendor_password' className='dv-input mb-3 w-100 pr-5'/>*/}
+                                {/*</div>*/}
+                                {/*<div className='position-relative'>*/}
+                                {/*    /!*<i className='la la-eye dv-eye'/>*!/*/}
+                                {/*    <i className={this.state.is_confirm_show ? 'la la-eye dv-eye' : "las la-eye-slash dv-eye"}*/}
+                                {/*       onClick={this.handleConfirmShow}/>*/}
+                                {/*    <input type={this.state.is_confirm_show ? 'text' : "password"} placeholder='Confirms Password'*/}
+                                {/*           value={this.state.vendor_confirm_password} onChange={this.inputHandler}*/}
+                                {/*           name='vendor_confirm_password' className='dv-input mb-3 w-100 pr-5'/>*/}
+                                {/*</div>*/}
                                 <select required={true} name="vendor_type" defaultValue={this.state.vendor_type} className='dv-input mb-3' onChange={this.inputHandler}>
                                     {/*<option value='-1' disabled={true} selected={true}>choose type</option>*/}
                                     <option value='super_admin'>super admin</option>

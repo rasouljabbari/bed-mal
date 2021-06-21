@@ -408,12 +408,11 @@ class Vendors extends Component {
 
             }, true, true);
             if (vendorItem?.status === 200) {
-                console.log(vendorItem , lat , lng)
                 Swal.fire({
                     icon: 'success',
                     title: 'edited successfully',
                 })
-                // this.props.history.push('/admin/vendors')
+                this.props.history.push('/admin/vendors')
             }
         }
 

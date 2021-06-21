@@ -6,6 +6,8 @@ import {MAIN_URL} from "../../../assets/scripts/GeneralVariables";
 import Menu from "./Menu";
 import Swal from "sweetalert2";
 import Trash from "../../../assets/image/Icon material-delete.svg";
+import {Table} from "antd";
+import ReactDragListView from "react-drag-listview";
 
 class Collections extends Component {
     constructor(props) {
@@ -14,6 +16,60 @@ class Collections extends Component {
             isAllBoardsLoaded: true, items: [], sure_remove: false, add_collections: false, collections_name: '',
             permissions_item:[]
         }
+        this.columns = [
+            {
+                title: "Category name ",
+                dataIndex: "name"
+            },
+            {
+                title: "Reorder",
+                key: "operate",
+                render: (text, record, index) =>
+                    <div className="d-flex align-items-center justify-content-end">
+                        <a className="drag-handle" href="#"><i
+                            className="las la-arrow-down dv-department-icon mr-1"/></a>
+                        <a className="drag-handle" href="#"><i className="las la-arrow-up dv-department-icon ml-1"/></a>
+                    </div>
+            },
+            {
+                title: "Delete",
+                key: "delete",
+                render: (text, record, index) =>
+                    <div className='dv-department-icon'>
+                        <img src={Trash} className='img-fluid' alt="bed mal" onClick={() => this.removeCollections(JSON.stringify(record.id))}/>
+                    </div>
+            }
+        ];
+
+        const that = this;
+        this.dragProps = {
+            async onDragEnd(fromIndex, toIndex) {
+                const items = [...that.state.items];
+
+                const item = items.splice(fromIndex, 1)[0];
+                items.splice(toIndex, 0, item);
+
+                let main_row_index;
+                if (fromIndex < toIndex) {
+                    main_row_index = items[toIndex - 1].row_index
+                } else {
+                    main_row_index = items[toIndex + 1].row_index
+                }
+
+
+                let departmentItems = await getData(MAIN_URL, `vendor/collections/reorder`, 'post', {
+                    collection_id: item.id,
+                    row_index: main_row_index
+                }, true, true);
+                if (departmentItems?.status === 200) {
+                    that.setState({
+                        items
+                    });
+                }
+
+            },
+            handleSelector: "a",
+        };
     }
 
     async componentDidMount() {
@@ -61,7 +117,7 @@ class Collections extends Component {
         // console.log(items)
         if (removeItem?.status === 200) {
             this.state.items.map((item) => {
-                if (this.state.removeSelectedId !== item.id) {
+                if (this.state.removeSelectedId != item.id) {
                     arr.push(item)
                 }
             })
@@ -154,45 +210,55 @@ class Collections extends Component {
                                 </div>
                                 <div className="col-12">
                                     <div className='dv-bg-light dv-box-shadow overflow-auto p-md-4'>
-                                        {
-                                            items?.length !== 0 ?
-                                                <table className="table dv-department-table text-center">
-                                                    <thead>
-                                                    <tr>
-                                                        <th className='pl-md-5 text-left' scope="col">Category name </th>
-                                                        <th scope="col" className='text-right pr-5'>Reorder</th>
-                                                        <th scope="col" className='text-center'>Delete</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    {
-                                                        items?.map((row, i) => (
-                                                            <tr key={i}>
-                                                                <td className='pl-md-5 mb-0 text-left'>{row.name}</td>
-                                                                <td className='text-right pr-4'>
-                                                                    <div
-                                                                        className="d-flex align-items-center justify-content-end">
-                                                                        <i className="las la-arrow-down dv-department-icon mr-1"
-                                                                           onClick={() => this.downCollections(row.row_index, row.id, i)}/>
-                                                                        <i className="las la-arrow-up dv-department-icon ml-1"
-                                                                           onClick={() => this.upCollections(row.row_index, row.id, i)}/>
-                                                                    </div>
-                                                                </td>
-                                                                <td className='d-flex justify-content-center'>
-                                                                    <div className='dv-department-icon'>
-                                                                        <img src={Trash} className='img-fluid' alt="bed mal" onClick={() => this.removeCollections(row.id)}/>
-                                                                    </div>
-                                                                    {/*<i*/}
-                                                                    {/*className="las la-trash dv-department-icon"*/}
-                                                                    {/*onClick={() => this.removeCollections(row.id)}/>*/}
 
-                                                                </td>
-                                                            </tr>
-                                                        ))
-                                                    }
-                                                    </tbody>
-                                                </table> : <h1 className='text-center'>There is no item</h1>
-                                        }
+                                        <ReactDragListView {...this.dragProps}>
+                                            <Table
+                                                columns={this.columns}
+                                                pagination={false}
+                                                dataSource={this.state.items}
+                                            />
+                                        </ReactDragListView>
+
+
+                                        {/*{*/}
+                                        {/*    items?.length !== 0 ?*/}
+                                        {/*        <table className="table dv-department-table text-center">*/}
+                                        {/*            <thead>*/}
+                                        {/*            <tr>*/}
+                                        {/*                <th className='pl-md-5 text-left' scope="col">Category name </th>*/}
+                                        {/*                <th scope="col" className='text-right pr-5'>Reorder</th>*/}
+                                        {/*                <th scope="col" className='text-center'>Delete</th>*/}
+                                        {/*            </tr>*/}
+                                        {/*            </thead>*/}
+                                        {/*            <tbody>*/}
+                                        {/*            {*/}
+                                        {/*                items?.map((row, i) => (*/}
+                                        {/*                    <tr key={i}>*/}
+                                        {/*                        <td className='pl-md-5 mb-0 text-left'>{row.name}</td>*/}
+                                        {/*                        <td className='text-right pr-4'>*/}
+                                        {/*                            <div*/}
+                                        {/*                                className="d-flex align-items-center justify-content-end">*/}
+                                        {/*                                <i className="las la-arrow-down dv-department-icon mr-1"*/}
+                                        {/*                                   onClick={() => this.downCollections(row.row_index, row.id, i)}/>*/}
+                                        {/*                                <i className="las la-arrow-up dv-department-icon ml-1"*/}
+                                        {/*                                   onClick={() => this.upCollections(row.row_index, row.id, i)}/>*/}
+                                        {/*                            </div>*/}
+                                        {/*                        </td>*/}
+                                        {/*                        <td className='d-flex justify-content-center'>*/}
+                                        {/*                            <div className='dv-department-icon'>*/}
+                                        {/*                                <img src={Trash} className='img-fluid' alt="bed mal" onClick={() => this.removeCollections(row.id)}/>*/}
+                                        {/*                            </div>*/}
+                                        {/*                            /!*<i*!/*/}
+                                        {/*                            /!*className="las la-trash dv-department-icon"*!/*/}
+                                        {/*                            /!*onClick={() => this.removeCollections(row.id)}/>*!/*/}
+
+                                        {/*                        </td>*/}
+                                        {/*                    </tr>*/}
+                                        {/*                ))*/}
+                                        {/*            }*/}
+                                        {/*            </tbody>*/}
+                                        {/*        </table> : <h1 className='text-center'>There is no item</h1>*/}
+                                        {/*}*/}
 
                                     </div>
                                 </div>

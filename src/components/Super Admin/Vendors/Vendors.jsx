@@ -301,14 +301,14 @@ class Vendors extends Component {
                             <div className="col-12 mb-3">
                                 <div className="dv-bg-light-vendors">
                                     <div className="row">
-                                        <div className="col-12 col-lg-6 mb-3 mb-lg-3">
+                                        <div className="col-12 col-lg-6 mb-3 ">
                                             <div className='d-flex flex-column'>
                                                 <h6>{this.state.vendor_info.name}</h6>
                                                 <h6>{this.state.vendor_info.address}</h6>
                                                 <h6>{this.state.vendor_info.postal_code}</h6>
                                             </div>
                                         </div>
-                                        <div className="col-12 col-lg-6 mb-3 mb-lg-3">
+                                        <div className="col-12 col-lg-6 mb-3">
                                             <h6 className='mb-2'><span>Main contact: </span><span>Mary Magdeline</span>
                                             </h6>
                                             <h6 className='mb-2'>
@@ -401,7 +401,7 @@ class Vendors extends Component {
                                     <h5 className='dv-vendor-override-h6'>Vendor Override</h5>
                                     <div
                                         className="d-flex justify-content-between flex-wrap dv-light-gray-text align-items-center">
-                                        <div className="d-flex mb-3 mb-xl-0">
+                                        <div className="d-flex mb-3 mb-ms-0">
                                             {
                                                 this.state.vendor_info.status === 'approved' ?
                                                     <div className="dv-vendor-override-circle mr-2 ml-2"></div> :

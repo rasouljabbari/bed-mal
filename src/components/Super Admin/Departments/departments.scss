@@ -168,7 +168,6 @@
 .dv-input-department {
   border-radius: 5px;
   box-shadow: $dv-box-shadow;
-  color: $main-blue;
   border: 1px solid #757575;
   padding: 0.4rem 1rem;
   width: 100%;
@@ -176,4 +175,129 @@
 
 .dv-reorder {
   padding-right: 2.5rem !important;
+}
+
+
+
+/**********************************************/
+
+#container h2 {
+  margin-bottom: 10px;
+}
+
+.drag-handle {
+  &:hover{
+    text-decoration: none;
+    cursor: move;
+  }
+  cursor: move!important;
+  i{
+    &:hover{
+      cursor: move;
+    }
+    cursor: move!important;
+  }
+}
+.ant-table-content{
+  //padding: 0.5rem 7rem;
+  table{
+    width: 100%;
+    .ant-table-thead{
+      tr{
+        th{
+          &:first-child{
+            padding-left: 160px;
+          }
+          &:nth-child(2){
+            text-align: end;
+            padding-right: 53px;
+          }
+          &:last-child{
+            padding-right: 25px;
+          }
+
+          font-weight: 300;
+          font-size: 18px;
+          line-height: 24px;
+          color: $light-gray-text;
+          padding: 0 0 0.75rem 0;
+        }
+      }
+    }
+    .ant-table-row{
+      &:hover{
+        td{
+          background-color: #e7e7e7 !important;
+        }
+      }
+      &:nth-child(odd){
+       td{
+         padding: 0.5rem 0;
+         background-color: #FAFAFA;
+         &:first-child{
+           padding-left: 160px;
+         }
+         &:nth-child(2){
+           text-align: end;
+           padding-right: 30px;
+         }
+         &:last-child{
+           padding-right: 25px;
+         }
+
+       }
+      }
+      &:nth-child(even){
+        td{
+          &:first-child{
+            padding-left: 160px;
+          }
+          &:nth-child(2){
+            text-align: end;
+            padding-right: 30px;
+          }
+          &:last-child{
+            padding-right: 25px;
+          }
+          padding: 0.5rem 0;
+          background-color: #FFF;
+        }
+      }
+      //&:hover{
+      //  background-color: #757575;
+      //}
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .ant-table-content{
+    table{
+      .ant-table-thead{
+        tr{
+          th{
+            &:first-child{
+              padding-left: 25px;
+            }
+          }
+        }
+      }
+      .ant-table-row{
+        &:nth-child(odd){
+          td{
+            &:first-child{
+              padding-left: 25px;
+            }
+          }
+        }
+        &:nth-child(even){
+          td{
+            &:first-child{
+              padding-left: 25px;
+            }
+          }
+        }
+      }
+    }
+  }
 }

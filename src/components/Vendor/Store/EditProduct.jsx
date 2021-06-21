@@ -475,7 +475,7 @@ export default class EditProduct extends Component {
                                             {
                                                 this.state.product_images?.map((item, i) => (
                                                     <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                                        <div className="dv-img-store-parent">
+                                                        <div className="dv-img-store-parent dv-product-images">
                                                             <img className='img-fluid'
                                                                  onError={(e) => {
                                                                      e.target.onerror = null;
@@ -494,7 +494,7 @@ export default class EditProduct extends Component {
                                                 ))
                                             }
                                             <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                                <label className='dv-upload-file-label'>
+                                                <label className='dv-upload-file-label dv-upload-file-label-product'>
                                                     <i className='las la-plus'></i>
                                                     <input type="file" accept="image/*" onChange={this.thisUploadImage}
                                                            className='dc-upload-file'/>

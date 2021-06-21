@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import './departments.scss'
 import {setTitle} from "../../../assets/scripts/GeneralFunctions";
-import LeftSideBarBorrowing from "../Borrowing/LeftSideBarBorrowing/LeftSideBarBorrowing";
-import {Link} from "react-router-dom";
 import {getData} from "../../../assets/scripts/GeneralFunctions";
 import {MAIN_URL} from "../../../assets/scripts/GeneralVariables";
 import {Modal} from "react-bootstrap";
