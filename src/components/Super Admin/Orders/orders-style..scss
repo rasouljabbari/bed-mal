@@ -119,7 +119,7 @@
 }
 
 .dv-lazyLoad {
-  height: 720px;
+  height: 690px;
   overflow-y: auto;
   width: 100%;
   position: relative !important;
@@ -296,10 +296,9 @@
       margin-bottom: 8rem;
     }
 
-    .dv-pending {
+    .dv-pending , .dv-accepted , .dv-on-way , .dv-black-delivered{
       width: 100%;
       color: #fff;
-      background-color: $main-light-red;
       border-radius: 0;
       border: none;
       padding: 1.5rem 0;
@@ -307,6 +306,23 @@
       text-align: center;
       font-size: 25px;
       line-height: 33px;
+    }
+    .dv-pending{
+      background-color: $main-light-red;
+    }
+    .dv-accepted {
+      background-color: #F79F28;
+    }
+    .dv-on-way{
+      background-color: #08D18C;
+    }
+    .dv-black-delivered{
+      background-color: #000;
+    }
+    .dv-date-black-delivered{
+      font-size: 18px;
+      line-height: 24px;
+      color: #707070;
     }
 
     .dv-accept-order {
@@ -377,32 +393,32 @@
       line-height: 24px;
     }
 
-    .dv-orders-list-table {
-      width: 100%;
 
-      tr {
-        border-bottom: 1px solid rgba(191, 186, 186, 0.18);
-
-        td {
-          vertical-align: top;
-
-          .dv-img-glass-parent {
-            width: 54px;
-            height: 70px;
-          }
-
-          .dv-extra-item {
-            color: $main-yellow;
-            font-size: 16px;
-            line-height: 21px;
-          }
-        }
-      }
-
-    }
   }
 }
+.dv-orders-list-table {
+  width: 100%;
 
+  tr {
+    border-bottom: 1px solid rgba(191, 186, 186, 0.18);
+
+    td {
+      vertical-align: top;
+
+      .dv-img-glass-parent {
+        width: 54px;
+        height: 70px;
+      }
+
+      .dv-extra-item {
+        color: $main-yellow;
+        font-size: 16px;
+        line-height: 21px;
+      }
+    }
+  }
+
+}
 .dv-bg-cc {
   background-color: #ccc;
 

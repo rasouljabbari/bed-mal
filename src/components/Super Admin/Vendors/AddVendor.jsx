@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import './vendors.scss'
 import {emailRegex, getData, loader, setTitle} from "../../../assets/scripts/GeneralFunctions";
 import TimePicker from 'react-times';
@@ -13,9 +13,35 @@ import {Modal} from "react-bootstrap";
 import placeHolder_img from "../../../assets/image/bedmal-place-holder.jpg";
 import Swal from "sweetalert2";
 import {toast} from "react-toastify";
-import mapboxgl from 'mapbox-gl';
-mapboxgl.accessToken = 'pk.eyJ1IjoicmpkZXZlbG9wZXIiLCJhIjoiY2twNmtyejhiMHJoaTJ3cXRpd2dsZXJyNSJ9.-vVOy-9UQcN0Dh61WwA-QQ';
+import {MapContainer, Marker, Popup, TileLayer, useMapEvents} from "react-leaflet";
+import L from "leaflet";
+import Img from "../../../assets/image/mapIcon.png";
 const Compress = require('compress.js')
+
+let latlng;
+
+const GetIcon = (_iconSize)=>{
+    return L.icon({
+        iconUrl: Img,
+        iconSize: [_iconSize]
+    })
+}
+
+const LocationMarker = (props) => {
+    const [position, setPosition] = useState(props.latLng)
+    const map = useMapEvents({
+        click(e) {
+            setPosition(e.latlng)
+            latlng = e.latlng
+        }
+    })
+
+    return position === null ? null : (
+        <Marker position={position} {...props}>
+            <Popup>You are here</Popup>
+        </Marker>
+    )
+}
 
 class AddVendor extends Component {
     constructor(props) {
@@ -25,7 +51,7 @@ class AddVendor extends Component {
             monday_to: '', monday_from: '', postal_code: '',
             selectedCheckboxes: [], selectedId: '', lng: -2.3899, department_items: [],
             lat: 53.0544,
-            zoom: 5, new_uploaded_img: '', new_uploaded_img_arr: [], sure_remove: false,
+            zoom: 10, new_uploaded_img: '', new_uploaded_img_arr: [], sure_remove: false,
             monday: [], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: [], sunday: []
         }
         this.mapContainer = React.createRef();
@@ -33,24 +59,6 @@ class AddVendor extends Component {
 
     async componentDidMount() {
         setTitle('Store')
-        const {lng, lat, zoom} = this.state;
-        const map = new mapboxgl.Map({
-            container: this.mapContainer.current,
-            style: 'mapbox://styles/mapbox/streets-v11',
-            center: [lng, lat],
-            zoom: zoom
-        });
-
-        let marker = new mapboxgl.Marker({
-            draggable: true,
-        })
-            .setLngLat([lng, lat])
-            .addTo(map);
-
-        marker.on('dragend', () => {
-            let lngLat = marker.getLngLat();
-            this.setState({lng: lngLat.lng, lat: lngLat.lat})
-        });
 
 
         let departmentItems = await getData(MAIN_URL, `admin/departments`, 'get', {}, true, true);
@@ -263,6 +271,9 @@ class AddVendor extends Component {
             selectedCheckboxes, lng,
             lat, monday, tuesday, wednesday, thursday, friday, saturday, sunday, new_uploaded_img_arr
         } = this.state
+
+
+
         let opening_hours = {
             "mon": monday,
             "tue": tuesday,
@@ -279,14 +290,15 @@ class AddVendor extends Component {
                 name: store_name,
                 email: store_email,
                 phone: store_phone,
-                latitude: lat,
-                longitude: lng,
+                latitude: latlng.lat,
+                longitude: latlng.lng,
                 image_gallery: JSON.stringify(new_uploaded_img_arr),
                 opening_hours: JSON.stringify(opening_hours),
                 departments: JSON.stringify(selectedCheckboxes),
 
             }, true, true);
             if (vendorItem?.status === 200) {
+                console.log(vendorItem)
                 Swal.fire({
                     icon: 'success',
                     title: 'created successfully',
@@ -312,6 +324,10 @@ class AddVendor extends Component {
         let friday = this.state.friday
         let saturday = this.state.saturday
         let sunday = this.state.sunday
+
+        const { lat, lng } = this.state;
+        const position = [parseFloat(lat).toFixed(4), parseFloat(lng).toFixed(4)]
+
         return (
             <div className='d-flex flex-column flex-md-row dv-vendor overflow-hidden'>
                 <div className="dv-vendors-right-admin dv-vendors-right-admin-2">
@@ -385,7 +401,15 @@ class AddVendor extends Component {
                                 </label>
                                 <label htmlFor="dv_map_coordinates" className='d-flex flex-column position-relative mt-2'>
                                     <span className='dv-store-name pl-2'>Map coordinates</span>
-                                    <div ref={this.mapContainer} className="map-container"/>
+                                    <div style={{width: '100%', height: '400px'}}>
+                                        <MapContainer center={position} zoom={10} scrollWheelZoom={false} style={{height: '400px'}}>
+                                            <TileLayer
+                                                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                            />
+                                            <LocationMarker icon={GetIcon(50)} latLng={position}/>
+                                        </MapContainer>
+                                    </div>
                                 </label>
                             </div>
                             <div className="dv-bg-light-vendors dv-bg-light pb-3 mb-3 px-3 px-md-5 d-flex flex-column">

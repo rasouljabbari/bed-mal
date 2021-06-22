@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import './vendors.scss'
 import {emailRegex, getData, loader, setTitle} from "../../../assets/scripts/GeneralFunctions";
 
@@ -13,24 +13,35 @@ import placeHolder_img from "../../../assets/image/bedmal-place-holder.jpg";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {toast} from "react-toastify";
-
-
-import Leaflet from "leaflet";
-import { MapContainer, TileLayer, Marker , MapConsumer } from "react-leaflet";
+import L from 'leaflet'
+import {MapContainer, TileLayer, Marker, MapConsumer, useMapEvents, Popup} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-// import icon from "leaflet/dist/images/marker-icon.png";
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import Img from '../../../assets/image/mapIcon.png'
+let latlng;
+const LocationMarker = (props) => {
+    const [position, setPosition] = useState(props.latLng)
+    latlng = props.latLng
+    const map = useMapEvents({
+        click(e) {
+            console.log(e.latlng)
+            setPosition(e.latlng)
+            latlng = e.latlng
+        }
+    })
 
-let DefaultIcon = Leaflet.icon({
-    iconSize: [25, 41],
-    iconAnchor: [10, 41],
-    popupAnchor: [2, -40],
-    iconUrl: "https://unpkg.com/leaflet@1.6/dist/images/marker-icon.png",
-    shadowUrl: iconShadow
-});
+    return position === null ? null : (
+        <Marker position={position} {...props}>
+            <Popup>You are here</Popup>
+        </Marker>
+    )
+}
 
-Leaflet.Marker.prototype.options.icon = DefaultIcon;
-
+const GetIcon = (_iconSize)=>{
+    return L.icon({
+        iconUrl: Img,
+        iconSize: [_iconSize]
+    })
+}
 
 class Vendors extends Component {
     constructor(props) {
@@ -39,18 +50,9 @@ class Vendors extends Component {
             map_coordinates: '', store_address: '', store_phone: '', store_email: '', store_name: '',
             monday_to: '', monday_from: '', postal_code: '',
             selectedCheckboxes: [], selectedId: '',  department_items: [],
-            zoom: 5,
-            markerPoint: {
-                x: 320,
-                y: 192
-            },
             new_uploaded_img: '', new_uploaded_img_arr: [], sure_remove: false,
             monday: [], tuesday: [], wednesday: [], thursday: [], friday: [], saturday: [], sunday: [], vendor_items: ''
         }
-        this.mapContainer = React.createRef();
-        this.refMap = React.createRef();
-        this.circleRef = React.createRef();
-        this.bindMarker = React.createRef();
     }
 
     async componentDidMount() {
@@ -73,7 +75,7 @@ class Vendors extends Component {
                 saturday: vendorItem?.vendor.opening_hours.sat,
                 sunday: vendorItem?.vendor.opening_hours.sun,
                 lng: parseFloat(vendorItem?.vendor.longitude).toFixed(4),
-                lat: parseFloat(vendorItem?.vendor.latitude).toFixed(4)
+                lat: parseFloat(vendorItem?.vendor.latitude).toFixed(4),
             })
         }
 
@@ -83,33 +85,10 @@ class Vendors extends Component {
             this.setState({department_items: departmentItems.items})
         }
 
-        // const map = new mapboxgl.Map({
-        //     container: this.mapContainer.current,
-        //     style: 'mapbox://styles/mapbox/streets-v11',
-        //     center: [vendorItem?.vendor.longitude, vendorItem?.vendor.latitude],
-        //     zoom: zoom
-        // });
-        //
-        // let marker = new mapboxgl.Marker({
-        //     draggable: true
-        // })
-        //     .setLngLat([map.getCenter().lng.toFixed(4), map.getCenter().lat.toFixed(4)])
-        //     .addTo(map);
-        //
-        //
-        // marker.on('dragend', () => {
-        //     let lngLat = marker.getLngLat();
-        //     // console.log('Longitude: ' + lngLat.lng + ' Latitude: ' + lngLat.lat, marker.getLngLat())
-        //     this.setState({lng: lngLat.lng, lat: lngLat.lat})
-        // });
+
 
     };
 
-    AddMarker = (e) => {
-            let lngLat = Leaflet.marker.getLngLat();
-            console.log('Longitude: ' + lngLat.lng + ' Latitude: ' + lngLat.lat, Leaflet.marker.getLngLat())
-            // this.setState({lng: lngLat.lng, lat: lngLat.lat})
-    }
 
     // times
     timeInputHandlerMondayFrom = (options) => {
@@ -400,8 +379,8 @@ class Vendors extends Component {
                 name: store_name,
                 email: store_email,
                 phone: store_phone,
-                latitude: lat,
-                longitude: lng,
+                latitude: latlng.lat,
+                longitude: latlng.lng,
                 image_gallery: JSON.stringify(new_uploaded_img_arr),
                 opening_hours: JSON.stringify(opening_hours),
                 departments: JSON.stringify(selectedCheckboxes),
@@ -428,7 +407,7 @@ class Vendors extends Component {
 
 
     render() {
-        const {selectedCheckboxes, new_uploaded_img_arr} = this.state;
+        const {selectedCheckboxes, new_uploaded_img_arr , department_items , vendor_items} = this.state;
         let monday = this.state.monday
         let tuesday = this.state.tuesday
         let wednesday = this.state.wednesday
@@ -437,14 +416,10 @@ class Vendors extends Component {
         let saturday = this.state.saturday
         let sunday = this.state.sunday;
 
-        const { lat, lng, zoom } = this.state;
-        let position = [];
+        const { lat, lng } = this.state;
+        const position = [parseFloat(lat).toFixed(4), parseFloat(lng).toFixed(4)]
 
 
-        if(lat && lng){
-            position = [lat , lng];
-        }
-        console.log(this.bindMarker.current , this.bindMarker.current?._latlng)
         return (
             <div className='d-flex flex-column flex-md-row dv-vendor overflow-hidden'>
                 <div className="dv-vendors-right-admin dv-vendors-right-admin-2">
@@ -475,251 +450,234 @@ class Vendors extends Component {
                         </li>
                     </ul>
                 </div>
-                <div className='dv-vendor-right-content dv-vendor-right-content-2 position-relative'>
-                    <form className="row" onSubmit={this.handleForm}>
-                        <div className="col-12 mb-3 d-flex justify-content-between">
-                            <h2>Store details</h2>
-                            <button className='dv-department-btn' type='submit'>Save</button>
-                        </div>
-                        {
-                            this.state.vendor_items?.length !== 0 ?
-                                <>
-                                    <div className="col-12 col-lg-6 pr-lg-2 mb-3">
-                                        <div className="dv-bg-light-vendors dv-bg-light pb-3 mb-3 d-flex flex-column">
-                                            <label htmlFor="dv-store-name" className='d-flex flex-column my-4'>
-                                                <span className='dv-store-name pl-2'>Store name</span>
-                                                <input type="text" name='store_name' value={this.state.store_name}
-                                                       onChange={this.inputHandler} id='dv-store-name' className='dv-store-input'/>
-                                            </label>
-                                            <label htmlFor="dv-store-email" className='d-flex align-items-center mb-4'>
-                                                <span className='dv-store-name dv-custom-width-label'>Email</span>
-                                                <input type="email" name='store_email' value={this.state.store_email}
-                                                       onChange={this.inputHandler} id='dv-store-email'
-                                                       className='dv-store-input w-75' required={true}/>
-                                            </label>
-                                            <label htmlFor="dv-store-phone" className='d-flex align-items-center mb-4'>
-                                                <span className='dv-store-name dv-custom-width-label'>Phone</span>
-                                                <input type="tel" name='store_phone' value={this.state.store_phone}
-                                                       onChange={this.inputHandler} id='dv-store-phone'
-                                                       className='dv-store-input w-75'/>
-                                            </label>
-                                            <label htmlFor="dv_store_address" className='d-flex flex-column mb-1'>
-                                                <span className='dv-store-name pl-2'>Store address</span>
-                                                <textarea name="store_address" id="dv_store_address"
-                                                          value={this.state.store_address} onChange={this.inputHandler} rows="3"
-                                                          className='dv-store-input'/>
-                                            </label>
-                                            <label htmlFor="dv_postal_code" className='d-flex flex-column'>
-                                                <span className='dv-store-name pl-2'>Postal code</span>
-                                                <input type="text" name='postal_code' value={this.state.postal_code}
-                                                       onChange={this.inputHandler} id='dv_postal_code'
-                                                       className='dv-store-input w-100'/>
-                                            </label>
-                                            <label htmlFor="dv_map_coordinates" className='d-flex flex-column position-relative'>
-                                                <span className='dv-store-name pl-2'>Map coordinates</span>
-                                                {/*<div ref={this.mapContainer} className="map-container"/>*/}
-
-                                                <MapContainer
-                                                    ref={this.refMap}
-                                                    center={position}
-                                                    zoom={zoom}
-                                                    className="map-container"
-                                                >
-                                                    <TileLayer
-                                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                                                    />
-                                                    <Marker
-                                                        ref={this.bindMarker}
-                                                        position={position}
-                                                        draggable="True"
-                                                        pane="popupPane"
-                                                    />
-                                                    <MapConsumer>
-                                                        {(map) => {
-                                                            map.on("click", function (e) {
-                                                                console.log("map center:", e.latlng);
-                                                                const { lat, lng } = e.latlng;
-                                                                Leaflet.marker([lat, lng], { DefaultIcon }).addTo(map);
-                                                            });
-                                                            return null;
-                                                        }}
-                                                    </MapConsumer>
-                                                </MapContainer>
-                                            </label>
-                                        </div>
-                                        <div className="dv-bg-light-vendors dv-bg-light pb-3 mb-3 px-3 px-md-5 d-flex flex-column">
-                                            <h2 className='dv-gray-h'>Opening hours</h2>
-                                            <label className='d-flex justify-content-between align-items-center mt-4 mb-2'>
-                                                <span className='dv-store-name pl-0'>Monday</span>
-                                                <div className="d-flex">
-                                                    <TimePicker
-                                                        onTimeChange={this.timeInputHandlerMondayFrom}
-                                                        time={monday[0]}
-                                                        minuteStep={1}
-                                                    />
-                                                    <TimePicker
-                                                        onTimeChange={this.timeInputHandlerMondayTo}
-                                                        time={monday[1]}
-                                                        minuteStep={1}
-                                                    />
-                                                </div>
-                                            </label>
-                                            <label className='d-flex justify-content-between align-items-center mb-2'>
-                                                <span className='dv-store-name pl-0'>Tuesday</span>
-                                                <div className="d-flex">
-                                                    <TimePicker
-                                                        onTimeChange={this.timeInputHandlerTuesdayFrom}
-                                                        time={tuesday[0]}
-                                                        minuteStep={1}
-                                                    />
-                                                    <TimePicker
-                                                        onTimeChange={this.timeInputHandlerTuesdayTo}
-                                                        time={tuesday[1]}
-                                                        minuteStep={1}
-                                                    />
-                                                </div>
-                                            </label>
-                                            <label className='d-flex justify-content-between align-items-center mb-2'>
-                                                <span className='dv-store-name pl-0'>Wednesday</span>
-                                                <div className="d-flex">
-                                                    <TimePicker
-                                                        onTimeChange={this.timeInputHandlerWednesdayFrom}
-                                                        time={wednesday[0]}
-                                                        minuteStep={1}
-                                                    />
-                                                    <TimePicker
-                                                        onTimeChange={this.timeInputHandlerWednesdayTo}
-                                                        time={wednesday[1]}
-                                                        minuteStep={1}
-                                                    />
-                                                </div>
-                                            </label>
-                                            <label className='d-flex justify-content-between align-items-center mb-2'>
-                                                <span className='dv-store-name pl-0'>Thursday</span>
-                                                <div className="d-flex">
-                                                    <TimePicker
-                                                        onTimeChange={this.timeInputHandlerThursdayFrom}
-                                                        time={thursday[0]}
-                                                        minuteStep={1}
-                                                    />
-                                                    <TimePicker
-                                                        onTimeChange={this.timeInputHandlerThursdayTo}
-                                                        time={thursday[1]}
-                                                        minuteStep={1}
-                                                    />
-                                                </div>
-                                            </label>
-                                            <label className='d-flex justify-content-between align-items-center mb-2'>
-                                                <span className='dv-store-name pl-0'>Friday</span>
-                                                <div className="d-flex">
-                                                    <TimePicker
-                                                        onTimeChange={this.timeInputHandlerFridayFrom}
-                                                        time={friday[0]}
-                                                        minuteStep={1}
-                                                    />
-                                                    <TimePicker
-                                                        onTimeChange={this.timeInputHandlerFridayTo}
-                                                        time={friday[1]}
-                                                        minuteStep={1}
-                                                    />
-                                                </div>
-                                            </label>
-                                            <label className='d-flex justify-content-between align-items-center mb-2'>
-                                                <span className='dv-store-name pl-0'>Saturday</span>
-                                                <div className="d-flex">
-                                                    <TimePicker
-                                                        onTimeChange={this.timeInputHandlerSaturdayFrom}
-                                                        time={saturday[0]}
-                                                        minuteStep={1}
-                                                    />
-                                                    <TimePicker
-                                                        onTimeChange={this.timeInputHandlerSaturdayTo}
-                                                        time={saturday[1]}
-                                                        minuteStep={1}
-                                                    />
-                                                </div>
-                                            </label>
-                                            <label className='d-flex justify-content-between align-items-center mb-2'>
-                                                <span className='dv-store-name pl-0'>Sunday</span>
-                                                <div className="d-flex">
-                                                    <TimePicker
-                                                        onTimeChange={this.timeInputHandlerSundayFrom}
-                                                        time={sunday[0]}
-                                                        minuteStep={1}
-                                                    />
-                                                    <TimePicker
-                                                        onTimeChange={this.timeInputHandlerSundayTo}
-                                                        time={sunday[1]}
-                                                        minuteStep={1}
-                                                    />
-                                                </div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div className="col-12 col-lg-6 pl-lg-2 mb-3 ">
-                                        <div className="dv-bg-light-vendors dv-bg-light pb-2 mb-3 px-3 px-md-5">
-                                            <div className="row" dir='rtl'>
-                                                <div className="col-12 mb-3">
-                                                    <h3 className='dv-gray-h'>Add store images</h3>
-                                                </div>
-                                                <div className="col-6 mb-3">
-                                                    <label className='dv-upload-file-label'>
-                                                        <i className='las la-plus'></i>
-                                                        <input type="file" accept="image/*" onChange={this.thisUploadImage}
-                                                               className='dc-upload-file'/>
+                {
+                    vendor_items && department_items ?
+                        <div className='dv-vendor-right-content dv-vendor-right-content-2 position-relative'>
+                            <form className="row" onSubmit={this.handleForm}>
+                                <div className="col-12 mb-3 d-flex justify-content-between">
+                                    <h2>Store details</h2>
+                                    <button className='dv-department-btn' type='submit'>Save</button>
+                                </div>
+                                {
+                                    this.state.vendor_items?.length !== 0 ?
+                                        <>
+                                            <div className="col-12 col-lg-6 pr-lg-2 mb-3">
+                                                <div className="dv-bg-light-vendors dv-bg-light pb-3 mb-3 d-flex flex-column">
+                                                    <label htmlFor="dv-store-name" className='d-flex flex-column my-4'>
+                                                        <span className='dv-store-name pl-2'>Store name</span>
+                                                        <input type="text" name='store_name' value={this.state.store_name}
+                                                               onChange={this.inputHandler} id='dv-store-name' className='dv-store-input'/>
                                                     </label>
-                                                </div>
-                                                {
-                                                    new_uploaded_img_arr?.map((item, i) => (
-                                                        <div className="col-6 mb-3">
-                                                            <div className="dv-img-store-parent">
-                                                                <img className='img-fluid'
-                                                                     onError={(e) => {
-                                                                         e.target.onerror = null;
-                                                                         e.target.src = `${placeHolder_img}`
-                                                                     }}
-                                                                     src={`${MAIN_URL_IMAGE}${item}`} key={i}
-                                                                     alt="Bed mal"/>
-                                                                <i className="las la-times-circle dv-store-icons"
-                                                                   onClick={() => this.removeHandler(item)}/>
-                                                                <i className="las la-arrow-up dv-store-icons"
-                                                                   onClick={() => this.arrowUpHandler(i)}/>
-                                                                <i className="las la-arrow-down dv-store-icons"
-                                                                   onClick={() => this.arrowDownHandler(i)}/>
-                                                            </div>
+                                                    <label htmlFor="dv-store-email" className='d-flex align-items-center mb-4'>
+                                                        <span className='dv-store-name dv-custom-width-label'>Email</span>
+                                                        <input type="email" name='store_email' value={this.state.store_email}
+                                                               onChange={this.inputHandler} id='dv-store-email'
+                                                               className='dv-store-input w-75' required={true}/>
+                                                    </label>
+                                                    <label htmlFor="dv-store-phone" className='d-flex align-items-center mb-4'>
+                                                        <span className='dv-store-name dv-custom-width-label'>Phone</span>
+                                                        <input type="tel" name='store_phone' value={this.state.store_phone}
+                                                               onChange={this.inputHandler} id='dv-store-phone'
+                                                               className='dv-store-input w-75'/>
+                                                    </label>
+                                                    <label htmlFor="dv_store_address" className='d-flex flex-column mb-1'>
+                                                        <span className='dv-store-name pl-2'>Store address</span>
+                                                        <textarea name="store_address" id="dv_store_address"
+                                                                  value={this.state.store_address} onChange={this.inputHandler} rows="3"
+                                                                  className='dv-store-input'/>
+                                                    </label>
+                                                    <label htmlFor="dv_postal_code" className='d-flex flex-column'>
+                                                        <span className='dv-store-name pl-2'>Postal code</span>
+                                                        <input type="text" name='postal_code' value={this.state.postal_code}
+                                                               onChange={this.inputHandler} id='dv_postal_code'
+                                                               className='dv-store-input w-100'/>
+                                                    </label>
+                                                    <label htmlFor="dv_map_coordinates" className='d-flex flex-column position-relative'>
+                                                        <span className='dv-store-name pl-2'>Map coordinates</span>
+                                                        <div style={{width: '100%', height: '400px'}}>
+                                                            <MapContainer center={position} zoom={10} scrollWheelZoom={false} style={{height: '400px'}}>
+                                                                <TileLayer
+                                                                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                                                />
+                                                                <LocationMarker icon={GetIcon(50)} latLng={position}/>
+                                                            </MapContainer>
                                                         </div>
-                                                    ))
-                                                }
-                                            </div>
-                                        </div>
-                                        <div className="dv-bg-light-vendors dv-bg-light pb-2 mb-3 px-3 px-md-5">
-                                            <h3 className='dv-gray-h'>Store descriptor (Max. 3)</h3>
-                                            <div className="d-flex flex-wrap py-4">
-                                                {this.state.department_items?.map(checkbox => (
-                                                    <label
-                                                        className={
-                                                            selectedCheckboxes?.find(element => element === checkbox.id) ?
-                                                                'dv-label-checkbox-checked mr-3' :
-                                                                'dv-label-checkbox mr-3'
-                                                        }
-                                                        key={checkbox.id}>
-                                                        <span>{checkbox.name}</span>
-                                                        <input
-                                                            type="checkbox"
-                                                            checked={false}
-                                                            onChange={() => this.onChange(checkbox.id)}
-                                                            selected={selectedCheckboxes?.includes(checkbox.id)}
-                                                        />
                                                     </label>
-                                                ))}
+                                                </div>
+                                                <div className="dv-bg-light-vendors dv-bg-light pb-3 mb-3 px-3 px-md-5 d-flex flex-column">
+                                                    <h2 className='dv-gray-h'>Opening hours</h2>
+                                                    <label className='d-flex justify-content-between align-items-center mt-4 mb-2'>
+                                                        <span className='dv-store-name pl-0'>Monday</span>
+                                                        <div className="d-flex">
+                                                            <TimePicker
+                                                                onTimeChange={this.timeInputHandlerMondayFrom}
+                                                                time={monday[0]}
+                                                                minuteStep={1}
+                                                            />
+                                                            <TimePicker
+                                                                onTimeChange={this.timeInputHandlerMondayTo}
+                                                                time={monday[1]}
+                                                                minuteStep={1}
+                                                            />
+                                                        </div>
+                                                    </label>
+                                                    <label className='d-flex justify-content-between align-items-center mb-2'>
+                                                        <span className='dv-store-name pl-0'>Tuesday</span>
+                                                        <div className="d-flex">
+                                                            <TimePicker
+                                                                onTimeChange={this.timeInputHandlerTuesdayFrom}
+                                                                time={tuesday[0]}
+                                                                minuteStep={1}
+                                                            />
+                                                            <TimePicker
+                                                                onTimeChange={this.timeInputHandlerTuesdayTo}
+                                                                time={tuesday[1]}
+                                                                minuteStep={1}
+                                                            />
+                                                        </div>
+                                                    </label>
+                                                    <label className='d-flex justify-content-between align-items-center mb-2'>
+                                                        <span className='dv-store-name pl-0'>Wednesday</span>
+                                                        <div className="d-flex">
+                                                            <TimePicker
+                                                                onTimeChange={this.timeInputHandlerWednesdayFrom}
+                                                                time={wednesday[0]}
+                                                                minuteStep={1}
+                                                            />
+                                                            <TimePicker
+                                                                onTimeChange={this.timeInputHandlerWednesdayTo}
+                                                                time={wednesday[1]}
+                                                                minuteStep={1}
+                                                            />
+                                                        </div>
+                                                    </label>
+                                                    <label className='d-flex justify-content-between align-items-center mb-2'>
+                                                        <span className='dv-store-name pl-0'>Thursday</span>
+                                                        <div className="d-flex">
+                                                            <TimePicker
+                                                                onTimeChange={this.timeInputHandlerThursdayFrom}
+                                                                time={thursday[0]}
+                                                                minuteStep={1}
+                                                            />
+                                                            <TimePicker
+                                                                onTimeChange={this.timeInputHandlerThursdayTo}
+                                                                time={thursday[1]}
+                                                                minuteStep={1}
+                                                            />
+                                                        </div>
+                                                    </label>
+                                                    <label className='d-flex justify-content-between align-items-center mb-2'>
+                                                        <span className='dv-store-name pl-0'>Friday</span>
+                                                        <div className="d-flex">
+                                                            <TimePicker
+                                                                onTimeChange={this.timeInputHandlerFridayFrom}
+                                                                time={friday[0]}
+                                                                minuteStep={1}
+                                                            />
+                                                            <TimePicker
+                                                                onTimeChange={this.timeInputHandlerFridayTo}
+                                                                time={friday[1]}
+                                                                minuteStep={1}
+                                                            />
+                                                        </div>
+                                                    </label>
+                                                    <label className='d-flex justify-content-between align-items-center mb-2'>
+                                                        <span className='dv-store-name pl-0'>Saturday</span>
+                                                        <div className="d-flex">
+                                                            <TimePicker
+                                                                onTimeChange={this.timeInputHandlerSaturdayFrom}
+                                                                time={saturday[0]}
+                                                                minuteStep={1}
+                                                            />
+                                                            <TimePicker
+                                                                onTimeChange={this.timeInputHandlerSaturdayTo}
+                                                                time={saturday[1]}
+                                                                minuteStep={1}
+                                                            />
+                                                        </div>
+                                                    </label>
+                                                    <label className='d-flex justify-content-between align-items-center mb-2'>
+                                                        <span className='dv-store-name pl-0'>Sunday</span>
+                                                        <div className="d-flex">
+                                                            <TimePicker
+                                                                onTimeChange={this.timeInputHandlerSundayFrom}
+                                                                time={sunday[0]}
+                                                                minuteStep={1}
+                                                            />
+                                                            <TimePicker
+                                                                onTimeChange={this.timeInputHandlerSundayTo}
+                                                                time={sunday[1]}
+                                                                minuteStep={1}
+                                                            />
+                                                        </div>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </> : ''
-                        }
-                    </form>
-                </div>
+                                            <div className="col-12 col-lg-6 pl-lg-2 mb-3 ">
+                                                <div className="dv-bg-light-vendors dv-bg-light pb-2 mb-3 px-3 px-md-5">
+                                                    <div className="row" dir='rtl'>
+                                                        <div className="col-12 mb-3">
+                                                            <h3 className='dv-gray-h'>Add store images</h3>
+                                                        </div>
+                                                        <div className="col-6 mb-3">
+                                                            <label className='dv-upload-file-label'>
+                                                                <i className='las la-plus'></i>
+                                                                <input type="file" accept="image/*" onChange={this.thisUploadImage}
+                                                                       className='dc-upload-file'/>
+                                                            </label>
+                                                        </div>
+                                                        {
+                                                            new_uploaded_img_arr?.map((item, i) => (
+                                                                <div className="col-6 mb-3">
+                                                                    <div className="dv-img-store-parent">
+                                                                        <img className='img-fluid'
+                                                                             onError={(e) => {
+                                                                                 e.target.onerror = null;
+                                                                                 e.target.src = `${placeHolder_img}`
+                                                                             }}
+                                                                             src={`${MAIN_URL_IMAGE}${item}`} key={i}
+                                                                             alt="Bed mal"/>
+                                                                        <i className="las la-times-circle dv-store-icons"
+                                                                           onClick={() => this.removeHandler(item)}/>
+                                                                        <i className="las la-arrow-up dv-store-icons"
+                                                                           onClick={() => this.arrowUpHandler(i)}/>
+                                                                        <i className="las la-arrow-down dv-store-icons"
+                                                                           onClick={() => this.arrowDownHandler(i)}/>
+                                                                    </div>
+                                                                </div>
+                                                            ))
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div className="dv-bg-light-vendors dv-bg-light pb-2 mb-3 px-3 px-md-5">
+                                                    <h3 className='dv-gray-h'>Store descriptor (Max. 3)</h3>
+                                                    <div className="d-flex flex-wrap py-4">
+                                                        {this.state.department_items?.map(checkbox => (
+                                                            <label
+                                                                className={
+                                                                    selectedCheckboxes?.find(element => element === checkbox.id) ?
+                                                                        'dv-label-checkbox-checked mr-3' :
+                                                                        'dv-label-checkbox mr-3'
+                                                                }
+                                                                key={checkbox.id}>
+                                                                <span>{checkbox.name}</span>
+                                                                <input
+                                                                    type="checkbox"
+                                                                    checked={false}
+                                                                    onChange={() => this.onChange(checkbox.id)}
+                                                                    selected={selectedCheckboxes?.includes(checkbox.id)}
+                                                                />
+                                                            </label>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </> : ''
+                                }
+                            </form>
+                        </div> : <h1>No data</h1>
+                }
                 <Modal style={{textAlign: 'center'}} centered={true} show={this.state.sure_remove}
                        onHide={this.closeModal}>
                     <Modal.Body className='p-5'>

@@ -85,13 +85,9 @@
         cursor: pointer;
         color: $main-blue;
       }
-      @media (min-width: 1260px) {
-        .dv-borrows {
-          width: 100%;
-          background: url(../../../assets/image/BG.png) no-repeat;
-          background-size: 100% 100%;
-          text-align: center;
 
+      @media (min-width: 1260px) {
+        .dv-borrows, .dv-black-borrows {
           .dv-circle {
             width: 45px;
             height: 45px;
@@ -104,7 +100,8 @@
           }
         }
       }
-      .dv-borrows {
+
+      .dv-borrows, .dv-black-borrows {
         width: 100%;
         background: url(../../../assets/image/BG.png) no-repeat;
         background-size: 100% 100%;
@@ -128,6 +125,11 @@
           line-height: 24px;
           color: #C3BCBC;
         }
+      }
+
+      .dv-black-borrows {
+        background: url(../../../assets/image/BlackBG.png) no-repeat !important;
+        background-size: 100% 100% !important;
       }
     }
 
@@ -244,7 +246,8 @@
   transition: all 0.3s linear;
   text-align: center;
 }
-.dv-save{
+
+.dv-save {
   width: 50%;
   color: #fff;
   background-color: $main-blue;
@@ -261,15 +264,98 @@
     background-color: $main-blue-hover;
   }
 }
-.dv-remove-on-img{
+
+.dv-remove-on-img {
   cursor: pointer;
   position: absolute;
   bottom: 1.2rem;
   left: 1.5rem;
   width: 20px;
 }
-.dv-remove-receipt{
+
+.dv-note-number {
   cursor: pointer;
+  position: absolute;
+  bottom: 1rem;
+  left: 1.6rem;
+  font-size: 20px;
+  color: $main-blue;
+}
+
+.dv-remove-receipt {
+  cursor: pointer;
+}
+
+.dv-bg-light-issue-refund-modal {
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  box-shadow: $dv-box-shadow;
+  padding: 1rem;
+
+  h6, p {
+    font-size: 18px;
+    line-height: 24px;
+    color: #969292;
+    font-weight: 300;
+  }
+
+  .dv-number-input-issue-refund-modal {
+    width: 26px;
+    height: 26px;
+    border: 1px solid #EAEAEA;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  .dv-issue-refund-inputs {
+    border-radius: 5px;
+    border: 1px solid #C3BFBF;
+    background-color: #FAFAFA;
+    padding: 0.5rem;
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .dv-issue-refund-unit {
+    left: 0.4rem;
+    top: 2.25rem;
+    font-size: 22px;
+    color: #000;
+    position: absolute;
+  }
+}
+.dv-issue-refund-submit-btn {
+  background-color: $main-blue;
+  box-shadow: $dv-box-shadow;
+  color: $dv-gray-ea;
+  padding: 0.3rem 1.8rem;
+  border-radius: 25px;
+  border: none;
+  font-size: 1rem;
+  transition: all 0.3s linear;
+
+  &:hover {
+    background-color: $main-blue-hover;
+  }
+}
+
+.dv-issue-refund-cancel {
+  background-color: transparent;
+  color: $main-blue;
+  padding: 0.3rem 1.8rem;
+  border-radius: 25px;
+  border: none;
+  font-size: 1rem;
+  transition: all 0.3s linear;
+
+  &:hover {
+    background-color: $main-blue-hover;
+    color: $dv-gray-ea;
+  }
+}
+
+.vertical-align-middle {
+  vertical-align: middle !important;
 }
 
 @media (max-width: 986px) {
@@ -322,3 +408,15 @@
   }
 }
 
+@media (min-width: 576px) {
+  .dv-issue-refund-modal {
+    .modal-dialog {
+      max-width: 786px;
+      margin: 1.75rem auto;
+    }
+  }
+  .modal-dialog {
+    max-width: 576px;
+    margin: 1.75rem auto;
+  }
+}
