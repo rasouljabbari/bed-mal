@@ -13,7 +13,6 @@ import BorrowReceiptsSelected from "./components/Super Admin/Borrowing/BorrowRec
 import BorrowingActive from "./components/Super Admin/Borrowing/BorrowingActive";
 import BorrowingInventory from "./components/Super Admin/Borrowing/BorrowingInventory";
 import LoanReport from "./components/Super Admin/Borrowing/LoanReport";
-import Departments from "./components/Super Admin/Departments/Departments";
 import AdminTerms from "./components/Super Admin/ Admin Terms/AdminTerms";
 import Vendors from "./components/Super Admin/Vendors/Vendors";
 import EditOveride from "./components/Super Admin/Vendors/EditOveride";

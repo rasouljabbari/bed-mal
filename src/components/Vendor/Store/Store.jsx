@@ -36,7 +36,6 @@ const LocationMarker = (props) => {
     latlng = props.latLng
     const map = useMapEvents({
         click(e) {
-            console.log(e.latlng)
             setPosition(e.latlng)
             latlng = e.latlng
         }
@@ -68,13 +67,15 @@ class Store extends Component {
         setTitle('Store')
 
         let storeDetails = await getData(MAIN_URL, `vendor/store-details`, 'get', {}, true, true);
+        // console.log(storeDetails)
+        // return false
         if (storeDetails?.status === 200) {
             this.setState({
                 store_item: storeDetails?.item,
                 store_name: storeDetails?.item.name,
                 store_address: storeDetails?.item.address,
-                lat: storeDetails?.item.latitude,
-                lng: storeDetails?.item.longitude,
+                lat: storeDetails?.item?.latitude,
+                lng: storeDetails?.item?.longitude,
                 store_email: storeDetails?.item.email,
                 store_phone: storeDetails?.item.phone,
                 new_uploaded_img_arr: storeDetails?.item.image_gallery,
@@ -261,7 +262,6 @@ class Store extends Component {
         let arr = this.state.new_uploaded_img_arr;
 
         const index = arr.indexOf(this.state.remove_selected_item);
-        console.log(index)
         if (index > -1) {
             arr.splice(index, 1);
             this.setState({new_uploaded_img_arr: arr, sure_remove: false})
@@ -347,7 +347,7 @@ class Store extends Component {
         let saturday = this.state.saturday
         let sunday = this.state.sunday
 
-        const position = [parseFloat(lat).toFixed(4), parseFloat(lng).toFixed(4)]
+        const position = [lat, lng]
 
         return (
             <div className='d-flex flex-column flex-xl-row dv-vendor'>

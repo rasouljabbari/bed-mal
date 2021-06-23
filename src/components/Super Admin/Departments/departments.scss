@@ -234,6 +234,7 @@
        td{
          padding: 0.5rem 0;
          background-color: #FAFAFA;
+         transition: 0.3s linear all;
          &:first-child{
            padding-left: 160px;
          }
@@ -249,6 +250,7 @@
       }
       &:nth-child(even){
         td{
+          transition: 0.3s linear all;
           &:first-child{
             padding-left: 160px;
           }

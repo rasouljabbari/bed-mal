@@ -8,7 +8,6 @@ import Checkmark from '../../../assets/image/Icon ionic-ios-checkmark.svg'
 import MetronNot from '../../../assets/image/Icon metro-not.svg'
 import {MAIN_URL} from "../../../assets/scripts/GeneralVariables";
 import Swal from "sweetalert2";
-import Switch from "react-input-switch";
 
 class Fulfillment extends Component {
     constructor(props) {
@@ -190,24 +189,33 @@ class Fulfillment extends Component {
                                                           className='dv-fulfilment-input'/>
                                             </label>
                                             <div className="d-flex align-items-center dv-borrow-switch">
-                                                <Switch
-                                                    // value={this.state.borrow_value}
-                                                    value={0}
-                                                    on={1}
-                                                    off={0}
-                                                    onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
-                                                />
+
+                                                <label className="switch">
+                                                    <input type="checkbox"
+                                                           value={0}
+                                                           on={1}
+                                                           off={0}
+                                                           // checked={this.state.borrow_value === 1 ? true : false}
+                                                           onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
+                                                    />
+                                                    <span className="slider round"></span>
+                                                </label>
+
                                                 <div className='pl-2 dv-switch-text'>Can users return Borrow
                                                     Products? <span> (Mandatory)</span></div>
                                             </div>
                                             <div className="d-flex align-items-center dv-borrow-switch">
-                                                <Switch
-                                                    // value={this.state.borrow_value}
-                                                    value={0}
-                                                    on={1}
-                                                    off={0}
-                                                    onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
-                                                />
+                                                <label className="switch">
+                                                    <input type="checkbox"
+                                                           value={0}
+                                                           on={1}
+                                                           off={0}
+                                                        // checked={this.state.borrow_value === 1 ? true : false}
+                                                           onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
+                                                    />
+                                                    <span className="slider round"></span>
+                                                </label>
+
                                                 <div className='pl-2 dv-switch-text'>Can users have their items packed
                                                     in BorrowBags?
                                                 </div>
@@ -257,13 +265,18 @@ class Fulfillment extends Component {
                                                 </label>
                                             </div>
                                             <div className="d-flex align-items-center dv-borrow-switch mb-4">
-                                                <Switch
-                                                    // value={this.state.borrow_value}
-                                                    value={0}
-                                                    on={1}
-                                                    off={0}
-                                                    onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
-                                                />
+
+                                                <label className="switch">
+                                                    <input type="checkbox"
+                                                           value={0}
+                                                           on={1}
+                                                           off={0}
+                                                        // checked={this.state.borrow_value === 1 ? true : false}
+                                                           onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
+                                                    />
+                                                    <span className="slider round"></span>
+                                                </label>
+
                                                 <div className="d-flex flex-column">
                                                     <div className='pl-2 dv-switch-text text-left'>Free for orders over</div>
                                                     <div className='pl-2 position-relative'>
@@ -275,23 +288,29 @@ class Fulfillment extends Component {
                                                 </div>
                                             </div>
                                             <div className="d-flex align-items-center dv-borrow-switch mb-3">
-                                                <Switch
-                                                    // value={this.state.borrow_value}
-                                                    value={0}
-                                                    on={1}
-                                                    off={0}
-                                                    onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
-                                                />
+                                                <label className="switch">
+                                                    <input type="checkbox"
+                                                           value={0}
+                                                           on={1}
+                                                           off={0}
+                                                        // checked={this.state.borrow_value === 1 ? true : false}
+                                                           onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
+                                                    />
+                                                    <span className="slider round"></span>
+                                                </label>
                                                 <div className='pl-2 dv-switch-text'>Can users return Borrow Products?</div>
                                             </div>
                                             <div className="d-flex align-items-center dv-borrow-switch">
-                                                <Switch
-                                                    // value={this.state.borrow_value}
-                                                    value={0}
-                                                    on={1}
-                                                    off={0}
-                                                    onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
-                                                />
+                                                <label className="switch">
+                                                    <input type="checkbox"
+                                                           value={0}
+                                                           on={1}
+                                                           off={0}
+                                                        // checked={this.state.borrow_value === 1 ? true : false}
+                                                           onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
+                                                    />
+                                                    <span className="slider round"></span>
+                                                </label>
                                                 <div className='pl-2 dv-switch-text'>Can users have their items packed in BorrowBags?</div>
                                             </div>
                                         </div>
@@ -338,13 +357,16 @@ class Fulfillment extends Component {
                                                 </label>
                                             </div>
                                             <div className="d-flex align-items-center dv-borrow-switch mb-4">
-                                                <Switch
-                                                    // value={this.state.borrow_value}
-                                                    value={0}
-                                                    on={1}
-                                                    off={0}
-                                                    onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
-                                                />
+                                                <label className="switch">
+                                                    <input type="checkbox"
+                                                           value={0}
+                                                           on={1}
+                                                           off={0}
+                                                        // checked={this.state.borrow_value === 1 ? true : false}
+                                                           onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
+                                                    />
+                                                    <span className="slider round"></span>
+                                                </label>
                                                 <div className="d-flex flex-column">
                                                     <div className='pl-2 dv-switch-text text-left'>Free for orders over</div>
                                                     <div className='pl-2 position-relative'>
@@ -356,23 +378,29 @@ class Fulfillment extends Component {
                                                 </div>
                                             </div>
                                             <div className="d-flex align-items-center dv-borrow-switch mb-3">
-                                                <Switch
-                                                    // value={this.state.borrow_value}
-                                                    value={0}
-                                                    on={1}
-                                                    off={0}
-                                                    onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
-                                                />
+                                                <label className="switch">
+                                                    <input type="checkbox"
+                                                           value={0}
+                                                           on={1}
+                                                           off={0}
+                                                        // checked={this.state.borrow_value === 1 ? true : false}
+                                                           onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
+                                                    />
+                                                    <span className="slider round"></span>
+                                                </label>
                                                 <div className='pl-2 dv-switch-text'>Can users return Borrow Products?</div>
                                             </div>
                                             <div className="d-flex align-items-center dv-borrow-switch">
-                                                <Switch
-                                                    // value={this.state.borrow_value}
-                                                    value={0}
-                                                    on={1}
-                                                    off={0}
-                                                    onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
-                                                />
+                                                <label className="switch">
+                                                    <input type="checkbox"
+                                                           value={0}
+                                                           on={1}
+                                                           off={0}
+                                                        // checked={this.state.borrow_value === 1 ? true : false}
+                                                           onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
+                                                    />
+                                                    <span className="slider round"></span>
+                                                </label>
                                                 <div className='pl-2 dv-switch-text'>Can users have their items packed in BorrowBags?</div>
                                             </div>
                                         </div>

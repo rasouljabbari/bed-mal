@@ -303,7 +303,7 @@ class VOrders extends Component {
                                 {/*</div>*/}
                             </div>
                             <div className="bg-custom-light bg-custom-light-2">
-                                <div className="d-flex flex-column align-items-start p-4 dv-lazyLoad mb-3"
+                                <div className="d-flex flex-column align-items-start p-4 dv-lazyLoad dv-order-lazyload-height mb-3"
                                      ref={this.myRef2} onScroll={this.getDataOnScrolledBoards}>
                                     <h2 className='dv-right-header mb-4'>RECEIPT DETAILS</h2>
                                     <table className='dv-orders-list-table'>

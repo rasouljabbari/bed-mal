@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 import {getData, setTitle} from "../../../assets/scripts/GeneralFunctions";
 import Glass from '../../../assets/image/complete.png'
 import Bag from '../../../assets/image/bag.png'
-import Switch from 'react-input-switch';
 import Swal from "sweetalert2";
 import {Modal} from "react-bootstrap";
 import {MAIN_URL} from "../../../assets/scripts/GeneralVariables";
@@ -448,15 +447,20 @@ class Vendors extends Component {
                                                     src={Glass} className='img-fluid' alt="Bed mal"/>
                                             </div>
                                             <h5>BorrowCup</h5>
-                                            <Switch
-                                                // value={switchId == item.id ? switchValue : item.status}
-                                                value={this.state.vendor_info.borrow_partner_cup}
-                                                on={1}
-                                                off={0}
-                                                // id={item.id}
-                                                // onChange={(e)=>this.HandlerChangeStatus(e,item.id)}
-                                                onChange={() => this.HandlerChangeStatusCup(this.state.vendor_info.id, this.state.vendor_info.borrow_partner_cup)}
-                                            />
+
+                                            <label className="switch">
+                                                <input type="checkbox"
+                                                       value={this.state.vendor_info.borrow_partner_cup}
+                                                       on={1}
+                                                       off={0}
+                                                    // id={item.id}
+                                                    // onChange={(e)=>this.HandlerChangeStatus(e,item.id)}
+                                                    checked={this.state.vendor_info.borrow_partner_cup === 1 ? true : false}
+                                                       onChange={() => this.HandlerChangeStatusCup(this.state.vendor_info.id, this.state.vendor_info.borrow_partner_cup)}
+                                                />
+                                                    <span className="slider round"></span>
+                                            </label>
+
                                         </div>
                                     </div>
                                     <div className="dv-swiper-parent-bg mb-3">
@@ -471,15 +475,18 @@ class Vendors extends Component {
                                                     src={Bag} className='img-fluid' alt="Bed mal"/>
                                             </div>
                                             <h5>BorrowBag</h5>
-                                            <Switch
-                                                // value={switchId == item.id ? switchValue : item.status}
-                                                value={this.state.vendor_info.borrow_partner_bag}
-                                                on={1}
-                                                off={0}
-                                                // id={item.id}
-                                                // onChange={(e)=>this.HandlerChangeStatus(e,item.id)}
-                                                onChange={() => this.HandlerChangeStatusBag(this.state.vendor_info.id, this.state.vendor_info.borrow_partner_bag)}
-                                            />
+
+                                            <label className="switch">
+                                                <input type="checkbox"
+                                                       value={this.state.vendor_info.borrow_partner_bag}
+                                                       on={1}
+                                                       off={0}
+                                                       checked={this.state.vendor_info.borrow_partner_bag === 1 ? true : false}
+                                                       onChange={() => this.HandlerChangeStatusBag(this.state.vendor_info.id, this.state.vendor_info.borrow_partner_bag)}
+                                                />
+                                                <span className="slider round"></span>
+                                            </label>
+
                                         </div>
                                     </div>
                                 </div>

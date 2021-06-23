@@ -326,7 +326,7 @@ class AddVendor extends Component {
         let sunday = this.state.sunday
 
         const { lat, lng } = this.state;
-        const position = [parseFloat(lat).toFixed(4), parseFloat(lng).toFixed(4)]
+        const position = [lat, lng]
 
         return (
             <div className='d-flex flex-column flex-md-row dv-vendor overflow-hidden'>

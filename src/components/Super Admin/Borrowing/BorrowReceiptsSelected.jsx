@@ -2,12 +2,9 @@ import React, {Component} from 'react';
 import './borrowing.scss'
 import {Link} from "react-router-dom";
 import Glass from '../../../assets/image/complete.png'
-import OrderNoteImage from '../../../assets/image/Use borrow bags.png'
 import {setTitle} from "../../../assets/scripts/GeneralFunctions";
 import LeftSideBarBorrowing from "./LeftSideBarBorrowing/LeftSideBarBorrowing";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
 import 'swiper/swiper.scss';
 import placeHolder_img from "../../../assets/image/bedmal-place-holder.jpg";
 

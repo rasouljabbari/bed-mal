@@ -9,7 +9,6 @@ import Img from '../../../assets/image/Add image button.png';
 import axios from "axios";
 import Swal from "sweetalert2";
 import Menu from "./Menu";
-import Switch from "react-input-switch";
 const Compress = require('compress.js')
 class AddProduct extends Component {
     constructor(props) {
@@ -603,13 +602,19 @@ class AddProduct extends Component {
                                 <div className='col-12 px-md-4'>
                                     <div className="dv-bg-light dv-box-shadow mb-4 py-3 px-4">
                                         <h5 className='dv-img-product-title mb-3'>BorrowPackaging</h5>
+
                                         <div className="d-flex align-items-center dv-borrow-switch">
-                                            <Switch
-                                                value={this.state.borrow_value}
-                                                on={1}
-                                                off={0}
-                                                onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
-                                            />
+
+                                            <label className="switch">
+                                                <input type="checkbox"
+                                                       value={this.state.borrow_value}
+                                                       on={1}
+                                                       off={0}
+                                                       checked={this.state.borrow_value === 1 ? true : false}
+                                                       onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
+                                                />
+                                                <span className="slider round"></span>
+                                            </label>
                                             <span className='dv-product-name-label pl-2 pb-1'>Select the options available to this product.</span>
                                         </div>
                                     </div>

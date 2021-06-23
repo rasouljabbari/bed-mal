@@ -7,7 +7,6 @@ import {toast} from "react-toastify";
 import placeHolder_img from "../../../assets/image/bedmal-place-holder.jpg";
 import axios from "axios";
 import Menu from "./Menu";
-import Switch from "react-input-switch";
 import Swal from "sweetalert2";
 
 const Compress = require('compress.js')
@@ -46,7 +45,7 @@ export default class EditProduct extends Component {
             collection: 0,
             local_delivery: 0,
             nationwide_delivery: 0,
-            option_selected_index : ''
+            option_selected_index: ''
         }
     }
 
@@ -134,7 +133,7 @@ export default class EditProduct extends Component {
     }
 
     removeImage = () => {
-        const {product_images , remove_selected_item} = this.state
+        const {product_images, remove_selected_item} = this.state
         this.setState({sure_remove_img: false})
         let arr = [];
         product_images.map((item, i) => {
@@ -267,12 +266,19 @@ export default class EditProduct extends Component {
 
         this.setState({
             show_options: true, add_option: false, edit_option: true, option_index: index,
-            option_title: selected_option.title, option_items: selected_option.values,option_selected_index: index
+            option_title: selected_option.title, option_items: selected_option.values, option_selected_index: index
         })
     }
     editOptionFrom = (e) => {
         e.preventDefault()
-        const {option_title , option_items , option_with_input_selected , option_selected , option_selected_index , options} = this.state;
+        const {
+            option_title,
+            option_items,
+            option_with_input_selected,
+            option_selected,
+            option_selected_index,
+            options
+        } = this.state;
 
         let edited_option = {
             title: option_title,
@@ -283,7 +289,7 @@ export default class EditProduct extends Component {
             return i === option_selected_index ? edited_option : obj;
         });
         this.setState({
-            options: updatedHeaders,show_options: false, edit_option: false
+            options: updatedHeaders, show_options: false, edit_option: false
         })
 
         toast.success('option edited successfully')
@@ -365,24 +371,24 @@ export default class EditProduct extends Component {
 
     /********************** Fulfillment ****************/
     onChangeCollection = (collection) => {
-        if(collection == 0){
+        if (collection == 0) {
             this.setState({collection: 1})
-        }else{
+        } else {
             this.setState({collection: 0})
         }
 
     }
     onChangeLocalDelivery = (local_delivery) => {
-        if(local_delivery == 0){
+        if (local_delivery == 0) {
             this.setState({local_delivery: 1})
-        }else{
+        } else {
             this.setState({local_delivery: 0})
         }
     }
     onChangeNationwideDelivery = (nationwide_delivery) => {
-        if(nationwide_delivery == 0){
+        if (nationwide_delivery == 0) {
             this.setState({nationwide_delivery: 1})
-        }else{
+        } else {
             this.setState({nationwide_delivery: 0})
         }
     }
@@ -419,15 +425,6 @@ export default class EditProduct extends Component {
             title: 'successfully',
         })
     }
-
-
-
-
-
-
-
-
-
 
 
     closeModal = () => {
@@ -608,12 +605,18 @@ export default class EditProduct extends Component {
                                     <div className="dv-bg-light dv-box-shadow mb-4 py-3 px-4">
                                         <h5 className='dv-img-product-title mb-3'>BorrowPackaging</h5>
                                         <div className="d-flex align-items-center dv-borrow-switch">
-                                            <Switch
-                                                value={this.state.borrow_value}
-                                                on={1}
-                                                off={0}
-                                                onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
-                                            />
+
+                                            <label className="switch">
+                                                <input type="checkbox"
+                                                       value={this.state.borrow_value}
+                                                       on={1}
+                                                       off={0}
+                                                       checked={this.state.borrow_value === 1 ? true : false}
+                                                       onChange={() => this.HandlerChangeStatusBorrow(this.state.borrow_value, this.state.product_id)}
+                                                />
+                                                <span className="slider round"></span>
+                                            </label>
+
                                             <span className='dv-product-name-label pl-2 pb-1'>Select the options available to this product.</span>
                                         </div>
                                     </div>

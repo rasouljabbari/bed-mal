@@ -93,8 +93,6 @@ class Logins extends Component {
             username: vendor_username,
             name: vendor_name,
             email: vendor_email,
-            password: vendor_password,
-            password_confirmation: vendor_confirm_password,
             type: vendor_type,
             vendor_id: vendor_id
         }, true, true);

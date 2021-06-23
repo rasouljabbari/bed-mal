@@ -2,9 +2,6 @@ import React, {Component} from 'react';
 import './users.scss'
 import {setTitle} from "../../../assets/scripts/GeneralFunctions";
 import {Link} from "react-router-dom";
-import Glass from "../../../assets/image/complete.png";
-import Switch from "react-input-switch";
-import {Modal} from "react-bootstrap";
 class Users extends Component {
     constructor(props) {
         super(props);

@@ -85,17 +85,17 @@ class Header extends Component {
                     {
                         localStorage.getItem('type') === 'super_admin' ?
                                 <Nav className="mr-auto d-flex flex-column">
-                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                    <NavLink onClick={this.handleCloseMenu} className='pb-1' activeClassName="active"
                                              to={'/admin/orders'}>Orders</NavLink>
-                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                    <NavLink onClick={this.handleCloseMenu} className='pb-1' activeClassName="active"
                                              to={'/admin/vendors'}>Vendors</NavLink>
-                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                    <NavLink onClick={this.handleCloseMenu} className='pb-1' activeClassName="active"
                                              to={'/admin/users'}>Users</NavLink>
-                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                    <NavLink onClick={this.handleCloseMenu} className='pb-1' activeClassName="active"
                                              to={'/admin/terms'}>Legals</NavLink>
-                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                    <NavLink onClick={this.handleCloseMenu} className='pb-1' activeClassName="active"
                                              to={'/admin/departments'}>Departments</NavLink>
-                                    <NavDropdown title="Borrowing" id="basic-nav-dropdown">
+                                    <NavDropdown title="Borrowing" className='pb-1' id="basic-nav-dropdown">
                                         <NavDropdown.Item>
                                             <NavLink onClick={this.handleCloseMenu} activeClassName="active"
                                                      to={'/admin/borrow-receipts'}>BorrowReceipt</NavLink>
@@ -120,17 +120,17 @@ class Header extends Component {
                                                 report</NavLink>
                                         </NavDropdown.Item>
                                     </NavDropdown>
-                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                    <NavLink onClick={this.handleCloseMenu} className='pb-1' activeClassName="active"
                                              to={'/admin/transaction'}>Transactions</NavLink>
-                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active"
+                                    <NavLink onClick={this.handleCloseMenu} className='pb-1' activeClassName="active"
                                              to={'/admin/logins'}>Logins</NavLink>
                                     <button onClick={this.handleLogout} className='dv-logout'>Logout</button>
                                 </Nav>
                             : localStorage.getItem('type') === 'vendor_admin' ?
                                 <Nav className="mr-auto d-flex flex-column">
-                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='py-3'
+                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='pb-1'
                                              to={'/vendor/orders'}>Orders</NavLink>
-                                    <NavDropdown title="Store" className='py-3' id="basic-nav-dropdown">
+                                    <NavDropdown title="Store" className='pb-1' id="basic-nav-dropdown">
                                         <NavDropdown.Item>
                                             <NavLink onClick={this.handleCloseMenu} activeClassName="active"
                                                      to={{
@@ -163,17 +163,17 @@ class Header extends Component {
                                         </NavDropdown.Item>
 
                                     </NavDropdown>
-                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='py-3'
+                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='pb-1'
                                              to={'/vendor/transaction'}>Transactions</NavLink>
-                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='py-3'
+                                    <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='pb-1'
                                              to={{pathname: "/vendor/store/permissions"}}>Logins & Permissions</NavLink>
-                                    <button onClick={this.handleLogout} className='dv-logout py-3'>Logout</button>
+                                    <button onClick={this.handleLogout} className='dv-logout pb-1'>Logout</button>
                                 </Nav>
                             :
                             <Nav className="mr-auto d-flex flex-column">
-                                <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='py-3'
+                                <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='pb-1'
                                          to={'/vendor/orders'}>Orders</NavLink>
-                                <NavDropdown title="Store" className='py-3' id="basic-nav-dropdown">
+                                <NavDropdown title="Store" className='pb-1' id="basic-nav-dropdown">
                                     {
                                         permissions.length !== 0 ?
                                             permissions?.map((itm) => (
@@ -212,14 +212,14 @@ class Header extends Component {
                                     </NavDropdown.Item>
 
                                 </NavDropdown>
-                                <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='py-3'
+                                <NavLink onClick={this.handleCloseMenu} activeClassName="active" className='pb-1'
                                          to={'/vendor/transaction'}>Transactions</NavLink>
                                 {
                                     permissions.length !== 0 ?
                                         permissions?.map((itm) => (
                                             itm === 'logins' ?
                                                 <NavLink onClick={this.handleCloseMenu} activeClassName="active"
-                                                         className='py-3'
+                                                         className='pb-1'
                                                          to={{pathname: "/vendor/store/permissions"}}>Logins &
                                                     Permissions</NavLink>
                                                 : ''
@@ -227,7 +227,7 @@ class Header extends Component {
 
                                 }
 
-                                <button onClick={this.handleLogout} className='dv-logout py-3'>Logout</button>
+                                <button onClick={this.handleLogout} className='dv-logout pb-1'>Logout</button>
                             </Nav>
                     }
                 </div>

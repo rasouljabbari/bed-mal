@@ -1,1 +1,9 @@
 @import "../../../assets/style/variables";
+
+@media (max-width: 768px) {
+  .dv-right-content-message .dv-messages-content .dv-admin-message-send , .dv-right-content-message .dv-messages-content .dv-user-message-send{
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+  }
+}

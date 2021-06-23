@@ -1,21 +1,24 @@
 import React, {Component} from 'react';
 import {setTitle} from "../../../assets/scripts/GeneralFunctions";
+import './messages.scss'
 import {Nav, Tab} from "react-bootstrap";
 import Camera from "../../../assets/image/Icon feather-camera.svg";
 import placeHolder_img from "../../../assets/image/bedmal-place-holder.jpg";
 import MessageSendIcon from "../../../assets/image/Send button.svg";
+
 const Compress = require('compress.js')
+
 class VendorMessages extends Component {
     constructor(props) {
         super(props);
         this.state = {
             show: false, search_value: '', message_value: '', upload_image_show: false
         }
+        this.myRef2 = React.createRef()
     }
 
     componentDidMount() {
         setTitle('Messages');
-        alert('LazyLoad')
     }
 
     handleInput = (e) => {
@@ -73,6 +76,7 @@ class VendorMessages extends Component {
         // })
 
     }
+
     handleMessageForm = async (e) => {
         e.preventDefault()
         console.log(this.state.message_value)
@@ -83,7 +87,46 @@ class VendorMessages extends Component {
         this.setState({upload_image_show: false})
     }
 
+    /**********************************************/
+    // Lazy Load
+    getDataOnScrolledBoards = async (obj) => {
+        console.log(obj.target.offsetHeight + obj.target.scrollTop, obj.target.scrollHeight)
+        return false
+        // let offset = 0;
+        // if (obj.target.offsetHeight + obj.target.scrollTop == obj.target.scrollHeight) {
+        //     if (this.state.boards.length % 20 === 0 && this.state.isAllBoardsLoaded === true) {
+        //         // this.setState({isboardsLoader: true});
+        //         let moreData = await getData(MAIN_URL, `board?limit=20&offset=${this.state.boards.length}`, 'get',
+        //             {
+        //                 // search: this.state.search_value,
+        //             }, true, true);
+        //
+        //         if (moreData) {
+        //             this.setState(prevState => ({
+        //                 items: {
+        //                     ...prevState.items, ...moreData,
+        //                     boards: this.state.boards.concat(moreData.items),
+        //                 },
+        //                 boards: this.state.boards.concat(moreData.items),
+        //             }));
+        //
+        //             // console.log(moreData.boards.length);
+        //
+        //             if (moreData.boards?.length < 20) {
+        //                 this.setState({isAllBoardsLoaded: false})
+        //             }
+        //         }
+        //     }
+        //
+        // }
+    }
+
+    /**********************************************/
+
     render() {
+        let class_name = document.getElementsByClassName('dv-message-lazyLoad');
+        class_name.scrollTop += 400;
+
         return (
             <>
                 <div className='d-flex flex-column flex-md-row w-100'>
@@ -167,169 +210,170 @@ class VendorMessages extends Component {
                         <Tab.Content
                             className="dv-right-content-message py-3 position-relative">
                             <Tab.Pane eventKey="first">
-                                <div>
+                                <div className='container-fluid py-3 pl-0 dv-message-lazyLoad'
+                                     ref={this.myRef2}
+                                     onScroll={this.getDataOnScrolledBoards}>
                                     <div className="dv-user-name-parent mb-5">
                                         <div className='dv-user-name'>Sophie</div>
                                     </div>
 
-                                    <div className="mb-3">
-                                        <div className="dv-messages-content">
+                                    <div className="dv-messages-content d-flex flex-column-reverse">
 
-                                            <div className="dv-user-message-send d-flex flex-column mb-5">
-                                                <p>We’re unable to accept BorrowBags we are very sorry about
-                                                    that.</p>
-                                                <p>We’re unable to accept BorrowBags we are very sorry about
-                                                    that.</p>
-                                                <div className="dv-message-send-time">13:32</div>
-                                            </div>
-                                            <div className="dv-admin-message-send d-flex flex-column mb-5">
-                                                <p>We’re unable to accept BorrowBags we are very sorry about
-                                                    that.</p>
-                                                <p>
-                                                    Please try calling in. We stock different items every day.
-                                                    Remember to contact us later.
-                                                    Thanks for every for contacting us.</p>
-                                                <div className="dv-message-send-time">13:32</div>
-                                            </div>
-                                            <div className="dv-user-message-send d-flex flex-column mb-5">
-                                                <p>We’re unable to accept BorrowBags we are very sorry about
-                                                    that.</p>
-                                                <p>We’re unable to accept BorrowBags we are very sorry about
-                                                    that.</p>
-                                                <div className="dv-message-send-time">13:32</div>
-                                            </div>
-                                            <div className="dv-admin-message-send d-flex flex-column mb-5">
-                                                <p>We’re unable to accept BorrowBags we are very sorry about
-                                                    that.</p>
-                                                <p>
-                                                    Please try calling in. We stock different items every day.
-                                                    Remember to contact us later.
-                                                    Thanks for every for contacting us.</p>
-                                                <div className="dv-message-send-time">13:32</div>
-                                            </div>
-                                            <div className="dv-user-message-send d-flex flex-column mb-5">
-                                                <p>We’re unable to accept BorrowBags we are very sorry about
-                                                    that.</p>
-                                                <p>We’re unable to accept BorrowBags we are very sorry about
-                                                    that.</p>
-                                                <div className="dv-message-send-time">13:32</div>
-                                            </div>
-                                            <div className="dv-admin-message-send d-flex flex-column mb-5">
-                                                <p>We’re unable to accept BorrowBags we are very sorry about
-                                                    that.</p>
-                                                <p>
-                                                    Please try calling in. We stock different items every day.
-                                                    Remember to contact us later.
-                                                    Thanks for every for contacting us.</p>
-                                                <div className="dv-message-send-time">13:32</div>
-                                            </div>
-                                            <div className="dv-user-message-send d-flex flex-column mb-5">
-                                                <p>We’re unable to accept BorrowBags we are very sorry about
-                                                    that.</p>
-                                                <p>We’re unable to accept BorrowBags we are very sorry about
-                                                    that.</p>
-                                                <div className="dv-message-send-time">13:32</div>
-                                            </div>
-                                            <div className="dv-admin-message-send d-flex flex-column mb-5">
-                                                <p>We’re unable to accept BorrowBags we are very sorry about
-                                                    that.</p>
-                                                <p>
-                                                    Please try calling in. We stock different items every day.
-                                                    Remember to contact us later.
-                                                    Thanks for every for contacting us.</p>
-                                                <div className="dv-message-send-time">13:32</div>
-                                            </div>
-                                            <div className="dv-user-message-send d-flex flex-column mb-5">
-                                                <p>We’re unable to accept BorrowBags we are very sorry about
-                                                    that.</p>
-                                                <p>We’re unable to accept BorrowBags we are very sorry about
-                                                    that.</p>
-                                                <div className="dv-message-send-time">13:32</div>
-                                            </div>
-                                            <div className="dv-admin-message-send d-flex flex-column mb-5">
-                                                <p>We’re unable to accept BorrowBags we are very sorry about
-                                                    that.</p>
-                                                <p>
-                                                    Please try calling in. We stock different items every day.
-                                                    Remember to contact us later.
-                                                    Thanks for every for contacting us.</p>
-                                                <div className="dv-message-send-time">13:32</div>
-                                            </div>
-                                            {
-                                                this.state.message_value ?
-                                                    <div className="dv-user-message-send d-flex flex-column mb-5">
-                                                        <p>{this.state.message_value}</p>
-                                                        <div className="dv-message-send-time">13:32</div>
-                                                    </div>
-                                                    : ''
-                                            }
+                                        <div className="dv-user-message-send d-flex flex-column mb-5">
+                                            <p>We’re unable to accept BorrowBags we are very sorry about
+                                                that.</p>
+                                            <p>We’re unable to accept BorrowBags we are very sorry about
+                                                that.</p>
+                                            <div className="dv-message-send-time">13:32</div>
                                         </div>
+                                        {/*<div className="dv-admin-message-send d-flex flex-column mb-5">*/}
+                                        {/*    <p>We’re unable to accept BorrowBags we are very sorry about*/}
+                                        {/*        that.</p>*/}
+                                        {/*    <p>*/}
+                                        {/*        Please try calling in. We stock different items every day.*/}
+                                        {/*        Remember to contact us later.*/}
+                                        {/*        Thanks for every for contacting us.</p>*/}
+                                        {/*    <div className="dv-message-send-time">13:32</div>*/}
+                                        {/*</div>*/}
+                                        {/*<div className="dv-user-message-send d-flex flex-column mb-5">*/}
+                                        {/*    <p>We’re unable to accept BorrowBags we are very sorry about*/}
+                                        {/*        that.</p>*/}
+                                        {/*    <p>We’re unable to accept BorrowBags we are very sorry about*/}
+                                        {/*        that.</p>*/}
+                                        {/*    <div className="dv-message-send-time">13:32</div>*/}
+                                        {/*</div>*/}
+                                        {/*<div className="dv-admin-message-send d-flex flex-column mb-5">*/}
+                                        {/*    <p>We’re unable to accept BorrowBags we are very sorry about*/}
+                                        {/*        that.</p>*/}
+                                        {/*    <p>*/}
+                                        {/*        Please try calling in. We stock different items every day.*/}
+                                        {/*        Remember to contact us later.*/}
+                                        {/*        Thanks for every for contacting us.</p>*/}
+                                        {/*    <div className="dv-message-send-time">13:32</div>*/}
+                                        {/*</div>*/}
+                                        {/*<div className="dv-user-message-send d-flex flex-column mb-5">*/}
+                                        {/*    <p>We’re unable to accept BorrowBags we are very sorry about*/}
+                                        {/*        that.</p>*/}
+                                        {/*    <p>We’re unable to accept BorrowBags we are very sorry about*/}
+                                        {/*        that.</p>*/}
+                                        {/*    <div className="dv-message-send-time">13:32</div>*/}
+                                        {/*</div>*/}
+                                        {/*<div className="dv-admin-message-send d-flex flex-column mb-5">*/}
+                                        {/*    <p>We’re unable to accept BorrowBags we are very sorry about*/}
+                                        {/*        that.</p>*/}
+                                        {/*    <p>*/}
+                                        {/*        Please try calling in. We stock different items every day.*/}
+                                        {/*        Remember to contact us later.*/}
+                                        {/*        Thanks for every for contacting us.</p>*/}
+                                        {/*    <div className="dv-message-send-time">13:32</div>*/}
+                                        {/*</div>*/}
+                                        {/*<div className="dv-user-message-send d-flex flex-column mb-5">*/}
+                                        {/*    <p>We’re unable to accept BorrowBags we are very sorry about*/}
+                                        {/*        that.</p>*/}
+                                        {/*    <p>We’re unable to accept BorrowBags we are very sorry about*/}
+                                        {/*        that.</p>*/}
+                                        {/*    <div className="dv-message-send-time">13:32</div>*/}
+                                        {/*</div>*/}
+                                        {/*<div className="dv-admin-message-send d-flex flex-column mb-5">*/}
+                                        {/*    <p>We’re unable to accept BorrowBags we are very sorry about*/}
+                                        {/*        that.</p>*/}
+                                        {/*    <p>*/}
+                                        {/*        Please try calling in. We stock different items every day.*/}
+                                        {/*        Remember to contact us later.*/}
+                                        {/*        Thanks for every for contacting us.</p>*/}
+                                        {/*    <div className="dv-message-send-time">13:32</div>*/}
+                                        {/*</div>*/}
+                                        {/*<div className="dv-user-message-send d-flex flex-column mb-5">*/}
+                                        {/*    <p>We’re unable to accept BorrowBags we are very sorry about*/}
+                                        {/*        that.</p>*/}
+                                        {/*    <p>We’re unable to accept BorrowBags we are very sorry about*/}
+                                        {/*        that.</p>*/}
+                                        {/*    <div className="dv-message-send-time">13:32</div>*/}
+                                        {/*</div>*/}
+                                        {/*<div className="dv-admin-message-send d-flex flex-column mb-5">*/}
+                                        {/*    <p>We’re unable to accept BorrowBags we are very sorry about*/}
+                                        {/*        that.</p>*/}
+                                        {/*    <p>*/}
+                                        {/*        Please try calling in. We stock different items every day.*/}
+                                        {/*        Remember to contact us later.*/}
+                                        {/*        Thanks for every for contacting us.</p>*/}
+                                        {/*    <div className="dv-message-send-time">13:32</div>*/}
+                                        {/*</div>*/}
+                                        {
+                                            this.state.message_value ?
+                                                <div className="dv-user-message-send d-flex flex-column mb-5">
+                                                    <p>{this.state.message_value}</p>
+                                                    <div className="dv-message-send-time">13:32</div>
+                                                </div>
+                                                : ''
+                                        }
                                     </div>
-                                    {
-                                        this.state.upload_image_show ?
-                                            <div className="dv-messages-footer-image">
-                                                <form className='d-flex align-items-center my-3'
-                                                      onSubmit={this.handleMessageForm}>
-                                                    <label className='dv-upload-file-label-message'>
-                                                        <img src={Camera} className='mx-3' alt=""/>
-                                                        <input type="file" accept="image/*"
-                                                               onChange={this.thisUploadImage}
-                                                               className='dc-upload-file'/>
-                                                    </label>
-                                                    {/*{*/}
-                                                    {/*    new_uploaded_img_arr?.map((item, i) => (*/}
-                                                    <div className="dv-img-message-parent">
-                                                        <img className='img-fluid'
-                                                             onError={(e) => {
-                                                                 e.target.onerror = null;
-                                                                 e.target.src = `${placeHolder_img}`
-                                                             }}
-                                                            // src={`${MAIN_URL_IMAGE}${item}`} key={i}
-                                                             src={placeHolder_img}
-                                                             alt="Bed mal"/>
-                                                        <i className="las la-times-circle dv-store-icons"
-                                                           onClick={() => this.removeHandler(1)}/>
-                                                    </div>
-                                                    <button type='submit' className='dv-btn-send-message-icon'><img
-                                                        src={MessageSendIcon} className='dv-send-message-icon'
-                                                        alt='Bedmal'/>
-                                                    </button>
-                                                </form>
+                                    {/*{*/}
+                                    {/*    this.state.upload_image_show ?*/}
+                                    {/*        <div className="dv-messages-footer-image">*/}
+                                    {/*            <form className='d-flex align-items-center my-3'*/}
+                                    {/*                  onSubmit={this.handleMessageForm}>*/}
+                                    {/*                <label className='dv-upload-file-label-message'>*/}
+                                    {/*                    <img src={Camera} className='mx-3' alt=""/>*/}
+                                    {/*                    <input type="file" accept="image/*"*/}
+                                    {/*                           onChange={this.thisUploadImage}*/}
+                                    {/*                           className='dc-upload-file'/>*/}
+                                    {/*                </label>*/}
+                                    {/*                /!*{*!/*/}
+                                    {/*                /!*    new_uploaded_img_arr?.map((item, i) => (*!/*/}
+                                    {/*                <div className="dv-img-message-parent">*/}
+                                    {/*                    <img className='img-fluid'*/}
+                                    {/*                         onError={(e) => {*/}
+                                    {/*                             e.target.onerror = null;*/}
+                                    {/*                             e.target.src = `${placeHolder_img}`*/}
+                                    {/*                         }}*/}
+                                    {/*                        // src={`${MAIN_URL_IMAGE}${item}`} key={i}*/}
+                                    {/*                         src={placeHolder_img}*/}
+                                    {/*                         alt="Bed mal"/>*/}
+                                    {/*                    <i className="las la-times-circle dv-store-icons"*/}
+                                    {/*                       onClick={() => this.removeHandler(1)}/>*/}
+                                    {/*                </div>*/}
+                                    {/*                <button type='submit' className='dv-btn-send-message-icon'><img*/}
+                                    {/*                    src={MessageSendIcon} className='dv-send-message-icon'*/}
+                                    {/*                    alt='Bedmal'/>*/}
+                                    {/*                </button>*/}
+                                    {/*            </form>*/}
 
-                                                {/*<form onSubmit={this.handleMessageForm}*/}
-                                                {/*      className='w-100 mb-0 position-relative'>*/}
-                                                {/*    <textarea rows={1} value={this.state.message_value} name='message_value'*/}
-                                                {/*              onChange={this.handleInput} placeholder='Type message'*/}
-                                                {/*              className='dv-message-input'/>*/}
-                                                {/*    <button type='submit' className='dv-btn-send-message-icon'><img*/}
-                                                {/*        src={MessageSendIcon} className='dv-send-message-icon' alt='Bedmal'/>*/}
-                                                {/*    </button>*/}
-                                                {/*</form>*/}
-                                            </div> :
-                                            <div
-                                                className="dv-messages-footer d-flex align-items-center justify-content-between">
-                                                <label className='dv-upload-file-label-message'>
-                                                    <img src={Camera} className='mx-3' alt=""/>
-                                                    <input type="file" accept="image/*"
-                                                           onChange={this.thisUploadImage}
-                                                           className='dc-upload-file'/>
-                                                </label>
-                                                <form onSubmit={this.handleMessageForm}
-                                                      className='w-100 mb-0 position-relative'>
-                                            <textarea rows={1} value={this.state.message_value} name='message_value'
-                                                      onChange={this.handleInput} placeholder='Type message'
-                                                      className='dv-message-input'/>
-                                                    <button type='submit' className='dv-btn-send-message-icon'><img
-                                                        src={MessageSendIcon} className='dv-send-message-icon'
-                                                        alt='Bedmal'/>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                    }
+                                    {/*            /!*<form onSubmit={this.handleMessageForm}*!/*/}
+                                    {/*            /!*      className='w-100 mb-0 position-relative'>*!/*/}
+                                    {/*            /!*    <textarea rows={1} value={this.state.message_value} name='message_value'*!/*/}
+                                    {/*            /!*              onChange={this.handleInput} placeholder='Type message'*!/*/}
+                                    {/*            /!*              className='dv-message-input'/>*!/*/}
+                                    {/*            /!*    <button type='submit' className='dv-btn-send-message-icon'><img*!/*/}
+                                    {/*            /!*        src={MessageSendIcon} className='dv-send-message-icon' alt='Bedmal'/>*!/*/}
+                                    {/*            /!*    </button>*!/*/}
+                                    {/*            /!*</form>*!/*/}
+                                    {/*        </div> :*/}
+                                    {/*        <div*/}
+                                    {/*            className="dv-messages-footer d-flex align-items-center justify-content-between">*/}
+                                    {/*            <label className='dv-upload-file-label-message'>*/}
+                                    {/*                <img src={Camera} className='mx-3' alt=""/>*/}
+                                    {/*                <input type="file" accept="image/*"*/}
+                                    {/*                       onChange={this.thisUploadImage}*/}
+                                    {/*                       className='dc-upload-file'/>*/}
+                                    {/*            </label>*/}
+                                    {/*            <form onSubmit={this.handleMessageForm}*/}
+                                    {/*                  className='w-100 mb-0 position-relative'>*/}
+                                    {/*        <input type={'text'} value={this.state.message_value} name='message_value'*/}
+                                    {/*                  onChange={this.handleInput} placeholder='Type message'*/}
+                                    {/*                  className='dv-message-input'/>*/}
+                                    {/*                <button type='submit' className='dv-btn-send-message-icon'><img*/}
+                                    {/*                    src={MessageSendIcon} className='dv-send-message-icon'*/}
+                                    {/*                    alt='Bedmal'/>*/}
+                                    {/*                </button>*/}
+                                    {/*            </form>*/}
+                                    {/*        </div>*/}
+                                    {/*}*/}
                                 </div>
                             </Tab.Pane>
                             <Tab.Pane eventKey="second">
-                                <div>
+                                <div className='lazyLoad container-fluid py-3 px-md-4' ref={this.myRef2}
+                                     onScroll={this.getDataOnScrolledBoards}>
                                     <div className="dv-user-name-parent mb-5">
                                         <div className='dv-user-name'>Tulips Cafe</div>
                                     </div>
